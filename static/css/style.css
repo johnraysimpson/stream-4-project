@@ -1,3 +1,7 @@
-.error_align {
-    padding-bottom: 5px;
+.bad-input {
+    border-style: solid;
+    border-width: 3px;
+    border-color: red;
+    color: red;
+    display: inline-block;
 }

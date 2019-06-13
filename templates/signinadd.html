@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+<h3>Add a Recipe</h3>
+<h4>Sign in to your account</h4>
+{% if error %}
+<div class="row col s6 bad-input">
+    <i class="material-icons col s1">error</i>
+    <span class="error_align col s11">{{error}}</span>
+</div>
+<form action="{{ url_for('log_in') }}" method="POST" class="col s12" autocomplete="off">
+    <div class="row col s12">
+        <div class="input-field col s6">
+            <input id="username" name="username" type="text" required value="{{ request.form.username }}" autocomplete="sdfg">
+            <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
+            <label for="username">Username</label>
+        </div>
+    </div>
+    <div class="row col s12">
+        <div class="input-field col s6">
+            <input id="password" name="password" type="password" required autocomplete="sdfg">
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">Sign In
+            <i class="material-icons right">send</i>
+            </button>
+    </div>
+</form>
+
+{% else %}
+<form action="{{ url_for('log_in') }}" method="POST" class="col s12" autocomplete="off">
+    <div class="row col s12">
+        <div class="input-field col s6">
+            <input id="username" name="username" type="text" required autocomplete="sdfg">
+            <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
+            <label for="username">Username</label>
+        </div>
+    </div>
+    <div class="row col s12">
+        <div class="input-field col s6">
+            <input id="password" name="password" type="password" required autocomplete="sdfg">
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">Sign In
+            <i class="material-icons right">send</i>
+            </button>
+    </div>
+</form>
+
+{% endif %}
+<p>Don't have an account? Register <a href="{{url_for('sign_up')}}">here</a>.</p>
+{% endblock %}
