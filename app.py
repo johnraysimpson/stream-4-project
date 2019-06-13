@@ -17,8 +17,16 @@ def home():
     
 @app.route('/sign_up')
 def sign_up():
-    return render_template('signup.html')
+    return render_template('signup.html', error = "")
     
+@app.route('/add_user', methods=["POST", "GET"])
+def add_user():
+    newuser = mongo.db.users.count({'username': request.form.get('username')})
+    if newuser > 0 :
+        return render_template('signup.html', error = "{0} has already been taken".format(request.form.get('username')))
+    else:
+        mongo.db.users.insert_one(request.form.to_dict())
+        return render_template('signupsuccess.html')
 
 
 if __name__ == '__main__':
