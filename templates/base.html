@@ -8,28 +8,49 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="{{ url_for('home') }}" class="brand-logo">Easy RecipEasy</a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Your Recipes</a></li>
-                <li><a href="{{ url_for('sign_in_add') }}">Add Recipe</a></li>
-            </ul>
-        </div>
-    </nav>
+    {% if user %}
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="{{ url_for('user_home', username=user.username) }}" class="brand-logo">Easy RecipEasy</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">{{ user.first }}'s Account</a></li>
+                    <li><a href="#">Add Recipe</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="#">Your Recipes</a></li>
-        <li><a href="#">Add Recipe</a></li>
-    </ul>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#">Your Recipes</a></li>
+            <li><a href="#">Add Recipe</a></li>
+        </ul>
+    </header>
+    {% else %}
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="{{ url_for('home') }}" class="brand-logo">Easy RecipEasy</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
+                    <li><a href="{{url_for('sign_up')}}">Sign Up</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#">Your Recipes</a></li>
+            <li><a href="#">Add Recipe</a></li>
+        </ul>
+    </header>
+    {% endif %}
     <div class="container">
         {% block content %} {% endblock %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
-
         $(document).ready(function() {
             $('.sidenav').sidenav();
             $('select').formSelect();
@@ -37,12 +58,13 @@
             $(function() {
                 $.ajax({
                     type: 'GET',
-                    url: 'https://restcountries.eu/rest/v2/all?fields=name',
+                    url: 'https://restcountries.eu/rest/v2/all?fields=name;nativeName',
                     success: function(response) {
                         var countryArray = response;
                         var dataCountry = {};
                         for (var i = 0; i < countryArray.length; i++) {
                             dataCountry[countryArray[i].name] = countryArray[i].flag;
+                            dataCountry[countryArray[i].nativeName] = countryArray[i].flag;
                         }
                         $('input.autocomplete').autocomplete({
                             data: dataCountry,
@@ -52,7 +74,6 @@
                 });
             });
         });
-        
     </script>
 </body>
 

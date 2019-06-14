@@ -1,6 +1,14 @@
 {% extends 'base.html' %} {% block content %}
-<h3>Add a Recipe</h3>
-<h4>Sign in to your account</h4>
+<h3>Sign in</h3>
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 {% if error %}
 <div class="row col s6 bad-input">
     <i class="material-icons col s1">error</i>
