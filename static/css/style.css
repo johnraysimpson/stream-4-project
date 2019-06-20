@@ -5,3 +5,16 @@
     color: red;
     display: inline-block;
 }
+
+.close_field {
+    color: red;
+    font-size: 3rem;
+}
+
+.input-space {
+    max-width: 80%;
+}
+
+th > p {
+    font-style: italic;
+}

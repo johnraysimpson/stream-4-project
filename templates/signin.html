@@ -14,7 +14,7 @@
     <i class="material-icons col s1">error</i>
     <span class="error_align col s11">{{error}}</span>
 </div>
-<form action="{{ url_for('log_in') }}" method="POST" class="col s12" autocomplete="off">
+<form action="{{ url_for('log_in', outcome="") }}" method="POST" class="col s12" autocomplete="off">
     <div class="row col s12">
         <div class="input-field col s6">
             <input id="username" name="username" type="text" required value="{{ request.form.username }}" autocomplete="sdfg">
@@ -36,7 +36,7 @@
 </form>
 
 {% else %}
-<form action="{{ url_for('log_in') }}" method="POST" class="col s12" autocomplete="off">
+<form action="{{ url_for('log_in', outcome="") }}" method="POST" class="col s12" autocomplete="off">
     <div class="row col s12">
         <div class="input-field col s6">
             <input id="username" name="username" type="text" required autocomplete="sdfg">
