@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+<h1>My Recipes</h1>
+{% for recipe in user_recipes %}
+<div class="recipe_box row col s12">
+    <div class="row col s12">
+        <h5 class="col s6">{{recipe.meal_name}}</h5>
+        <p class="col s6">By: {{ recipe.username }}</p>
+    </div>
+    <div class="row col s12">
+        <p class="col s12"><i>{{ recipe.meal_desc }}</i></p>
+    </div>
+    <div class="row col s12">
+        <p class="col s3">Added on: {{ recipe.date_added }}</p>
+        <p class="col s3">Meal Type: {{ recipe.meal_type }}</p>
+        <p class="col s3">Total time: {{ recipe.total_time }}</p>
+        <p class="col s3">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+    </div>
+    <div class="row col s12">
+        {% if recipe.vegetarian %}
+        <div class="col s1">
+            <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+        </div>
+        <div class="col s3">
+            <p> Vegetarian</p>
+        </div>
+        {% endif %} {% if recipe.vegan %}
+        <div class="col s1">
+            <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+        </div>
+        <div class="col s3">
+            <p class="col s8"> Vegan</p>
+        </div>
+        {% endif %} {% if recipe.vegan %}
+        <div class="col s1">
+            <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+        </div>
+        <div class="col s3">
+            <p> Gluten Free</p>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col s8">
+        {% if recipe.allergens %}
+        <p>Allergens: {{ recipe.allergens.values()|join(', ') }}</p>
+        {% else %}
+        <p>Allergens: None</p>
+        {% endif %}
+    </div>
+    <div class="col s4">
+        <a href="">
+            <p>View this recipe</p>
+        </a>
+    </div>
+</div>
+<hr>
+<p>{{ recipe.cook_time }}</p>
+<p>{{ recipe.ingredients }}</p>
+{% for x in range(1, recipe['ingredients']|length + 1) %}
+<p>{{ recipe.ingredients['ingredient['+x|string+']'] }}</p>
+{% endfor %} {% endfor %} {% endblock %}

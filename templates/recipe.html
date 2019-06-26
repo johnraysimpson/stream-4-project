@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{{recipe.meal_name}}</h1>
+<h5><i>{{ recipe.meal_desc }}</i></h5>
+<p>Author: {{ recipe.username }}</p>
+<p>Date added: {{ recipe.date_added }}</p>
+<div class="recipe_box row col s12">
+    <div class="row col s12">
+        <p class="col s6"><b>Preparation time:</b> {{ recipe.prep_time }}</p>
+        <p class="col s6"><b>Cooking time:</b> {{ recipe.cook_time }}</p>
+    </div>
+    <div class="row col s12">
+        <p class="col s6"><b>Serves:</b> {{ recipe.serves }}</p>
+        <p class="col s6"><b>Type of meal:</b> {{ recipe.meal_type }}</p>
+    </div>
+    {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+    <div class="row col s12">
+        {% if recipe.vegetarian %}
+        <div class="col s1">
+            <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+        </div>
+        <div class="col s3">
+            <p> Vegetarian</p>
+        </div>
+        {% endif %} {% if recipe.vegan %}
+        <div class="col s1">
+            <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+        </div>
+        <div class="col s3">
+            <p> Vegan</p>
+        </div>
+        {% endif %} {% if recipe.gluten_free %}
+        <div class="col s1">
+            <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+        </div>
+        <div class="col s3">
+            <p> Gluten Free</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    <div class="col s12">
+        {% if recipe.allergens %}
+        <p class="col s6">Allergens: {{ recipe.allergens.values()|join(', ') }}</p>
+        {% else %}
+        <p class="col s6">Allergens: None</p>
+        {% endif %}
+        <p class="col s6">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+    </div>
+</div>
+<div class="row">
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Ingredients</div>
+            <div class="collapsible-body">
+                <table class="striped">
+                    <thead hidden>
+                    </thead>
+                    <tbody>
+                        {% for x in range(1, recipe['ingredients']|length + 1) %}
+                        <tr>
+                            <td>{{ recipe.ingredients['ingredient['+x|string+']'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">place</i>Method</div>
+            <div class="collapsible-body">
+                <table class="striped">
+                    <thead hidden>
+                    </thead>
+                    <tbody>
+                        {% for x in range(1, recipe['methods']|length + 1) %}
+                        <tr>
+                            <td>Step {{ x }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ recipe.methods['method_step['+x|string+']'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </li>
+    </ul>
+    {% if user %}
+    <form action="" method="POST" class="col s12">
+        <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Add to Favourites
+            <i class="material-icons right">send</i>
+    </form>
+    {% else %}
+    <p>Did you enjoy your meal? <a href="{{ url_for('sign_in') }}">Sign in</a> to add it to your favourites!</p>
+    {% endif %}
+</div>
+{% endblock %}
