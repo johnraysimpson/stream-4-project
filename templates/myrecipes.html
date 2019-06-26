@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <h1>My Recipes</h1>
+<<<<<<< HEAD
 {% for recipe in user_recipes %}
 <div class="recipe_box row col s12">
     <div class="row col s12">
@@ -58,3 +59,11 @@
 {% for x in range(1, recipe['ingredients']|length + 1) %}
 <p>{{ recipe.ingredients['ingredient['+x|string+']'] }}</p>
 {% endfor %} {% endfor %} {% endblock %}
+=======
+<p>{{ user_recipes.cook_time }}</p>
+<p>{{ user_recipes.ingredients }}</p>
+{% for x in range(1,4) %}
+    <p>{{ ingredients['ingredient['+x|string+']'] }}</p>
+{% endfor%}
+{% endblock %}
+>>>>>>> d5637f85379ec2b6638fe28bbd260b614b1d80c1
