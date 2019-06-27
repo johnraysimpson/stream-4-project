@@ -5,12 +5,6 @@
         <h3>Recipe Information</h3>
         <div class="submit_box">
             <div class="row">
-                <div hidden class="input-field col s12">
-                    <input id="username" name="username" type="text" value="{{ user.username }}" required autocomplete="sdfg">
-                </div>
-                <div hidden class="input-field col s12">
-                    <input id="country" name="country" type="text" value="{{ user.country }}" required autocomplete="sdfg">
-                </div>
                 <div class="input-field col s12">
                     <h5>Name of Dish*</h5>
                     <input id="meal_name" name="meal_name" type="text" max-length="50" required autocomplete="sdfg">
@@ -77,11 +71,14 @@
         </div>
 
         <h3>Recipe Ingredients</h3>
+        <p>Add up to 20 ingredients.</p>
         <div class="submit_box">
             <div class="row">
                 <table class="row table striped col s12">
                     <thead>
                         <tr>
+                            <th class="col s1">
+                            </th>
                             <th class="col s2">
                                 <h5>Amount*</h5>
                                 <p>tbsp, grams, etc</p>
@@ -90,7 +87,7 @@
                                 <h5>Ingredient*</h5>
                                 <p>The important element that makes your dish amazing</p>
                             </th>
-                            <th class="col s5">
+                            <th class="col s4">
                                 <h5>Preparation</h5>
                                 <p>chopped, skinned, etc</p>
                             </th>
@@ -99,25 +96,29 @@
 
                     <tbody class="input_ingredients_wrap">
                         <tr>
+                            <td class="col s1"><h5>1.</h5></td>
                             <td class="col s2"><input type="text" id="amount[1]" name="amount[1]" required class="validate"></td>
                             <td class="col s4"><input type="text" id="ingredient[1]" name="ingredient[1]" required class="vaildate"></td>
-                            <td class="col s5"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
+                            <td class="col s4"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
                         </tr>
                         <tr>
+                            <td class="col s1"><h5>2.</h5></td>
                             <td class="col s2"><input type="text" id="amount[2]" name="amount[2]" required class="validate"></td>
                             <td class="col s4"><input type="text" id="ingredient[2]" name="ingredient[2]" required class="vaildate"></td>
-                            <td class="col s5"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
+                            <td class="col s4"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
                         </tr>
                         <tr>
+                            <td class="col s1"><h5>3.</h5></td>
                             <td class="col s2"><input type="text" id="amount[3]" name="amount[3]" required class="validate"></td>
                             <td class="col s4"><input type="text" id="ingredient[3]" name="ingredient[3]" required class="vaildate"></td>
-                            <td class="col s5"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
+                            <td class="col s4"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
                         </tr>
                 </table>
                 <button class="add_ingredient_button btn waves-effect waves-light">Add Another Ingredient</button>
             </div>
         </div>
         <h3>Recipe Method</h3>
+        <p>Add up to 10 steps</p>
         <div class="submit_box">
             <div class="row">
                 <div class="input_methods_wrap">

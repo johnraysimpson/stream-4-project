@@ -188,9 +188,10 @@
                 if (x < max_ingredients) { //max input box allowed
                     x++; //text box increment
                     $(wrapper_ingredient).append(`<tr>
+                                            <td class="col s1"><h5>${x}.</h5></td>
                                             <td class="col s2"><input type="text" id="amount[${x}]" name="amount[${x}]" required class="validate"></td>
                                             <td class="col s4"><input type="text" id="ingredient[${x}]" name="ingredient[${x}]" required class="vaildate"></td>
-                                            <td class="col s5"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
+                                            <td class="col s4"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
                                             <td class="col s1"><a href="#" class="remove_field"><i class="close_field material-icons right">close</i></a></td>
                                         </tr>`); //add input box
                 }

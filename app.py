@@ -87,11 +87,11 @@ def insert_recipe(user_id):
         serves = request.form.get('serves') + " people"
     
     new_insert = {
-        'username': request.form.get('username'),
-        'country': request.form.get('country'),
+        'username': user['username'],
+        'country': user['country'],
         'meal_name': request.form.get('meal_name'),
-        'prep_time': str(prep_time)+" minutes",
-        'cook_time': str(cook_time)+" minutes",
+        'prep_time': str(prep_time),
+        'cook_time': str(cook_time),
         'meal_type': request.form.get('meal_type'),
         'date_and_time': date_and_time,
         'date_added': date_and_time.strftime("%d %B, %Y"),
@@ -101,7 +101,8 @@ def insert_recipe(user_id):
         'vegan': request.form.get('vegan'),
         'gluten_free': request.form.get('gluten_free'),
         'meal_desc': request.form.get('meal_desc'),
-        'serves': serves
+        'serves': serves,
+        'serves_int': request.form.get('serves')
         
     }
     
@@ -175,6 +176,97 @@ def view_recipe_as_user(recipe_id, user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template('recipe.html', recipe=recipe, user=user)
+    
+@app.route('/edit_recipe/<recipe_id>/<user_id>')
+def edit_recipe(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    meal_types = mongo.db.meal_type.find()
+    return render_template('editrecipe.html', recipe=recipe, user=user,meal_types=meal_types)
+    
+@app.route('/update_recipe/<recipe_id>/<user_id>', methods=["POST", "GET"])
+def update_recipe(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    prep_time = int(request.form.get('prep_time'))
+    cook_time = int(request.form.get('cook_time'))
+    total_time = prep_time + cook_time
+    
+    if total_time >= 60 and total_time // 60 == 1:
+        total_time_string = str(total_time // 60)+" hour "+ str(total_time % 60)+" minutes"
+    elif total_time >= 60:
+        total_time_string = str(total_time // 60)+" hours "+ str(total_time % 60)+" minutes"
+    else:
+        total_time_string = str(total_time)+" minutes"
+    if int(request.form.get('serves')) == 1:
+        serves = request.form.get('serves') + " person"
+    else:
+        serves = request.form.get('serves') + " people"
+    
+    update_insert = {
+        'username': user['username'],
+        'country': user['country'],
+        'date_and_time': recipe['date_and_time'],
+        'date_added': recipe['date_added'],
+        'favourite_count': recipe['favourite_count'],
+        'meal_name': request.form.get('meal_name'),
+        'prep_time': str(prep_time),
+        'cook_time': str(cook_time),
+        'meal_type': request.form.get('meal_type'),
+        'total_time': total_time_string,
+        'vegetarian': request.form.get('vegetarian'),
+        'vegan': request.form.get('vegan'),
+        'gluten_free': request.form.get('gluten_free'),
+        'meal_desc': request.form.get('meal_desc'),
+        'serves': serves,
+        'serves_int': request.form.get('serves')
+        
+    }
+    
+    allergen_results = {
+        'celery': request.form.get('celery'),
+        'gluten': request.form.get('gluten'),
+        'crustaceans': request.form.get('crustaceans'),
+        'egg': request.form.get('egg'),
+        'fish': request.form.get('fish'),
+        'lupin': request.form.get('lupin'),
+        'milk': request.form.get('milk'),
+        'molluscs': request.form.get('molluscs'),
+        'mustard': request.form.get('mustard'),
+        'nuts': request.form.get('nuts'),
+        'peanuts': request.form.get('peanuts'),
+        'sesame_seeds': request.form.get('sesame_seeds'),
+        'soya': request.form.get('soya'),
+        'sulpher_dioxide': request.form.get('sulpher_dioxide')
+    }
+    
+    allergens = {}
+    for allergen in allergen_results:
+        if allergen_results[allergen] != None:
+            allergens.update({allergen: allergen_results[allergen]})
+    update_insert.update({'allergens': allergens})
+    
+    ingredients = {}
+    
+    for x in range(1, 21):
+        ingredient_name = 'ingredient['+str(x)+']'
+        if request.form.get("ingredient["+str(x)+"]") != "":
+            ingredient_value = request.form.get("ingredient["+str(x)+"]").capitalize()
+            ingredients.update({ingredient_name: ingredient_value})
+    
+    methods = {}
+    
+    for x in range(1, 11):
+        method_step = 'method_step['+str(x)+']'
+        if request.form.get("method["+str(x)+"]") != "":
+            method_value = request.form.get("method["+str(x)+"]").capitalize()
+            methods.update({method_step: method_value})
+    update_insert.update({'ingredients': ingredients})
+    update_insert.update({'methods': methods})
+    print(update_insert)
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, update_insert)
+    return redirect(url_for('view_recipe_as_user', user_id=user['_id'], recipe_id=recipe['_id']))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
