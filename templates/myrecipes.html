@@ -24,7 +24,7 @@
         </a>
     </div>
     <div class="col s4">
-        <a href="">
+        <a href="{{ url_for('delete_confirm', recipe_id=recipe._id, user_id=user._id) }}">
             <p>Delete this recipe</p>
         </a>
     </div>

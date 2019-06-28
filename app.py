@@ -182,7 +182,7 @@ def edit_recipe(recipe_id, user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     meal_types = mongo.db.meal_type.find()
-    return render_template('editrecipe.html', recipe=recipe, user=user,meal_types=meal_types)
+    return render_template('editrecipe.html', recipe=recipe, user=user, meal_types=meal_types)
     
 @app.route('/update_recipe/<recipe_id>/<user_id>', methods=["POST", "GET"])
 def update_recipe(recipe_id, user_id):
@@ -205,11 +205,6 @@ def update_recipe(recipe_id, user_id):
         serves = request.form.get('serves') + " people"
     
     update_insert = {
-        'username': user['username'],
-        'country': user['country'],
-        'date_and_time': recipe['date_and_time'],
-        'date_added': recipe['date_added'],
-        'favourite_count': recipe['favourite_count'],
         'meal_name': request.form.get('meal_name'),
         'prep_time': str(prep_time),
         'cook_time': str(cook_time),
@@ -265,8 +260,20 @@ def update_recipe(recipe_id, user_id):
     update_insert.update({'ingredients': ingredients})
     update_insert.update({'methods': methods})
     print(update_insert)
-    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, update_insert)
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { "$set": update_insert })
     return redirect(url_for('view_recipe_as_user', user_id=user['_id'], recipe_id=recipe['_id']))
+    
+@app.route('/delete_recipe/<recipe_id>/<user_id>')
+def delete_confirm(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template('deleterecipe.html', user=user, recipe=recipe)
+    
+@app.route('/remove_recipe/<recipe_id>/<user_id>')
+def delete_recipe(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    return redirect(url_for("get_user_recipes", user_id = user_id))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Delete Recipe</h1>
+<div class="row">
+    <div class="col s12 center-align">
+        <p>Are you sure you want to permanently delete the recipe:</p>
+        <h4><b>{{ recipe.meal_name }}?</b></h4>
+    </div>
+    <div class="center-align">
+        <div class="col l3 m6 s12 offset-l3">
+            <a href="{{ url_for('get_user_recipes', user_id=user._id) }}">
+                <button class="delete_recipe_btn btn waves-effect waves-light">My Recipes
+                <i class="material-icons right">send</i>
+                </button>
+            </a>
+        </div>
+        <div class="col l3 m6 s12">
+            <a href="{{ url_for('delete_recipe', user_id=user._id, recipe_id=recipe._id) }}">
+                <button class="delete_recipe_btn btn waves-effect waves-light">Delete Recipe
+                <i class="material-icons right">send</i>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
