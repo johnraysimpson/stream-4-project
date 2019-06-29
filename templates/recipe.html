@@ -90,10 +90,17 @@
         </li>
     </ul>
     {% if user %}
-    <form action="" method="POST" class="col s12">
-        <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Add to Favourites
-            <i class="material-icons right">send</i>
-    </form>
+        {% if user.username in recipe.favourited_users %}
+        <form action="{{ url_for('unfavourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST" class="col s12">
+            <button class="btn waves-effect waves-light" type="submit">Remove from Favourites
+                <i class="material-icons right">send</i>
+        </form>
+        {% else %}
+        <form action="{{ url_for('favourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST" class="col s12">
+            <button class="btn waves-effect waves-light" type="submit">Add to Favourites
+                <i class="material-icons right">send</i>
+        </form>
+        {% endif %}
     {% else %}
     <p>Did you enjoy your meal? <a href="{{ url_for('sign_in') }}">Sign in</a> to add it to your favourites!</p>
     {% endif %}

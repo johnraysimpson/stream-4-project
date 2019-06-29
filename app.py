@@ -102,7 +102,8 @@ def insert_recipe(user_id):
         'gluten_free': request.form.get('gluten_free'),
         'meal_desc': request.form.get('meal_desc'),
         'serves': serves,
-        'serves_int': request.form.get('serves')
+        'serves_int': request.form.get('serves'),
+        'favourited_users': {}
         
     }
     
@@ -271,10 +272,30 @@ def delete_confirm(recipe_id, user_id):
     
 @app.route('/remove_recipe/<recipe_id>/<user_id>')
 def delete_recipe(recipe_id, user_id):
-    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     return redirect(url_for("get_user_recipes", user_id = user_id))
+    
+@app.route('/favourited/<recipe_id>/<user_id>', methods=["POST"])
+def favourited(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': str(int(recipe['favourite_count']) + 1)}})
 
+    mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$set": {"favourited_users."+user['username']: user['username']} })
+    return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
+    
+@app.route('/unfavourited/<recipe_id>/<user_id>', methods=["POST"])
+def unfavourited(recipe_id, user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': str(int(recipe['favourite_count']) - 1)}})
+
+    mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$unset": {"favourited_users."+user['username']: user['username']} })
+    return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
+    
+    
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
