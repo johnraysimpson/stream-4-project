@@ -35,7 +35,7 @@ def add_user():
         else:
             flash("Your account has been created, log in to continue")
             mongo.db.users.insert_one(request.form.to_dict())
-            return redirect('sign_in')
+            return redirect(url_for('sign_in'))
     return render_template('signup.html', error=error)
         
 @app.route('/sign_in')
@@ -58,6 +58,10 @@ def user_home(user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipes = mongo.db.recipes.find()
     return render_template('home.html', user=user, recipes=recipes)
+    
+@app.route('/sign_out')
+def sign_out():
+    return redirect(url_for('home'))
     
 @app.route('/add_recipe/<user_id>')
 def add_recipe(user_id):
@@ -295,6 +299,12 @@ def unfavourited(recipe_id, user_id):
     mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$unset": {"favourited_users."+user['username']: user['username']} })
     return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
     
+@app.route('/my_favourites/<user_id>')
+def get_favourite_recipes(user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    favourite_recipes = mongo.db.recipes.find({'favourited_users.'+user['username']: user['username']})
+    return render_template('myfavourites.html', favourite_recipes=favourite_recipes, user=user)
+
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

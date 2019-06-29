@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+<h1>My Favourites</h1>
+{% for recipe in favourite_recipes %}
+<div class="recipe_box row col s12">
+    <div class="row col s12">
+        <p class="recipe_name col s8">{{recipe.meal_name}}</p>
+        <p class="col s4">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+    </div>
+    <div class="row col s12">
+        <i class="material-icons icon-size col s1">local_dining</i>
+        <p class="col s3"> {{ recipe.meal_type }}</p>
+        <i class="material-icons icon-size col s1">access_time</i>
+        <p class="col s3"> {{ recipe.total_time }}</p>
+        <p class="col s4">Added on: {{ recipe.date_added }}</p>
+    </div>
+    <div class="col s4">
+        <a href="{{ url_for('view_recipe_as_user', recipe_id=recipe._id, user_id=user._id) }}">
+            <p>View this recipe</p>
+        </a>
+    </div>
+    <div class="col s4">
+        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+            <p>Edit this recipe</p>
+        </a>
+    </div>
+    <div class="col s4">
+        <a href="{{ url_for('delete_confirm', recipe_id=recipe._id, user_id=user._id) }}">
+            <p>Delete this recipe</p>
+        </a>
+    </div>
+</div>
+<hr>
+{% endfor %} {% endblock %}

@@ -94,9 +94,9 @@
             <li class="divider"></li>
             <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
             <li class="divider"></li>
-            <li><a href="#!">My Favourites</a></li>
+            <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">My Favourites</a></li>
             <li class="divider"></li>
-            <li><a href="#!">Account Details</a></li>
+            <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper">
@@ -115,8 +115,8 @@
             </li>
             <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
             <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
-            <li><a href="#!">My Favourites</a></li>
-            <li><a href="#!">Account Details</a></li>
+            <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">My Favourites</a></li>
+            <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
         </ul>
     </header>
     {% else %}
