@@ -94,13 +94,14 @@ def insert_recipe(user_id):
         'username': user['username'],
         'country': user['country'],
         'meal_name': request.form.get('meal_name'),
-        'prep_time': str(prep_time),
-        'cook_time': str(cook_time),
+        'prep_time': int(prep_time),
+        'cook_time': int(cook_time),
+        'total_time': int(total_time),
         'meal_type': request.form.get('meal_type'),
         'date_and_time': date_and_time,
         'date_added': date_and_time.strftime("%d %B, %Y"),
         'favourite_count': 0,
-        'total_time': total_time_string,
+        'total_time_string': total_time_string,
         'vegetarian': request.form.get('vegetarian'),
         'vegan': request.form.get('vegan'),
         'gluten_free': request.form.get('gluten_free'),
@@ -211,10 +212,11 @@ def update_recipe(recipe_id, user_id):
     
     update_insert = {
         'meal_name': request.form.get('meal_name'),
-        'prep_time': str(prep_time),
-        'cook_time': str(cook_time),
+        'prep_time': int(prep_time),
+        'cook_time': int(cook_time),
+        'total_time': int(total_time),
         'meal_type': request.form.get('meal_type'),
-        'total_time': total_time_string,
+        'total_time_string': total_time_string,
         'vegetarian': request.form.get('vegetarian'),
         'vegan': request.form.get('vegan'),
         'gluten_free': request.form.get('gluten_free'),
@@ -284,7 +286,7 @@ def favourited(recipe_id, user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     
-    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': str(int(recipe['favourite_count']) + 1)}})
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': int(int(recipe['favourite_count']) + 1)}})
 
     mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$set": {"favourited_users."+user['username']: user['username']} })
     return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
@@ -294,7 +296,7 @@ def unfavourited(recipe_id, user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     
-    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': str(int(recipe['favourite_count']) - 1)}})
+    mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': int(int(recipe['favourite_count']) - 1)}})
 
     mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$unset": {"favourited_users."+user['username']: user['username']} })
     return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
@@ -304,7 +306,48 @@ def get_favourite_recipes(user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     favourite_recipes = mongo.db.recipes.find({'favourited_users.'+user['username']: user['username']})
     return render_template('myfavourites.html', favourite_recipes=favourite_recipes, user=user)
-
+    
+@app.route('/search_results', methods=["POST"])
+def search_recipes():
+    found_recipes = mongo.db.recipes.find({'$text': {'$search': request.form.get('search')}}).sort('favourite_count', -1)
+    number_of_recipes = found_recipes.count()
+    search_params = request.form.to_dict()
+    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params)
+    
+@app.route('/search_results/filtered_results', methods=["POST"])
+def filter_recipes():
+    search_params = request.form.to_dict()
+    filters = {'$text': {'$search': request.form.get('search')}}
+    #time filter
+    if request.form.get('time') == 'time_30':
+        filters.update({'total_time': {'$lte': 30}})
+    elif request.form.get('time') == 'time_30_60':
+        filters.update({'total_time': {'$gt': 30, '$lt': 60}})
+    elif request.form.get('time') == 'time_over_60':
+        filters.update({'total_time': {'$gte': 60}})
+    #dietry filters
+    diet_options = {'vegetarian', 'vegan', 'gluten_free'}
+    for option in diet_options:
+        if request.form.get(option):
+            filters.update({option: 'on'})
+    #allergen filters
+    allergens = {
+        'celery', 'gluten', 'crustaceans','egg', 'fish', 'lupin', 
+        'milk', 'molluscs', 'mustard', 'nuts', 'peanuts', 'sesame_seeds',
+        'soya', 'sulpher_dioxide'
+    }
+    for allergen in allergens:
+        if request.form.get(allergen):
+            filters.update({'allergens.'+allergen+'': {'$exists': False}})
+    
+    found_recipes = mongo.db.recipes.find(filters)
+    if request.form.get('sort_by') == 'favourites':
+        found_recipes = found_recipes.sort('favourite_count', -1)
+    else:
+        found_recipes = found_recipes.sort('date_and_time', -1)
+    number_of_recipes = found_recipes.count()
+    print(filters)
+    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params)
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

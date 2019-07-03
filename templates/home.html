@@ -1,5 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Home</h1>
+<div class="row col s12">
+    <form action="{{ url_for('search_recipes') }}" method="POST" class="col s12">
+        <div class="row">
+            <div class="input-field col s9">
+                <input id="search" name="search" type="text" required placeholder="Enter keywords" autocomplete="sdfg">
+            </div>
+            <button class="add_recipe_btn btn waves-effect waves-light col s3" type="submit">Search
+            <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
 {% for recipe in recipes %}
 <div class="recipe_box row col s12">
     <div class="row col s12">
@@ -10,7 +22,7 @@
         <i class="material-icons icon-size col s1">local_dining</i>
         <p class="col s3"> {{ recipe.meal_type }}</p>
         <i class="material-icons icon-size col s1">access_time</i>
-        <p class="col s3"> {{ recipe.total_time }}</p>
+        <p class="col s3"> {{ recipe.total_time_string }}</p>
         <i class="material-icons icon-size col s1">people_outline</i>
         <p class="col s3"> {{ recipe.serves }}</p>
     </div>
@@ -55,6 +67,4 @@
         {% endif %}
     </div>
 </div>
-<hr>
-{% endfor %}
-{% endblock %}
+<hr> {% endfor %} {% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Search Results</h1>
+<div class="recipe_box row col s12">
+    <form action="{{ url_for('filter_recipes') }}" method="POST" class="col s12">
+        <div class="row">
+            <div class="input-field col s9">
+                <p>Search term:</p>
+                <input id="search" name="search" type="text" required placeholder="Enter keywords" value="{{ search_params.search }}" autocomplete="sdfg">
+            </div>
+            <div class="input-field col s3 sort_by">
+                <p>Sort by:</p>
+                <select id="sort_by" name="sort_by" required="required">
+                    <option value="favourites">Most favourited</option>
+                    {% if search_params.sort_by == 'newest' %}
+                    <option value="newest" selected>Newest first</option>
+                    {% else %}
+                    <option value="newest">Newest first</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Filter search results</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s3">
+                                <h5>Time</h5>
+                                <p>
+                                    <label>
+                                    <input name="time" value="any_time" type="radio" checked />
+                                    <span>Any time</span>
+                                </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input name="time" value="time_30" type="radio" />
+                                    <span>30 minutes or less</span>
+                                </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input name="time" value="time_30_60" type="radio"  />
+                                    <span>30-60 minutes</span>
+                                </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input name="time" value="time_over_60" type="radio" />
+                                    <span>60 minutes or over</span>
+                                </label>
+                                </p>
+                            </div>
+                            <div class="col s3">
+                                <h5>Dietry Requirements</h5>
+                                <p>
+                                    <label>
+                                    <input name="vegetarian" type="checkbox" />
+                                    <span>Vegetarian</span>
+                                </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input name="vegan" type="checkbox"  />
+                                    <span>Vegan</span>
+                                </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input name="gluten_free" type="checkbox" />
+                                    <span>Gluten Free</span>
+                                </label>
+                                </p>
+                            </div>
+                            <div class="col s6">
+                                <h5>Allergens</h5>
+                                <p>select to omit any results with the following:</p>
+                                <div class="col s4">
+                                    <p>
+                                        <label>
+                                            <input id="celery" name="celery" value="Celery" type="checkbox" />
+                                            <span>Celery</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
+                                            <span>Gluten</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
+                                            <span>Crustaceans</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="egg" name="egg" value="Egg" type="checkbox" />
+                                            <span>Egg</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="fish" name="fish" value="Fish" type="checkbox" />
+                                            <span>Fish</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s4">
+                                    <p>
+                                        <label>
+                                            <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
+                                            <span>Lupin</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="milk" name="milk" value="Milk" type="checkbox" />
+                                            <span>Milk</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
+                                            <span>Molluscs</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
+                                            <span>Mustard</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
+                                            <span>Nuts</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s4">
+                                    <p>
+                                        <label>
+                                            <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
+                                            <span>Peanuts</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="seasame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
+                                            <span>Sesame seeds</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="soya" name="soya" value="Soya" type="checkbox" />
+                                            <span>Soya</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
+                                            <span>Sulpher dioxide (sulphates)</span>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <button class="add_recipe_btn btn waves-effect waves-light col m3 offset-m9" type="submit">Update results
+            <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+<p>{{ number_of_recipes }} result(s) found.</p>
+{% for recipe in found_recipes %}
+<p>{{ recipe.meal_name }}</p>
+<p>{{ recipe.total_time }}</p>
+<p>{{ recipe.date_and_time }}</p>
+<hr> {% endfor %} {% endblock %}
