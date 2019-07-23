@@ -312,7 +312,8 @@ def search_recipes():
     found_recipes = mongo.db.recipes.find({'$text': {'$search': request.form.get('search')}}).sort('favourite_count', -1)
     number_of_recipes = found_recipes.count()
     search_params = request.form.to_dict()
-    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params)
+    meal_types = mongo.db.meal_type.find()
+    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
     
 @app.route('/search_results/filtered_results', methods=["POST"])
 def filter_recipes():
@@ -339,15 +340,22 @@ def filter_recipes():
     for allergen in allergens:
         if request.form.get(allergen):
             filters.update({'allergens.'+allergen+'': {'$exists': False}})
-    
+    #meal type filters
+    meal_types = mongo.db.meal_type.find()
+    for meal_type in meal_types:
+        if meal_type['meal_type'] == request.form.get('meal_type'):
+            filters.update({'meal_type': request.form.get('meal_type')})
+    print(filters)
+    #find based on applied filters
     found_recipes = mongo.db.recipes.find(filters)
+    meal_types = mongo.db.meal_type.find()
+    #sort filter
     if request.form.get('sort_by') == 'favourites':
         found_recipes = found_recipes.sort('favourite_count', -1)
     else:
         found_recipes = found_recipes.sort('date_and_time', -1)
     number_of_recipes = found_recipes.count()
-    print(filters)
-    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params)
+    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
