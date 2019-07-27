@@ -1,8 +1,12 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, flash
+from pymongo import MongoClient
 from flask_pymongo import PyMongo
 import datetime
 from bson.objectid import ObjectId
+import json
+from bson import json_util
+from bson.json_util import dumps
 
 
 
@@ -18,9 +22,19 @@ mongo = PyMongo(app)
 
 @app.route('/')
 @app.route('/home')
-def home():
+def home_not_user():
     recipes = mongo.db.recipes.find()
     return render_template("home.html", recipes=recipes)
+    
+
+@app.route('/home/<user_id>')
+def home(user_id):
+    recipes = mongo.db.recipes.find()
+    if user_id != '0':
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        return render_template('home.html', user=user, recipes=recipes)
+    else:
+        return render_template("home.html", recipes=recipes)
     
 @app.route('/sign_up')
 def sign_up():
@@ -51,17 +65,11 @@ def log_in():
         else:
             error = "Sorry, your Username or Password is incorrect"
             return render_template('signin.html', error = error)
-    return redirect(url_for('user_home', user_id=user['_id']))
-            
-@app.route('/home/<user_id>')
-def user_home(user_id):
-    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-    recipes = mongo.db.recipes.find()
-    return render_template('home.html', user=user, recipes=recipes)
+    return redirect(url_for('home', user_id=user['_id']))
     
 @app.route('/sign_out')
 def sign_out():
-    return redirect(url_for('home'))
+    return redirect(url_for('home', user_id='0'))
     
 @app.route('/add_recipe/<user_id>')
 def add_recipe(user_id):
@@ -172,16 +180,14 @@ def get_user_recipes(user_id):
     user_recipes = mongo.db.recipes.find({'username': user['username']})
     return render_template('myrecipes.html', user_recipes=user_recipes, user=user)
     
-@app.route('/recipe/<recipe_id>')
-def view_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template('recipe.html', recipe=recipe)
-    
 @app.route('/recipe/<recipe_id>/<user_id>')
-def view_recipe_as_user(recipe_id, user_id):
-    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+def view_recipe(recipe_id, user_id):
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template('recipe.html', recipe=recipe, user=user)
+    if user_id != '0':
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        return render_template('recipe.html', recipe=recipe, user=user)
+    else:
+        return render_template('recipe.html', recipe=recipe)
     
 @app.route('/edit_recipe/<recipe_id>/<user_id>')
 def edit_recipe(recipe_id, user_id):
@@ -268,7 +274,7 @@ def update_recipe(recipe_id, user_id):
     update_insert.update({'methods': methods})
     print(update_insert)
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { "$set": update_insert })
-    return redirect(url_for('view_recipe_as_user', user_id=user['_id'], recipe_id=recipe['_id']))
+    return redirect(url_for('view_recipe', user_id=user['_id'], recipe_id=recipe['_id']))
     
 @app.route('/delete_recipe/<recipe_id>/<user_id>')
 def delete_confirm(recipe_id, user_id):
@@ -289,7 +295,7 @@ def favourited(recipe_id, user_id):
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': int(int(recipe['favourite_count']) + 1)}})
 
     mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$set": {"favourited_users."+user['username']: user['username']} })
-    return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
+    return redirect(url_for('view_recipe', recipe_id=recipe['_id'], user_id=user['_id']))
     
 @app.route('/unfavourited/<recipe_id>/<user_id>', methods=["POST"])
 def unfavourited(recipe_id, user_id):
@@ -299,24 +305,16 @@ def unfavourited(recipe_id, user_id):
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)},{"$set": {'favourite_count': int(int(recipe['favourite_count']) - 1)}})
 
     mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, {"$unset": {"favourited_users."+user['username']: user['username']} })
-    return redirect(url_for('view_recipe_as_user', recipe_id=recipe['_id'], user_id=user['_id']))
+    return redirect(url_for('view_recipe', recipe_id=recipe['_id'], user_id=user['_id']))
     
 @app.route('/my_favourites/<user_id>')
 def get_favourite_recipes(user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     favourite_recipes = mongo.db.recipes.find({'favourited_users.'+user['username']: user['username']})
     return render_template('myfavourites.html', favourite_recipes=favourite_recipes, user=user)
-    
-@app.route('/search_results', methods=["POST"])
-def search_recipes():
-    found_recipes = mongo.db.recipes.find({'$text': {'$search': request.form.get('search')}}).sort('favourite_count', -1)
-    number_of_recipes = found_recipes.count()
-    search_params = request.form.to_dict()
-    meal_types = mongo.db.meal_type.find()
-    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
-    
-@app.route('/search_results/filtered_results', methods=["POST"])
-def filter_recipes():
+
+@app.route('/search_results/<user_id>', methods=["POST"])
+def search_recipes(user_id):
     search_params = request.form.to_dict()
     filters = {'$text': {'$search': request.form.get('search')}}
     #time filter
@@ -347,16 +345,43 @@ def filter_recipes():
             filters.update({'meal_type': request.form.get('meal_type')})
     print(filters)
     #find based on applied filters
-    found_recipes = mongo.db.recipes.find(filters)
+    found_recipes = mongo.db.recipes.find(filters).sort('favourite_count', -1)
     meal_types = mongo.db.meal_type.find()
     #sort filter
-    if request.form.get('sort_by') == 'favourites':
-        found_recipes = found_recipes.sort('favourite_count', -1)
-    else:
+    if request.form.get('sort_by') == 'newest':
         found_recipes = found_recipes.sort('date_and_time', -1)
     number_of_recipes = found_recipes.count()
-    return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
+    if user_id != '0':
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types, user=user)
+    else:
+        return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
     
+@app.route('/analytics/<user_id>')
+def analytics(user_id):
+    if user_id != '0':
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        return render_template('analytics.html', user = user)
+    else:
+        return render_template('analytics.html')
+    
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+DBS_NAME = 'cook_book'
+COLLECTION_NAME = 'recipes'
+    
+@app.route("/cook_book/recipes")
+def recipes_data():
+    connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
+    recipes = mongo.db.recipes.find()
+    json_recipes = []
+    for recipe in recipes:
+        json_recipes.append(recipe)
+    json_recipes = json.dumps(json_recipes, default=json_util.default)
+    connection.close()
+    return json_recipes
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),

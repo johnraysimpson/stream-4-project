@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />-->
     <style>
         .bad-input {
@@ -97,6 +98,12 @@
         h2, h3, h4, h5, h6 {
             margin: 8px 0;
         }
+        
+        .chart_border {
+            border: 3px solid grey;
+            margin-bottom: 24px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -113,11 +120,12 @@
         </ul>
         <nav>
             <div class="nav-wrapper">
-                <a href="{{ url_for('user_home', user_id=user._id) }}" class="brand-logo">Easy RecipEasy</a>
+                <a href="{{ url_for('home', user_id=user._id) }}" class="brand-logo">Easy RecipEasy</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hi, {{ user.first.capitalize() }}<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
+                    <li><a href="{{ url_for('analytics', user_id=user._id) }}">Analytics</a></li>
                 </ul>
             </div>
         </nav>
@@ -129,6 +137,7 @@
             <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
             <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
             <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">My Favourites</a></li>
+            <li><a href="{{ url_for('analytics', user_id=user._id) }}">Analytics</a></li>
             <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
         </ul>
     </header>
@@ -136,18 +145,20 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-                <a href="{{ url_for('home') }}" class="brand-logo">Easy RecipEasy</a>
+                <a href="{{ url_for('home', user_id='0') }}" class="brand-logo">Easy RecipEasy</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
-                    <li><a href="{{url_for('sign_up')}}">Sign Up</a></li>
+                    <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
+                    <li><a href="{{ url_for('analytics', user_id='0') }}" >Analytics</a></li>
                 </ul>
             </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#">Your Recipes</a></li>
-            <li><a href="#">Add Recipe</a></li>
+            <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
+            <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
+            <li><a href="{{ url_for('analytics', user_id='0') }}">Analytics</a></li>
         </ul>
     </header>
     {% endif %}

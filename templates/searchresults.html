@@ -1,7 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Search Results</h1>
 <div class="recipe_box row col s12">
-    <form action="{{ url_for('filter_recipes') }}" method="POST" class="col s12">
+    {% if user %}
+    <form action="{{ url_for('search_recipes', user_id=user._id) }}" method="POST" class="col s12">
+    {% else %}
+    <form action="{{ url_for('search_recipes', user_id='0') }}" method="POST" class="col s12">
+    {% endif %}
         <div class="row">
             <div class="input-field col s9">
                 <p>Search term:</p>
@@ -279,4 +283,14 @@
 <p>{{ recipe.meal_name }}</p>
 <p>{{ recipe.total_time }}</p>
 <p>{{ recipe.date_and_time }}</p>
-<hr> {% endfor %} {% endblock %}
+<hr>
+
+{% endfor %}
+{% if number_of_recipes > 1 %}
+    <span>< prev </span>
+    {% for x in range(1, (number_of_recipes+1)) %}
+        <span>{{x}} </span>
+    {% endfor %}
+    <span>next ></span>
+{% endif %}
+{% endblock %}

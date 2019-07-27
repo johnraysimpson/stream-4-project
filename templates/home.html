@@ -1,7 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Home</h1>
 <div class="row col s12">
-    <form action="{{ url_for('search_recipes') }}" method="POST" class="col s12">
+    {% if user %}
+    <form action="{{ url_for('search_recipes', user_id=user._id) }}" method="POST" class="col s12">
+    {% else %}
+    <form action="{{ url_for('search_recipes', user_id='0') }}" method="POST" class="col s12">
+    {% endif %}
         <div class="row">
             <div class="input-field col s9">
                 <input id="search" name="search" type="text" required placeholder="Enter keywords" autocomplete="sdfg">
@@ -57,11 +61,11 @@
     </div>
     <div class="col s4">
         {% if user %}
-        <a href="{{ url_for('view_recipe_as_user', recipe_id=recipe._id, user_id=user._id) }}">
+        <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
             <p>View this recipe</p>
         </a>
         {% else %}
-        <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+        <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
             <p>View this recipe</p>
         </a>
         {% endif %}
