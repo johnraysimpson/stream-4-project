@@ -2,9 +2,9 @@
 <h1>Home</h1>
 <div class="row col s12">
     {% if user %}
-    <form action="{{ url_for('search_recipes', user_id=user._id) }}" method="POST" class="col s12">
+    <form action="{{ url_for('search_recipes', user_id=user._id, page='1') }}" method="POST" class="col s12">
     {% else %}
-    <form action="{{ url_for('search_recipes', user_id='0') }}" method="POST" class="col s12">
+    <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST" class="col s12">
     {% endif %}
         <div class="row">
             <div class="input-field col s9">
@@ -33,24 +33,18 @@
     {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
     <div class="row col s12">
         {% if recipe.vegetarian %}
-        <div class="col s1">
+        <div class="col s4 center-align">
             <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
         </div>
-        <div class="col s3">
-            <p> Vegetarian</p>
-        </div>
         {% endif %} {% if recipe.vegan %}
-        <div class="col s1">
+        <div class="col s4 center-align">
             <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
-        </div>
-        <div class="col s3">
-            <p> Vegan</p>
         </div>
         {% endif %} {% if recipe.gluten_free %}
         <div class="col s1">
             <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
         </div>
-        <div class="col s3">
+        <div class="col s2">
             <p> Gluten Free</p>
         </div>
         {% endif %}

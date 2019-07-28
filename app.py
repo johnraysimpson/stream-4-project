@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 import json
 from bson import json_util
 from bson.json_util import dumps
+import math
 
 
 
@@ -272,7 +273,6 @@ def update_recipe(recipe_id, user_id):
             methods.update({method_step: method_value})
     update_insert.update({'ingredients': ingredients})
     update_insert.update({'methods': methods})
-    print(update_insert)
     mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, { "$set": update_insert })
     return redirect(url_for('view_recipe', user_id=user['_id'], recipe_id=recipe['_id']))
     
@@ -313,22 +313,26 @@ def get_favourite_recipes(user_id):
     favourite_recipes = mongo.db.recipes.find({'favourited_users.'+user['username']: user['username']})
     return render_template('myfavourites.html', favourite_recipes=favourite_recipes, user=user)
 
-@app.route('/search_results/<user_id>', methods=["POST"])
-def search_recipes(user_id):
+@app.route('/search_results/<user_id>/page_<page>', methods=["POST", "GET"])
+def search_recipes(user_id, page):
+    page = page
     search_params = request.form.to_dict()
-    filters = {'$text': {'$search': request.form.get('search')}}
+    print(search_params)
+    filters = {'$text': {'$search': search_params['search']}}
     #time filter
-    if request.form.get('time') == 'time_30':
-        filters.update({'total_time': {'$lte': 30}})
-    elif request.form.get('time') == 'time_30_60':
-        filters.update({'total_time': {'$gt': 30, '$lt': 60}})
-    elif request.form.get('time') == 'time_over_60':
-        filters.update({'total_time': {'$gte': 60}})
+    if 'time' in search_params:
+        if search_params['time'] == 'time_30':
+            filters.update({'total_time': {'$lte': 30}})
+        elif search_params['time'] == 'time_30_60':
+            filters.update({'total_time': {'$gt': 30, '$lt': 60}})
+        elif search_params['time'] == 'time_over_60':
+            filters.update({'total_time': {'$gte': 60}})
     #dietry filters
     diet_options = {'vegetarian', 'vegan', 'gluten_free'}
     for option in diet_options:
-        if request.form.get(option):
-            filters.update({option: 'on'})
+        if option in search_params:
+            if search_params[option]:
+                filters.update({option: 'on'})
     #allergen filters
     allergens = {
         'celery', 'gluten', 'crustaceans','egg', 'fish', 'lupin', 
@@ -336,14 +340,15 @@ def search_recipes(user_id):
         'soya', 'sulpher_dioxide'
     }
     for allergen in allergens:
-        if request.form.get(allergen):
-            filters.update({'allergens.'+allergen+'': {'$exists': False}})
+        if allergen in search_params:
+            if search_params[allergen]:
+                filters.update({'allergens.'+allergen+'': {'$exists': False}})
     #meal type filters
     meal_types = mongo.db.meal_type.find()
     for meal_type in meal_types:
-        if meal_type['meal_type'] == request.form.get('meal_type'):
-            filters.update({'meal_type': request.form.get('meal_type')})
-    print(filters)
+        if 'meal_type' in search_params:
+            if meal_type['meal_type'] == search_params['meal_type']:
+                filters.update({'meal_type': search_params['meal_type']})
     #find based on applied filters
     found_recipes = mongo.db.recipes.find(filters).sort('favourite_count', -1)
     meal_types = mongo.db.meal_type.find()
@@ -351,11 +356,14 @@ def search_recipes(user_id):
     if request.form.get('sort_by') == 'newest':
         found_recipes = found_recipes.sort('date_and_time', -1)
     number_of_recipes = found_recipes.count()
+    number_of_pages = math.ceil(number_of_recipes/2)
+    found_recipes = found_recipes.skip(int(page)*2-2).limit(2)
     if user_id != '0':
         user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-        return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types, user=user)
+        return render_template('searchresults.html', found_recipes=found_recipes, number_of_pages=number_of_pages, filters=filters, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types, page=page, user=user)
     else:
-        return render_template('searchresults.html', found_recipes=found_recipes, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types)
+        return render_template('searchresults.html', found_recipes=found_recipes, number_of_pages=number_of_pages, filters=filters, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types, page=page)
+
     
 @app.route('/analytics/<user_id>')
 def analytics(user_id):

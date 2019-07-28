@@ -2,9 +2,9 @@
 <h1>Search Results</h1>
 <div class="recipe_box row col s12">
     {% if user %}
-    <form action="{{ url_for('search_recipes', user_id=user._id) }}" method="POST" class="col s12">
+    <form action="{{ url_for('search_recipes', user_id=user._id, page='1') }}" method="POST" class="col s12">
     {% else %}
-    <form action="{{ url_for('search_recipes', user_id='0') }}" method="POST" class="col s12">
+    <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST" class="col s12">
     {% endif %}
         <div class="row">
             <div class="input-field col s9">
@@ -276,21 +276,53 @@
             <i class="material-icons right">send</i>
             </button>
         </div>
-    </form>
-</div>
-<p>{{ number_of_recipes }} result(s) found.</p>
+        <p>{{ number_of_recipes }} result(s) found.</p>
 {% for recipe in found_recipes %}
 <p>{{ recipe.meal_name }}</p>
 <p>{{ recipe.total_time }}</p>
 <p>{{ recipe.date_and_time }}</p>
 <hr>
-
 {% endfor %}
-{% if number_of_recipes > 1 %}
-    <span>< prev </span>
-    {% for x in range(1, (number_of_recipes+1)) %}
-        <span>{{x}} </span>
+<!-- pagination -->
+{% if number_of_recipes > 2 %}
+    <!-- first and prev last buttons -->
+    {% if page == '1' %}
+        <span class="disabled_pag"><< first</span>
+        <span class="disabled_pag">< prev</span>
+    {% else %}
+        {% if user %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page='1') }}"><< first</button></span>
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int - 1)|string) }}">< prev</button></span>
+        {% else %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page= '1') }}"><< first</button></span>
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int - 1)|string) }}">< prev</button></span>
+        {% endif %}
+    {% endif %}
+    <!-- page numbers -->
+    {% for x in range(1, number_of_pages+1) %}
+        {% if page == x|string %}
+            <span class="disabled_pag">{{x}}</span>
+        {% else %}
+            {% if user %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=x|string) }}">{{x}}</button></span>
+            {% else %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=x|string) }}">{{x}}</button></span>
+            {% endif %}
+        {% endif %}
     {% endfor %}
-    <span>next ></span>
+    {% if page == (number_of_pages)|string %}
+        <span class="disabled_pag">next ></span>
+        <span class="disabled_pag">last >></span>
+    {% else %}
+        {% if user %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int + 1)|string) }}">next ></button></span>
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=number_of_pages|string) }}">last >></button></span>
+        {% else %}
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int + 1)|string) }}">next ></button></span>
+        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=number_of_pages|string) }}">last >></button></span>
+        {% endif %}
+    {% endif %}
 {% endif %}
+    </form>
+</div>
 {% endblock %}
