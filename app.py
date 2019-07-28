@@ -24,18 +24,20 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/home')
 def home_not_user():
-    recipes = mongo.db.recipes.find()
-    return render_template("home.html", recipes=recipes)
+    popular_recipes = mongo.db.recipes.find().sort('favourite_count', -1).limit(5)
+    new_recipes = mongo.db.recipes.find().sort('date_and_time', -1).limit(5)
+    return render_template("home.html", popular_recipes=popular_recipes, new_recipes=new_recipes)
     
 
 @app.route('/home/<user_id>')
 def home(user_id):
-    recipes = mongo.db.recipes.find()
+    popular_recipes = mongo.db.recipes.find().sort('favourite_count', -1).limit(5)
+    new_recipes = mongo.db.recipes.find().sort('date_and_time', -1).limit(5)
     if user_id != '0':
         user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-        return render_template('home.html', user=user, recipes=recipes)
+        return render_template('home.html', user=user, popular_recipes=popular_recipes, new_recipes=new_recipes)
     else:
-        return render_template("home.html", recipes=recipes)
+        return render_template("home.html", popular_recipes=popular_recipes, new_recipes=new_recipes)
     
 @app.route('/sign_up')
 def sign_up():
@@ -355,6 +357,7 @@ def search_recipes(user_id, page):
     #sort filter
     if request.form.get('sort_by') == 'newest':
         found_recipes = found_recipes.sort('date_and_time', -1)
+        
     number_of_recipes = found_recipes.count()
     number_of_pages = math.ceil(number_of_recipes/2)
     found_recipes = found_recipes.skip(int(page)*2-2).limit(2)

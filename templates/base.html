@@ -7,6 +7,103 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />-->
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Fredoka+One:100,200,300,400,500,600,700|Hammersmith+One:100,200,300,400,500,600,700');
+    /*General elements*/
+        body {
+            background-image: url('http://thepatternlibrary.com/img/t.gif');
+            background-repeat: repeat;
+            background-attachment: fixed;
+            font-family:"Hammersmith One", sans-serif;
+        }
+        
+        nav {
+            background-color: cadetblue;
+        }
+
+        .brand-logo {
+            margin-left: 10px;
+            font-family: "Fredoka One", sans-serif;
+            font-weight: 100;
+        }
+
+        .content_background {
+            background-color: #f7f7f7;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0 0 20px;
+            font-family: "Fredoka One", sans-serif;
+            color: #6d6d6d;
+        }
+        
+        .btn {
+            background-color: cadetblue;
+        }
+    /*Home elements*/
+        .search_area {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+    
+        .search_btn {
+            margin-top: 10px;
+            height: 50px;
+            display: block;
+            width: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 10px;
+        }
+        
+        .search_btn > i {
+            font-size: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .recipe_name {
+            font-size: 24px;
+            margin: 8px 0;
+            font-family: "Fredoka One", sans-serif;
+        }
+        
+        .view_recipe {
+            background-color: cadetblue;
+        }
+
+        .view_recipe>a {
+            color: #efefef;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .recipe_heading {
+            background-color: #ef923e;
+            color: #efefef;
+        }
+        
+        .recipe_info {
+            background-color: #fce8d0;
+        }
+        
+        .recipe_box>div {
+            border-radius: 30px;
+            margin: 0;
+            border-bottom: 2px solid #b16c2e82;
+        }
+
+        .recipe_box>div>div>img {
+            margin-top: 5px;
+        }
+        
+    /*Other elements - need assigning*/    
+
         .bad-input {
             border-style: solid;
             border-width: 3px;
@@ -14,7 +111,7 @@
             color: red;
             display: inline-block;
         }
-
+        
         .close_field {
             color: red;
             font-size: 3rem;
@@ -28,22 +125,11 @@
             font-style: italic;
         }
 
-        .recipe_box>div {
-            border: 3px solid grey;
-            border-radius: 30px;
-            margin: 5px 0;
-        }
-
-        .recipe_box>div>div>img {
-            margin-top: 5px;
-        }
-
-        .recipe_box>div>a {
-            text-align: center;
-        }
+        
 
         .icon-size {
             font-size: 3rem;
+            margin-top: 3px;
         }
 
         .ingredients_input>div>input[type=text] {
@@ -72,19 +158,12 @@
             background-color: #ffffff;
         }
 
-        .add_recipe_btn {
-            margin: 10px 0px 0px 20px;
-        }
-
         .delete_recipe_btn {
             margin: 10px 0px 0px 0px;
             width: 100%;
         }
 
-        .recipe_name {
-            font-size: 24px;
-            margin: 8px 0;
-        }
+        
 
         .sort_by {
             min-width: 165px;
@@ -95,13 +174,7 @@
             border-radius: 10px;
         }
 
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 8px 0;
-        }
+        
 
         .chart_border {
             border: 3px solid grey;
@@ -117,12 +190,14 @@
             cursor: pointer;
             font-weight: 500;
         }
-        
+
         .disabled_pag {
             padding: 0 6px;
             color: grey;
             font-weight: 500;
         }
+
+        
     </style>
 </head>
 
@@ -181,7 +256,7 @@
         </ul>
     </header>
     {% endif %}
-    <div class="container">
+    <div class="container content_background">
         {% block content %} {% endblock %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

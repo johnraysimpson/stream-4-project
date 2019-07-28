@@ -1,68 +1,130 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Home</h1>
-<div class="row col s12">
-    {% if user %}
-    <form action="{{ url_for('search_recipes', user_id=user._id, page='1') }}" method="POST" class="col s12">
-    {% else %}
-    <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST" class="col s12">
-    {% endif %}
-        <div class="row">
-            <div class="input-field col s9">
-                <input id="search" name="search" type="text" required placeholder="Enter keywords" autocomplete="sdfg">
-            </div>
-            <button class="add_recipe_btn btn waves-effect waves-light col s3" type="submit">Search
-            <i class="material-icons right">send</i>
-            </button>
-        </div>
-    </form>
-</div>
-{% for recipe in recipes %}
-<div class="recipe_box row col s12">
-    <div class="row col s12">
-        <p class="recipe_name col s8">{{recipe.meal_name}}</p>
-        <p class="col s4">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
-    </div>
-    <div class="row col s12">
-        <i class="material-icons icon-size col s1">local_dining</i>
-        <p class="col s3"> {{ recipe.meal_type }}</p>
-        <i class="material-icons icon-size col s1">access_time</i>
-        <p class="col s3"> {{ recipe.total_time_string }}</p>
-        <i class="material-icons icon-size col s1">people_outline</i>
-        <p class="col s3"> {{ recipe.serves }}</p>
-    </div>
-    {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
-    <div class="row col s12">
-        {% if recipe.vegetarian %}
-        <div class="col s4 center-align">
-            <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
-        </div>
-        {% endif %} {% if recipe.vegan %}
-        <div class="col s4 center-align">
-            <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
-        </div>
-        {% endif %} {% if recipe.gluten_free %}
-        <div class="col s1">
-            <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
-        </div>
-        <div class="col s2">
-            <p> Gluten Free</p>
-        </div>
-        {% endif %}
-    </div>
-    {% endif %}
-    <div class="col s8">
-        <p class="center-align">Added on: {{ recipe.date_added }}</p>
-    </div>
-    <div class="col s4">
+<div class="row">
+    <div class="col s12 search_area">
         {% if user %}
-        <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
-            <p>View this recipe</p>
-        </a>
-        {% else %}
-        <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
-            <p>View this recipe</p>
-        </a>
-        {% endif %}
+        <form action="{{ url_for('search_recipes', user_id=user._id, page='1') }}" method="POST">
+            {% else %}
+            <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST">
+                {% endif %}
+                <div class="row">
+                    <div class="input-field col s11">
+                        <input id="search" name="search" type="text" required placeholder="Enter keywords" autocomplete="sdfg">
+                    </div>
+                    <div class="col s1">
+                        <button class="search_btn btn waves-effect waves-light" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                    </div>
+                </div>
+        </form>
     </div>
 </div>
-<hr> {% endfor %} {% endblock %}
+<div class="row">
+    <div class="row col s12">
+    <h4>Most Popular</h4>
+    </div>
+    <div class="row">
+        {% for recipe in popular_recipes %}
+        <div class="recipe_box row col s12">
+            <div class="row col s12 recipe_heading">
+                <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+            </div>
+            <div class="row col s12 recipe_info">
+                <i class="material-icons icon-size col s1">local_dining</i>
+                <p class="col s2 center-align"> {{ recipe.meal_type }}</p>
+                <i class="material-icons icon-size col s1 offset-s1">access_time</i>
+                <p class="col s2 center-align"> {{ recipe.total_time_string }}</p>
+                <i class="material-icons icon-size col s1 offset-s1">people_outline</i>
+                <p class="col s2 center-align"> {{ recipe.serves }}</p>
+            </div>
+            {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+            <div class="row col s12 recipe_info">
+                {% if recipe.vegetarian %}
+                <div class="col s4 center-align">
+                    <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+                </div>
+                {% endif %} {% if recipe.vegan %}
+                <div class="col s4 center-align">
+                    <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+                </div>
+                {% endif %} {% if recipe.gluten_free %}
+                <div class="col s4 center-align">
+                    <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="col s8 recipe_info">
+                <p class="col s6 center-align">Added on: {{ recipe.date_added }}</p>
+                <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+            </div>
+            <div class="col s4 view_recipe">
+                {% if user %}
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+                    <p>View this recipe</p>
+                </a>
+                {% else %}
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
+                    <p>View this recipe</p>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> 
+<div class="row">
+    <div class="row col s12">
+    <h4>Newest</h4>
+    </div>
+    <div class="row">
+        {% for recipe in new_recipes %}
+        <div class="recipe_box row col s12">
+            <div class="row col s12 recipe_heading">
+                <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+            </div>
+            <div class="row col s12 recipe_info">
+                <i class="material-icons icon-size col s1">local_dining</i>
+                <p class="col s2 center-align"> {{ recipe.meal_type }}</p>
+                <i class="material-icons icon-size col s1 offset-s1">access_time</i>
+                <p class="col s2 center-align"> {{ recipe.total_time_string }}</p>
+                <i class="material-icons icon-size col s1 offset-s1">people_outline</i>
+                <p class="col s2 center-align"> {{ recipe.serves }}</p>
+            </div>
+            {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+            <div class="row col s12 recipe_info">
+                {% if recipe.vegetarian %}
+                <div class="col s4 center-align">
+                    <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+                </div>
+                {% endif %} {% if recipe.vegan %}
+                <div class="col s4 center-align">
+                    <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+                </div>
+                {% endif %} {% if recipe.gluten_free %}
+                <div class="col s4 center-align">
+                    <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="col s8 recipe_info">
+                <p class="col s6 center-align">Added on: {{ recipe.date_added }}</p>
+                <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+            </div>
+            <div class="col s4 view_recipe">
+                {% if user %}
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+                    <p>View this recipe</p>
+                </a>
+                {% else %}
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
+                    <p>View this recipe</p>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
