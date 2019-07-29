@@ -29,6 +29,7 @@
 
         .content_background {
             background-color: #f7f7f7;
+            margin-bottom: -20px;
         }
 
         h1,
@@ -76,15 +77,17 @@
             padding-top: 2px;
         }
         
-        .end_content {
-            margin-bottom: 0;
-        }
-        
         .icon-position {
             margin-right: 3px;
         }
 
         /*Home elements*/
+        
+        .dietry_info {
+            border-radius: 30px;
+            background-color: #fce8d0;
+            border-bottom: 2px solid #b16c2e82;
+        }
 
         .search_area {
             margin-top: 20px;
@@ -122,6 +125,9 @@
             color: #efefef;
             font-weight: 500;
             text-align: center;
+            display:inline-block;
+            width: 100%;
+            height: 100%;
         }
 
         .recipe_heading {
@@ -139,7 +145,7 @@
             border-bottom: 2px solid #b16c2e82;
         }
 
-        .recipe_box>div>div>img {
+        .dietry-image {
             margin-top: 5px;
         }
 
@@ -398,6 +404,17 @@
                                         </tr>`); //add input box
                 }
             });
+            
+            var vWidth = $(window).width()
+            if (vWidth <= 992) {
+                var vHeight = $(window).height()-344;
+            }
+            else {
+                var vHeight = $(window).height()-267
+            }
+            content_background = $('.content_background');
+            content_background.css({"min-height":vHeight});
+            
 
             $(wrapper_ingredient).on("click", ".remove_field", function(e) { //user click on remove text
                 e.preventDefault();
