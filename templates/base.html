@@ -8,14 +8,15 @@
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />-->
     <style>
         @import url('https://fonts.googleapis.com/css?family=Fredoka+One:100,200,300,400,500,600,700|Hammersmith+One:100,200,300,400,500,600,700');
-    /*General elements*/
+        /*General elements*/
+
         body {
             background-image: url('http://thepatternlibrary.com/img/t.gif');
             background-repeat: repeat;
             background-attachment: fixed;
-            font-family:"Hammersmith One", sans-serif;
+            font-family: "Hammersmith One", sans-serif;
         }
-        
+
         nav {
             background-color: cadetblue;
         }
@@ -29,7 +30,7 @@
         .content_background {
             background-color: #f7f7f7;
         }
-        
+
         h1,
         h2,
         h3,
@@ -40,16 +41,56 @@
             font-family: "Fredoka One", sans-serif;
             color: #6d6d6d;
         }
-        
+
         .btn {
             background-color: cadetblue;
         }
-    /*Home elements*/
+        
+        .page-footer {
+            background-color: #525252;
+        }
+        
+        .page-footer
+        .footer-copyright {
+            background-color: rgba(51,51,51,0.2);
+        }
+        
+        .footer-heading {
+            color: #efefef;
+        }
+        
+        .footer-link{
+            margin-bottom: 3px;
+            color: #efefef;
+            transition: all 0.35s ease-in-out;
+            -moz-transition: all 0.35s ease-in-out;
+            -webkit-transition: all 0.35s ease-in-out;
+            -o-transition: all 0.35s ease-in-out;
+        }
+        
+        .footer-link:hover {
+            color: #ef923e;
+        }
+        
+        .footer-link > span {
+            padding-top: 2px;
+        }
+        
+        .end_content {
+            margin-bottom: 0;
+        }
+        
+        .icon-position {
+            margin-right: 3px;
+        }
+
+        /*Home elements*/
+
         .search_area {
             margin-top: 20px;
             margin-bottom: 0;
         }
-    
+
         .search_btn {
             margin-top: 10px;
             height: 50px;
@@ -59,20 +100,20 @@
             margin-right: auto;
             padding: 0 10px;
         }
-        
-        .search_btn > i {
+
+        .search_btn>i {
             font-size: 30px;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .recipe_name {
             font-size: 24px;
             margin: 8px 0;
             font-family: "Fredoka One", sans-serif;
         }
-        
+
         .view_recipe {
             background-color: cadetblue;
         }
@@ -87,11 +128,11 @@
             background-color: #ef923e;
             color: #efefef;
         }
-        
+
         .recipe_info {
             background-color: #fce8d0;
         }
-        
+
         .recipe_box>div {
             border-radius: 30px;
             margin: 0;
@@ -101,8 +142,8 @@
         .recipe_box>div>div>img {
             margin-top: 5px;
         }
-        
-    /*Other elements - need assigning*/    
+
+        /*Other elements - need assigning*/
 
         .bad-input {
             border-style: solid;
@@ -111,7 +152,7 @@
             color: red;
             display: inline-block;
         }
-        
+
         .close_field {
             color: red;
             font-size: 3rem;
@@ -125,7 +166,7 @@
             font-style: italic;
         }
 
-        
+
 
         .icon-size {
             font-size: 3rem;
@@ -163,7 +204,7 @@
             width: 100%;
         }
 
-        
+
 
         .sort_by {
             min-width: 165px;
@@ -174,7 +215,7 @@
             border-radius: 10px;
         }
 
-        
+
 
         .chart_border {
             border: 3px solid grey;
@@ -196,7 +237,7 @@
             color: grey;
             font-weight: 500;
         }
-
+        
         
     </style>
 </head>
@@ -259,6 +300,44 @@
     <div class="container content_background">
         {% block content %} {% endblock %}
     </div>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12 center-align">
+                    <h5 class="footer-heading">Easy RecipEasy Recipes</h5>
+                    <p>Made by users, for the users. Quick and easy recipes, particularly for students, working professionals or just about anyone!</p>
+                </div>
+                <div class="col l4 offset-l2 s12 center-align-mobile">
+                    <h5 class="footer-heading">Useful Links</h5>
+                    <ul>
+                        {% if user %}
+                        <li>
+                            <a class="footer-link text-lighten-3 valign-wrapper" href="{{ url_for('analytics', user_id=user._id) }}">
+                                <i class="material-icons icon-position">pie_chart_outlined</i><span>Recipe data analytics</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="footer-link valign-wrapper" href="{{ url_for('analytics', user_id='0') }}">
+                                <i class="material-icons left icon-position">pie_chart_outlined</i><span>Recipe data analytics</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a class="footer-link valign-wrapper"target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">
+                                <i class="material-icons icon-position">info_outline</i><span>Allergen information</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container center-align">
+                © 2019 Easy RecipEasy
+            </div>
+        </div>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
