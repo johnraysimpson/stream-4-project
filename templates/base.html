@@ -42,6 +42,15 @@
             font-family: "Fredoka One", sans-serif;
             color: #6d6d6d;
         }
+        
+        h1 {
+            margin: 20px 0;
+            color: #ef923e;
+        }
+        
+        h6 {
+            margin: 0;
+        }
 
         .btn {
             background-color: cadetblue;
@@ -81,7 +90,7 @@
             margin-right: 3px;
         }
 
-        /*Home elements*/
+        /*home.html elements*/
         
         .dietry_info {
             border-radius: 30px;
@@ -110,18 +119,25 @@
             margin-left: auto;
             margin-right: auto;
         }
-
+        
+        /* repeated recipe info elements */
+        
         .recipe_name {
             font-size: 24px;
             margin: 8px 0;
             font-family: "Fredoka One", sans-serif;
         }
+        
+        .recipe_heading {
+            background-color: #ef923e;
+            color: #f7f7f7;
+        }
 
         .view_recipe {
             background-color: cadetblue;
         }
-
-        .view_recipe>a {
+        
+        .view_recipe>a, .edit_recipe>a, .delete_recipe>a {
             color: #efefef;
             font-weight: 500;
             text-align: center;
@@ -129,28 +145,42 @@
             width: 100%;
             height: 100%;
         }
-
-        .recipe_heading {
-            background-color: #ef923e;
-            color: #efefef;
-        }
-
+        
         .recipe_info {
             background-color: #fce8d0;
         }
-
+        
         .recipe_box>div {
             border-radius: 30px;
             margin: 0;
             border-bottom: 2px solid #b16c2e82;
         }
-
+        
+        .recipe_box {
+            margin-bottom: 40px;
+        }
+        
         .dietry-image {
             margin-top: 5px;
         }
-
-        /*Other elements - need assigning*/
-
+        
+        .icon-size {
+            font-size: 3rem;
+            margin-top: 3px;
+        }
+        
+        /* myrecipes.html */
+        
+        .edit_recipe {
+            background-color: #f5ba54;
+        }
+        
+        .delete_recipe {
+            background-color: #f1584c;
+        }
+        
+        /* signin.html and signup.html elements */
+        
         .bad-input {
             border-style: solid;
             border-width: 3px;
@@ -158,33 +188,20 @@
             color: red;
             display: inline-block;
         }
+        
+        .sign_up_form > div {
+            margin-bottom: 0px;
+        }
 
+        /* addrecipe.html elements */
+        
         .close_field {
             color: red;
             font-size: 3rem;
         }
 
-        .input-space {
-            max-width: 80%;
-        }
-
         th>p {
             font-style: italic;
-        }
-
-
-
-        .icon-size {
-            font-size: 3rem;
-            margin-top: 3px;
-        }
-
-        .ingredients_input>div>input[type=text] {
-            margin-top: 30px;
-        }
-
-        .ingredients_input {
-            margin-bottom: 0;
         }
 
         .submit_box {
@@ -205,12 +222,24 @@
             background-color: #ffffff;
         }
 
+        /* deleterecipe.html classes */
+
         .delete_recipe_btn {
+            margin: 10px 0px 0px 0px;
+            width: 100%;
+            background-color: #f1584c;
+        }
+        
+        .delete_recipe_btn:hover {
+            background-color: #ff2323;
+        }
+        
+        .back_to_recipes_btn {
             margin: 10px 0px 0px 0px;
             width: 100%;
         }
 
-
+        /* searchresults.html elements */
 
         .sort_by {
             min-width: 165px;
@@ -218,14 +247,6 @@
 
         .filter_box {
             border: 3px solid grey;
-            border-radius: 10px;
-        }
-
-
-
-        .chart_border {
-            border: 3px solid grey;
-            margin-bottom: 24px;
             border-radius: 10px;
         }
 
@@ -244,14 +265,52 @@
             font-weight: 500;
         }
         
-        .sign_up_form > div {
-            margin-bottom: 0px;
+        /* analytics.html elements */
+
+        .chart_border {
+            border: 3px solid grey;
+            margin-bottom: 24px;
+            border-radius: 10px;
+        }
+
+        /* recipe.html elements */
+        
+        .collapsible {
+            margin-bottom: 40px;
+            border-radius: 30px;
+            border: none;
         }
         
-        .divider {
-            width: 100%;
-            margin-top: 30px;
+        .collapsible-header {
+            background-color: #ef923e;
+            border-bottom: 2px solid #b16c2e82;
+            border-radius: 30px;
+            color: #fefefe;
         }
+        
+        .collapsible-body {
+            border: none;
+        }
+        
+        .collapsible-header > h6 {
+            padding-top: 3px;
+            color: #f7f7f7;
+            text-align: right;
+        }
+        
+        .collapsible-header > .right {
+            width: 100%;
+            text-align: right;
+        }
+        
+        .remove_favourite {
+            background-color: #f1584c;
+        }
+        
+        .remove_favourite:hover {
+            background-color: #ff2323;
+        }
+        
     </style>
 </head>
 
@@ -360,7 +419,7 @@
             $('.sidenav').sidenav();
             $('select').formSelect();
             $(document).ready(function() {
-                $('.collapsible').collapsible();
+                $('.collapsible').collapsible({accordion: false});
             });
             $('select[required]').css({
                 display: 'inline',

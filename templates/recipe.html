@@ -1,108 +1,111 @@
 {% extends 'base.html' %} {% block content %}
-<h1>{{recipe.meal_name}}</h1>
-<h5><i>{{ recipe.meal_desc }}</i></h5>
-<p>Author: {{ recipe.username }}</p>
-<p>Date added: {{ recipe.date_added }}</p>
-<div class="recipe_box row col s12">
-    <div class="row col s12">
-        <p class="col s6"><b>Preparation time:</b> {{ recipe.prep_time }} minutes</p>
-        <p class="col s6"><b>Cooking time:</b> {{ recipe.cook_time }} minutes</p>
-    </div>
-    <div class="row col s12">
-        <p class="col s6"><b>Serves:</b> {{ recipe.serves }}</p>
-        <p class="col s6"><b>Type of meal:</b> {{ recipe.meal_type }}</p>
-    </div>
-    {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
-    <div class="row col s12">
-        {% if recipe.vegetarian %}
-        <div class="col s1">
-            <img src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
-        </div>
-        <div class="col s3">
-            <p> Vegetarian</p>
-        </div>
-        {% endif %} {% if recipe.vegan %}
-        <div class="col s1">
-            <img src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
-        </div>
-        <div class="col s3">
-            <p> Vegan</p>
-        </div>
-        {% endif %} {% if recipe.gluten_free %}
-        <div class="col s1">
-            <img src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
-        </div>
-        <div class="col s3">
-            <p> Gluten Free</p>
-        </div>
-        {% endif %}
-    </div>
-    {% endif %}
-    <div class="col s12">
-        {% if recipe.allergens %}
-        <p class="col s6">Allergens: <b>{{ recipe.allergens.values()|join(', ') }}</b></p>
-        {% else %}
-        <p class="col s6">Allergens: </b>None</b></p>
-        {% endif %}
-        <p class="col s6">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
-    </div>
-</div>
 <div class="row">
-    <ul class="collapsible">
-        <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Ingredients</div>
-            <div class="collapsible-body">
-                <table class="striped">
-                    <thead hidden>
-                    </thead>
-                    <tbody>
-                        {% for x in range(1, 21) %}
-                        {% if recipe.ingredients['ingredient['+x|string+']'] %}
-                        <tr>
-                            <td>{{ recipe.ingredients['ingredient['+x|string+']'] }}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <div class="row col s12">
+        <h1>{{recipe.meal_name}}</h1>
+        <h5><i>{{ recipe.meal_desc }}</i></h5>
+    </div>
+    <div class="recipe_box row col s12">
+        <div class="row col s12 recipe_heading">
+            <p class="col s6">Author: {{ recipe.username }}</p>
+            <p class="col s6">Date added: {{ recipe.date_added }}</p>
+        </div>
+        <div class="row col s12 recipe_info">
+            <p class="col s6"><b>Preparation time:</b> {{ recipe.prep_time }} minutes</p>
+            <p class="col s6"><b>Cooking time:</b> {{ recipe.cook_time }} minutes</p>
+        </div>
+        <div class="row col s12 recipe_info">
+            <p class="col s6"><b>Serves:</b> {{ recipe.serves }}</p>
+            <p class="col s6"><b>Type of meal:</b> {{ recipe.meal_type }}</p>
+        </div>
+        <div class="row col s12 recipe_info">
+            {% if recipe.allergens %}
+            <p class="col s6">Allergens: <b>{{ recipe.allergens.values()|join(', ') }}</b></p>
+            {% else %}
+            <p class="col s6">Allergens: <b>None</b>
+            </p>
+            {% endif %}
+            <p class="col s6">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+        </div>
+        {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+            <div class="row col s12 recipe_info">
+                {% if recipe.vegetarian %}
+                <div class="col s1 right-align">
+                    <img class="dietry-image" src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+                </div>
+                <div class="col s3">
+                    <p>Vegetarian</p>
+                </div>
+                {% endif %} {% if recipe.vegan %}
+                <div class="col s1 right-align">
+                    <img class="dietry-image" src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+                </div>
+                <div class="col s3">
+                    <p>Vegan</p>
+                </div>
+                {% endif %} {% if recipe.gluten_free %}
+                <div class="col s1 right-align">
+                    <img class="dietry-image" src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+                </div>
+                <div class="col s3">
+                    <p>Gluten free</p>
+                </div>
+                {% endif %}
             </div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">place</i>Method</div>
-            <div class="collapsible-body">
-                <table class="striped">
-                    <thead hidden>
-                    </thead>
-                    <tbody>
-                        {% for x in range(1, 11) %}
-                        {% if recipe.methods['method_step['+x|string+']'] %}
-                        <tr>
-                            <td>Step {{ x }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ recipe.methods['method_step['+x|string+']'] }}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </li>
-    </ul>
-    {% if user %}
-        {% if user.username in recipe.favourited_users %}
-        <form action="{{ url_for('unfavourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST" class="col s12">
-            <button class="btn waves-effect waves-light" type="submit">Remove from Favourites
-                <i class="material-icons right">send</i>
-        </form>
+            {% endif %}
+    </div>
+    <div class="row col s12">
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">view_list</i><h6>Ingredients</h6><i class="material-icons right">arrow_drop_down</i></div>
+                <div class="collapsible-body">
+                    <table class="striped">
+                        <thead hidden>
+                        </thead>
+                        <tbody>
+                            {% for x in range(1, 21) %} {% if recipe.ingredients['ingredient['+x|string+']'] %}
+                            <tr>
+                                <td>{{ recipe.ingredients['ingredient['+x|string+']'] }}</td>
+                            </tr>
+                            {% endif %} {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">assignment</i><h6>Method</h6><i class="material-icons right">arrow_drop_down</i></div>
+                <div class="collapsible-body">
+                    <table class="striped">
+                        <thead hidden>
+                        </thead>
+                        <tbody>
+                            {% for x in range(1, 11) %} {% if recipe.methods['method_step['+x|string+']'] %}
+                            <tr>
+                                <td><h6>Step {{ x }}</h6></td>
+                            </tr>
+                            <tr>
+                                <td>{{ recipe.methods['method_step['+x|string+']'] }}</td>
+                            </tr>
+                            {% endif %} {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+        </ul>
+        {% if user %} 
+            {% if user.username in recipe.favourited_users %}
+            <form action="{{ url_for('unfavourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST">
+                <button class="remove_favourite btn waves-effect waves-light" type="submit">Remove from Favourites
+                <i class="material-icons right">delete_forever</i>
+            </form>
+            {% else %}
+            <form action="{{ url_for('favourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST">
+                <button class="btn waves-effect waves-light" type="submit">Add to Favourites
+                <i class="material-icons right">favorite</i>
+            </form>
+            {% endif %}
         {% else %}
-        <form action="{{ url_for('favourited', recipe_id=recipe._id, user_id=user._id) }}" method="POST" class="col s12">
-            <button class="btn waves-effect waves-light" type="submit">Add to Favourites
-                <i class="material-icons right">send</i>
-        </form>
+        <p>Did you enjoy your meal? <a href="{{ url_for('sign_in') }}">Sign in</a> to add it to your favourites!</p>
         {% endif %}
-    {% else %}
-    <p>Did you enjoy your meal? <a href="{{ url_for('sign_in') }}">Sign in</a> to add it to your favourites!</p>
-    {% endif %}
+    </div>
 </div>
 {% endblock %}

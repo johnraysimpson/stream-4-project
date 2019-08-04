@@ -1,33 +1,41 @@
 {% extends 'base.html' %} {% block content %}
-<h1>My Recipes</h1>
-{% for recipe in user_recipes %}
-<div class="recipe_box row col s12">
+<div class="row">
     <div class="row col s12">
-        <p class="recipe_name col s8">{{recipe.meal_name}}</p>
-        <p class="center-align col s4">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+    <h1>My Recipes</h1>
     </div>
-    <div class="row col s12">
-        <i class="material-icons icon-size col s1">local_dining</i>
-        <p class="center-align col s2"> {{ recipe.meal_type }}</p>
-        <i class="material-icons icon-size col s1 offset-s1">access_time</i>
-        <p class="center-align col s2"> {{ recipe.total_time_string }}</p>
-        <p class="center-align col s4 offset-s1">Added on: {{ recipe.date_added }}</p>
+    {% for recipe in user_recipes %}
+    <div class="recipe_box row col s12">
+        <div class="row col s12 recipe_heading">
+            <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+        </div>
+        <div class="row col s12 recipe_info">
+            <i class="material-icons icon-size col s1">local_dining</i>
+            <p class="col s2 center-align"> {{ recipe.meal_type }}</p>
+            <i class="material-icons icon-size col s1 offset-s1">access_time</i>
+            <p class="col s2 center-align"> {{ recipe.total_time_string }}</p>
+            <i class="material-icons icon-size col s1 offset-s1">people_outline</i>
+            <p class="col s2 center-align"> {{ recipe.serves }}</p>
+        </div>
+        <div class="col s12 recipe_info">
+            <p class="col s4 center-align">Added on: {{ recipe.date_added }}</p>
+            <p class="col s4 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+        </div>
+        <div class="col s4 view_recipe">
+            <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+                <p>View this recipe</p>
+            </a>
+        </div>
+        <div class="col s4 edit_recipe">
+            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+                <p>Edit this recipe</p>
+            </a>
+        </div>
+        <div class="col s4 delete_recipe">
+            <a href="{{ url_for('delete_confirm', recipe_id=recipe._id, user_id=user._id) }}">
+                <p>Delete this recipe</p>
+            </a>
+        </div>
     </div>
-    <div class="col s4">
-        <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
-            <p>View this recipe</p>
-        </a>
-    </div>
-    <div class="col s4">
-        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, user_id=user._id) }}">
-            <p>Edit this recipe</p>
-        </a>
-    </div>
-    <div class="col s4">
-        <a href="{{ url_for('delete_confirm', recipe_id=recipe._id, user_id=user._id) }}">
-            <p>Delete this recipe</p>
-        </a>
-    </div>
+{% endfor %}
 </div>
-<hr>
-{% endfor %} {% endblock %}
+{% endblock %}
