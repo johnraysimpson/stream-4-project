@@ -1,70 +1,72 @@
 {% extends 'base.html' %} {% block content %}
-<h3>Sign Up</h3>
-{% if error %}
 <div class="row">
+    <div class="row col s12">
+    <h3>Sign Up</h3>
+    </div>
+    {% if error %}
+    <div class="row col s12">
     <form action="{{ url_for('add_user') }}" method="POST" class="col s12" autocomplete="off">
         <div class="row">
-            <div class="input-field col s6">
-                <input id="first" name="first" type="text" required value ="{{ request.form.first }}" autocomplete="sdfg">
+            <div class="input-field col s12 m6">
+                <input id="first" name="first" type="text" required value="{{ request.form.first }}" autocomplete="sdfg">
                 <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
                 <label for="first">First Name</label>
             </div>
-            <div class="input-field col s6">
-                <input id="last" name="last" type="text" required value ="{{ request.form.last }}" autocomplete="sdfg">
+            <div class="input-field col s12 m6">
+                <input id="last" name="last" type="text" required value="{{ request.form.last }}" autocomplete="sdfg">
                 <label for="last">Last Name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="username" name="username" type="text" required value ="{{ request.form.username }}" autocomplete="sdfg" minlength="6">
+                <input id="username" name="username" type="text" required value="{{ request.form.username }}" autocomplete="sdfg" minlength="6">
                 <label for="username">Username</label>
             </div>
-            <div class="row col s6 bad-input">
+            <div class="row col s12 m6 bad-input">
                 <i class="material-icons col s1">error</i>
                 <span class="error_align col s11">{{error}}</span>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="password" name="password" type="password" required minlength="6">
                 <label for="password">Password</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="confirm_password" type="password" required>
                 <label for="confirm_password">Confirm Password</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input type="text" id="country" name="country" class="autocomplete" value ="{{ request.form.country }}" autocomplete="sdfg">
+                <input type="text" id="country" name="country" class="autocomplete" value="{{ request.form.country }}" autocomplete="sdfg">
                 <label for="country">Country</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-            <p>
-                Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
-            </p>
-        </div>
-        <div class="row">
-            <button class="btn waves-effect waves-light" type="submit">Sign Up
+                <p>
+                    Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
+                </p>
+            </div>
+            <div class="row">
+                <button class="btn waves-effect waves-light" type="submit">Sign Up
             <i class="material-icons right">send</i>
             </button>
-        </div>
+            </div>
+            </div>
     </form>
-</div>
-
-{% else %}
-
-<div class="row">
-    <form action="{{ url_for('add_user') }}" method="POST" class="col s12" autocomplete="off">
+    </div>
+    {% else %}
+    <div class="row col s12">
+    <form action="{{ url_for('add_user') }}" method="POST" class="col s12 sign_up_form" autocomplete="off">
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="first" name="first" type="text" required autocomplete="sdfg">
                 <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
                 <label for="first">First Name</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="last" name="last" type="text" required autocomplete="sdfg">
                 <label for="last">Last Name</label>
             </div>
@@ -76,11 +78,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="password" name="password" type="password" required minlength="6">
                 <label for="password">Password</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s12 m6">
                 <input id="confirm_password" type="password" required>
                 <label for="confirm_password">Confirm Password</label>
             </div>
@@ -93,20 +95,22 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-            <p>
-                Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
-            </p>
-        </div>
-        <div class="row">
-            <button class="btn waves-effect waves-light" type="submit">Sign Up
+                <p>
+                    Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
+                </p>
+            </div>
+            <div class="row col s12">
+                <button class="btn waves-effect waves-light" type="submit">Sign Up
             <i class="material-icons right">send</i>
             </button>
-        </div>
+            </div>
+            </div>
     </form>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
-<script type="text/javascript">
-    var password = document.getElementById("password"),
+    <script type="text/javascript">
+        var password = document.getElementById("password"),
             confirm_password = document.getElementById("confirm_password");
 
         function validatePassword() {
@@ -120,5 +124,5 @@
 
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
-</script>
-{% endblock %}
+    </script>
+    {% endblock %}

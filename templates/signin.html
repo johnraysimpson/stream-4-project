@@ -21,7 +21,7 @@
             <div class="row">
                 <form action="{{ url_for('log_in') }}" method="POST" autocomplete="off">
                     <div class="col s12">
-                        <div class="input-field col l6 s12">
+                        <div class="input-field col s12 m6">
                             <input id="username" name="username" type="text" required value="{{ request.form.username }}" autocomplete="sdfg">
                             <!-- after researching, putting a random string in the autocomplete attribute turns it off in the browser -->
                             <label for="username">Username</label>
@@ -32,14 +32,14 @@
             <div class="row">
                 <form action="{{ url_for('log_in') }}" method="POST" autocomplete="off">
                     <div class="col s12">
-                        <div class="input-field col l6 s12">
+                        <div class="input-field col s12 m6">
                             <input id="username" name="username" type="text" autocomplete="sdfg">
                             <label for="username">Username</label>
                         </div>
                     </div>
     {% endif %}
                     <div class="col s12">
-                        <div class="input-field col l6 s12">
+                        <div class="input-field col s12 m6">
                             <input id="password" name="password" type="password" required autocomplete="sdfg">
                             <label for="password">Password</label>
                         </div>
