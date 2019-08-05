@@ -3,9 +3,6 @@
 /*General elements*/
 
 body {
-    background-image: url('http://thepatternlibrary.com/img/t.gif');
-    background-repeat: repeat;
-    background-attachment: fixed;
     font-family: "Hammersmith One", sans-serif;
 }
 
@@ -371,3 +368,4 @@ input[type=password]:not(.browser-default):focus:not([readonly])+label,
 .remove_favourite:hover {
     background-color: #ff2323;
 }
+
