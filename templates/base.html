@@ -19,6 +19,8 @@
 
         nav {
             background-color: cadetblue;
+            -webkit-box-shadow: none;
+            box-shadow: none;
         }
 
         .brand-logo {
@@ -213,6 +215,10 @@
         .submit_box {
             padding: 0px 10px 5px 10px;
         }
+        
+        .submit_box>div>div>h5 {
+            margin-top: 20px;
+        }
 
         .add_method_button, .add_ingredient_button {
             margin-left: 10px;
@@ -366,7 +372,7 @@
             <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
         </ul>
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper z-depth-2">
                 <a href="{{ url_for('home', user_id=user._id) }}" class="brand-logo">Easy RecipEasy</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">

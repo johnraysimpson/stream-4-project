@@ -1,28 +1,31 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Edit Recipe - {{ recipe.meal_name }}</h1>
 <div class="row">
-    <form action="{{ url_for('update_recipe', user_id=user._id, recipe_id=recipe._id) }}" method="POST" class="col s12">
+    <div class="row col s12">
+    <h1>Edit Recipe - {{ recipe.meal_name }}</h1>
+    </div>
+    <div class="row col s12">
+    <form action="{{ url_for('update_recipe', user_id=user._id, recipe_id=recipe._id) }}" method="POST">
         <h3>Edit Information</h3>
         <div class="submit_box">
-            <div class="row">
+            <div class="row col s12">
                 <div class="input-field col s12">
                     <h5>Name of Dish*</h5>
-                    <input id="meal_name" name="meal_name" type="text" max-length="50" value="{{ recipe.meal_name }}" required autocomplete="sdfg">
+                    <input id="meal_name" name="meal_name" type="text" max-length="50" value="{{ recipe.meal_name }}" required class="validate" autocomplete="sdfg">
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s8">
+            <div class="row col s12">
+                <div class="input-field col s7">
                     <h5>Meal Description*</h5>
                     <p>Describe your meal in 100 characters or less</p>
-                    <input id="meal_desc" name="meal_desc" type="text" value="{{ recipe.meal_desc }}" data-length="100" required>
+                    <input id="meal_desc" name="meal_desc" type="text" value="{{ recipe.meal_desc }}" data-length="100" class="validate" required>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s5">
                     <h5>Number of people*</h5>
                     <p>How many can be served?</p>
-                    <input id="serves" name="serves" type="number" value="{{ recipe.serves_int }}" min="1" required autocomplete="sdfg">
+                    <input id="serves" name="serves" type="number" value="{{ recipe.serves_int }}" min="1" required class="validate" autocomplete="sdfg">
                 </div>
             </div>
-            <div class="row">
+            <div class="row col s12">
                 <div class="input-field col s4">
                     <h5>Type of Meal*</h5>
                     <select id="meal_type" name="meal_type" required="required">
@@ -38,14 +41,14 @@
                 </div>
                 <div class="input-field col s4">
                     <h5>Preparation Time*</h5>
-                    <input id="prep_time" name="prep_time" type="number" value="{{ recipe.prep_time }}" placeholder="In minutes" min="1" required autocomplete="sdfg">
+                    <input id="prep_time" name="prep_time" type="number" value="{{ recipe.prep_time }}" placeholder="In minutes" min="1" class="validate" required autocomplete="sdfg">
                 </div>
                 <div class="input-field col s4">
                     <h5>Cooking Time*</h5>
-                    <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" value="{{recipe.cook_time}}" required autocomplete="sdfg">
+                    <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" value="{{recipe.cook_time}}" class="validate" required autocomplete="sdfg">
                 </div>
             </div>
-            <div class="row">
+            <div class="row col s12">
                 <h5 class="col s12">Please select if your meal is:</h5>
                 <div class="col s4">
                     <p>
@@ -88,7 +91,7 @@
 
         <h3>Edit Ingredients</h3>
         <div class="submit_box">
-            <div class="row">
+            <div class="row col s12">
                 <table class="table striped col s6">
                     <thead hidden>
                     </thead>
@@ -119,18 +122,21 @@
         </div>
         <h3>Edit Method</h3>
         <div class="submit_box">
-            <div class="row">
+            <div class="row col s12">
+                {% for x in range(1, 11) %}
                 <div class="col s12">
-                    {% for x in range(1, 11) %}
                     <h5>Step {{ x }}</h5>
-                    <textarea name="method[{{ x }}]" id="method[{{ x }}]" class="materialize-textarea col s12">{{ recipe.methods['method_step['+x|string+']'] }}</textarea> {% endfor %}
+                    <textarea name="method[{{ x }}]" id="method[{{ x }}]" class="materialize-textarea col s12">{{ recipe.methods['method_step['+x|string+']'] }}</textarea> 
                 </div>
+                {% endfor %}
             </div>
         </div>
         <h3>Allergens</h3>
-        <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
         <div class="submit_box">
-            <div class="row">
+            <div class="col s12">
+            <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
+            </div>
+            <div class="row col s12">
                 <div class="col s4">
                     <p>
                         <label>
@@ -285,5 +291,6 @@
             </button>
         </div>
     </form>
+    </div>
 </div>
 {% endblock %}
