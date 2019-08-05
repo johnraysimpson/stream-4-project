@@ -359,8 +359,8 @@ def search_recipes(user_id, page):
         found_recipes = found_recipes.sort('date_and_time', -1)
         
     number_of_recipes = found_recipes.count()
-    number_of_pages = math.ceil(number_of_recipes/2)
-    found_recipes = found_recipes.skip(int(page)*2-2).limit(2)
+    number_of_pages = math.ceil(number_of_recipes/10)
+    found_recipes = found_recipes.skip(int(page)*10-10).limit(10)
     if user_id != '0':
         user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
         return render_template('searchresults.html', found_recipes=found_recipes, number_of_pages=number_of_pages, filters=filters, number_of_recipes=number_of_recipes, search_params=search_params, meal_types = meal_types, page=page, user=user)

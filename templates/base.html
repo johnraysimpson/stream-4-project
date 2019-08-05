@@ -311,6 +311,10 @@
             font-weight: 500;
         }
         
+        .filter_meal_heading {
+            margin-top: 20px;
+        }
+        
         /* analytics.html elements */
 
         .chart_border {
@@ -397,7 +401,7 @@
     {% else %}
     <header>
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper z-depth-2">
                 <a href="{{ url_for('home', user_id='0') }}" class="brand-logo">Easy RecipEasy</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
