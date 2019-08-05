@@ -1,34 +1,34 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row">
     <div class="row col s12">
-    <h1>Edit Recipe - {{ recipe.meal_name }}</h1>
+        <h1>Edit Recipe - {{ recipe.meal_name }}</h1>
     </div>
     <div class="row col s12">
-    <form action="{{ url_for('update_recipe', user_id=user._id, recipe_id=recipe._id) }}" method="POST">
-        <h3>Edit Information</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-                <div class="input-field col s12">
-                    <h5>Name of Dish*</h5>
-                    <input id="meal_name" name="meal_name" type="text" max-length="50" value="{{ recipe.meal_name }}" required class="validate" autocomplete="sdfg">
+        <form action="{{ url_for('update_recipe', user_id=user._id, recipe_id=recipe._id) }}" method="POST">
+            <h3>Edit Information</h3>
+            <div class="submit_box">
+                <div class="row col s12">
+                    <div class="input-field col s12">
+                        <h5>Name of Dish*</h5>
+                        <input id="meal_name" name="meal_name" type="text" max-length="50" value="{{ recipe.meal_name }}" required class="validate" autocomplete="sdfg">
+                    </div>
                 </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s7">
-                    <h5>Meal Description*</h5>
-                    <p>Describe your meal in 100 characters or less</p>
-                    <input id="meal_desc" name="meal_desc" type="text" value="{{ recipe.meal_desc }}" data-length="100" class="validate" required>
+                <div class="row col s12">
+                    <div class="input-field col s7">
+                        <h5>Meal Description*</h5>
+                        <p>Describe your meal in 100 characters or less</p>
+                        <input id="meal_desc" name="meal_desc" type="text" value="{{ recipe.meal_desc }}" data-length="100" class="validate" required>
+                    </div>
+                    <div class="input-field col s5">
+                        <h5>Number of people*</h5>
+                        <p>How many can be served?</p>
+                        <input id="serves" name="serves" type="number" value="{{ recipe.serves_int }}" min="1" required class="validate" autocomplete="sdfg">
+                    </div>
                 </div>
-                <div class="input-field col s5">
-                    <h5>Number of people*</h5>
-                    <p>How many can be served?</p>
-                    <input id="serves" name="serves" type="number" value="{{ recipe.serves_int }}" min="1" required class="validate" autocomplete="sdfg">
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s4">
-                    <h5>Type of Meal*</h5>
-                    <select id="meal_type" name="meal_type" required="required">
+                <div class="row col s12">
+                    <div class="input-field col s4">
+                        <h5>Type of Meal*</h5>
+                        <select id="meal_type" name="meal_type" required="required">
                     <option value="">Select a meal</option>
                     {% for type in meal_types %}
                         {% if type.meal_type == recipe.meal_type %}
@@ -38,21 +38,21 @@
                         {% endif %}
                     {% endfor %}
                     </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <h5>Preparation Time*</h5>
+                        <input id="prep_time" name="prep_time" type="number" value="{{ recipe.prep_time }}" placeholder="In minutes" min="1" class="validate" required autocomplete="sdfg">
+                    </div>
+                    <div class="input-field col s4">
+                        <h5>Cooking Time*</h5>
+                        <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" value="{{recipe.cook_time}}" class="validate" required autocomplete="sdfg">
+                    </div>
                 </div>
-                <div class="input-field col s4">
-                    <h5>Preparation Time*</h5>
-                    <input id="prep_time" name="prep_time" type="number" value="{{ recipe.prep_time }}" placeholder="In minutes" min="1" class="validate" required autocomplete="sdfg">
-                </div>
-                <div class="input-field col s4">
-                    <h5>Cooking Time*</h5>
-                    <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" value="{{recipe.cook_time}}" class="validate" required autocomplete="sdfg">
-                </div>
-            </div>
-            <div class="row col s12">
-                <h5 class="col s12">Please select if your meal is:</h5>
-                <div class="col s4">
-                    <p>
-                        <label>
+                <div class="row col s12">
+                    <h5 class="col s12">Please select if your meal is:</h5>
+                    <div class="col s4">
+                        <p>
+                            <label>
                             {% if recipe.vegetarian %}
                                 <input id="vegetarian" name="vegetarian" type="checkbox" checked/>
                             {% else %}
@@ -60,11 +60,11 @@
                             {% endif %}
                             <span>Vegetarian</span>
                         </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <p>
+                            <label>
                             {% if recipe.vegan %}
                                 <input id="vegan" name="vegan" type="checkbox"  checked/>
                             {% else %}
@@ -72,11 +72,11 @@
                             {% endif %}
                             <span>Vegan</span>
                         </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <p>
+                            <label>
                             {% if recipe.gluten_free %}
                                 <input id="gluten_free" name="gluten_free" type="checkbox" checked/>
                             {% else %}
@@ -84,213 +84,213 @@
                             {% endif %}
                             <span>Gluten free</span>
                         </label>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <h3>Edit Ingredients</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-                <table class="table striped col s6">
-                    <thead hidden>
-                    </thead>
-                    <tbody>
-                        {% for x in range(1, 11) %}
-                        <tr>
-                            <td class="col s2">
-                                <h5>{{ x }}.</h5>
-                            </td>
-                            <td class="col s10"><input type="text" id="ingredient[{{ x }}]" name="ingredient[{{ x }}]" value="{{ recipe.ingredients['ingredient['+x|string+']'] }}" class="validate"></td>
-                        </tr>
-                        {% endfor %}
-                </table>
-                <table class="table striped col s6">
-                    <thead hidden>
-                    </thead>
-                    <tbody>
-                        {% for x in range(11, 21) %}
-                        <tr>
-                            <td class="col s2">
-                                <h5>{{ x }}.</h5>
-                            </td>
-                            <td class="col s10"><input type="text" id="ingredient[{{ x }}]" name="ingredient[{{ x }}]" value="{{ recipe.ingredients['ingredient['+x|string+']'] }}" class="validate"></td>
-                        </tr>
-                        {% endfor %}
-                </table>
+            <h3>Edit Ingredients</h3>
+            <div class="submit_box">
+                <div class="row col s12">
+                    <table class="table striped col s6">
+                        <thead hidden>
+                        </thead>
+                        <tbody>
+                            {% for x in range(1, 11) %}
+                            <tr>
+                                <td class="col s2">
+                                    <h5>{{ x }}.</h5>
+                                </td>
+                                <td class="col s10"><input type="text" id="ingredient[{{ x }}]" name="ingredient[{{ x }}]" value="{{ recipe.ingredients['ingredient['+x|string+']'] }}" class="validate"></td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                    <table class="table striped col s6">
+                        <thead hidden>
+                        </thead>
+                        <tbody>
+                            {% for x in range(11, 21) %}
+                            <tr>
+                                <td class="col s2">
+                                    <h5>{{ x }}.</h5>
+                                </td>
+                                <td class="col s10"><input type="text" id="ingredient[{{ x }}]" name="ingredient[{{ x }}]" value="{{ recipe.ingredients['ingredient['+x|string+']'] }}" class="validate"></td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
             </div>
-        </div>
-        <h3>Edit Method</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-                {% for x in range(1, 11) %}
+            <h3>Edit Method</h3>
+            <div class="submit_box">
+                <div class="row col s12">
+                    {% for x in range(1, 11) %}
+                    <div class="col s12">
+                        <h5>Step {{ x }}</h5>
+                        <textarea name="method[{{ x }}]" id="method[{{ x }}]" class="materialize-textarea col s12">{{ recipe.methods['method_step['+x|string+']'] }}</textarea>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3>Allergens</h3>
+            <div class="submit_box">
                 <div class="col s12">
-                    <h5>Step {{ x }}</h5>
-                    <textarea name="method[{{ x }}]" id="method[{{ x }}]" class="materialize-textarea col s12">{{ recipe.methods['method_step['+x|string+']'] }}</textarea> 
+                    <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
                 </div>
-                {% endfor %}
-            </div>
-        </div>
-        <h3>Allergens</h3>
-        <div class="submit_box">
-            <div class="col s12">
-            <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
-            </div>
-            <div class="row col s12">
-                <div class="col s4">
-                    <p>
-                        <label>
+                <div class="row col s12">
+                    <div class="col s6 m4">
+                        <p>
+                            <label>
                             {% if recipe.allergens['celery'] %}
-                            <input id="celery" name="celery" value="Celery" type="checkbox" checked/>
+                                <input id="celery" name="celery" value="Celery" type="checkbox" checked/>
                             {% else %}
-                            <input id="celery" name="celery" value="Celery" type="checkbox" />
+                                <input id="celery" name="celery" value="Celery" type="checkbox" />
                             {% endif %}
-                        <span>Celery</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Celery</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['gluten'] %}
-                            <input id="gluten" name="gluten" value="Gluten" type="checkbox" checked/>
+                                <input id="gluten" name="gluten" value="Gluten" type="checkbox" checked/>
                             {% else %}
-                            <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
+                                <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
                             {% endif %}
-                        <span>Gluten</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Gluten</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['crustaceans'] %}
-                            <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" checked/>
+                                <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" checked/>
                             {% else %}
-                            <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
+                                <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
                             {% endif %}
-                        <span>Crustaceans</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Crustaceans</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['egg'] %}
-                            <input id="egg" name="egg" value="Egg" type="checkbox" checked/>
+                                <input id="egg" name="egg" value="Egg" type="checkbox" checked/>
                             {% else %}
-                            <input id="egg" name="egg" value="Egg" type="checkbox" />
+                                <input id="egg" name="egg" value="Egg" type="checkbox" />
                             {% endif %}
-                        <span>Egg</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Egg</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['fish'] %}
-                            <input id="fish" name="fish" value="Fish" type="checkbox" checked/>
+                                <input id="fish" name="fish" value="Fish" type="checkbox" checked/>
                             {% else %}
-                            <input id="fish" name="fish" value="Fish" type="checkbox" />
+                                <input id="fish" name="fish" value="Fish" type="checkbox" />
                             {% endif %}
-                        <span>Fish</span>
-                    </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
+                                <span>Fish</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col s6 m4">
+                        <p>
+                            <label>
                             {% if recipe.allergens['lupin'] %}
-                            <input id="lupin" name="lupin" value="Lupin" type="checkbox" checked/>
+                                <input id="lupin" name="lupin" value="Lupin" type="checkbox" checked/>
                             {% else %}
-                            <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
+                                <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
                             {% endif %}
-                        <span>Lupin</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Lupin</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['milk'] %}
-                            <input id="milk" name="milk" value="Milk" type="checkbox" checked/>
+                                <input id="milk" name="milk" value="Milk" type="checkbox" checked/>
                             {% else %}
-                            <input id="milk" name="milk" value="Milk" type="checkbox" />
+                                <input id="milk" name="milk" value="Milk" type="checkbox" />
                             {% endif %}
-                        <span>Milk</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Milk</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['molluscs'] %}
-                            <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" checked/>
+                                <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" checked/>
                             {% else %}
-                            <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
+                                <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
                             {% endif %}
-                        <span>Molluscs</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Molluscs</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['mustard'] %}
-                            <input id="mustard" name="mustard" value="Mustard" type="checkbox" checked/>
+                                <input id="mustard" name="mustard" value="Mustard" type="checkbox" checked/>
                             {% else %}
-                            <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
+                                <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
                             {% endif %}
-                        <span>Mustard</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Mustard</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['nuts'] %}
-                            <input id="nuts" name="nuts" value="Nuts" type="checkbox" checked/>
+                                <input id="nuts" name="nuts" value="Nuts" type="checkbox" checked/>
                             {% else %}
-                            <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
+                                <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
                             {% endif %}
-                        <span>Nuts</span>
-                    </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
+                                <span>Nuts</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col s6 m4">
+                        <p>
+                            <label>
                             {% if recipe.allergens['peanuts'] %}
-                            <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" checked/>
+                                <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" checked/>
                             {% else %}
-                            <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
+                                <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
                             {% endif %}
-                        <span>Peanuts</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Peanuts</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['sesame_seeds'] %}
-                            <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" checked/>
+                                <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" checked/>
                             {% else %}
-                            <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
+                                <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
                             {% endif %}
-                        <span>Sesame seeds</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Sesame seeds</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['soya'] %}
-                            <input id="soya" name="soya" value="Soya" type="checkbox" checked/>
+                                <input id="soya" name="soya" value="Soya" type="checkbox" checked/>
                             {% else %}
-                            <input id="soya" name="soya" value="Soya" type="checkbox" />
+                                <input id="soya" name="soya" value="Soya" type="checkbox" />
                             {% endif %}
-                        <span>Soya</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
+                                <span>Soya</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
                             {% if recipe.allergens['sulpher_dioxide'] %}
-                            <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" checked/>
+                                <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" checked/>
                             {% else %}
-                            <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
+                                <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
                             {% endif %}
-                        <span>Sulpher dioxide (sulphates)</span>
-                    </label>
-                    </p>
+                                <span>Sulpher dioxide (sulphates)</span>
+                            </label>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Update Recipe
-            <i class="material-icons right">send</i>
-            </button>
-        </div>
-    </form>
+            <div class="row">
+                <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Update Recipe
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

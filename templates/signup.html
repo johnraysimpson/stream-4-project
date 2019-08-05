@@ -1,152 +1,148 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row">
     <div class="row col s12">
-    <h1>Sign Up</h1>
+        <h1>Sign Up</h1>
     </div>
     {% if error %}
     <div class="row col s12">
-    <form action="{{ url_for('add_user') }}" method="POST" class="col s12" autocomplete="off">
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <input id="first" name="first" type="text" required value="{{ request.form.first }}" autocomplete="sdfg">
-                <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
-                <label for="first">First Name</label>
-            </div>
-            <div class="input-field col s12 m6">
-                <input id="last" name="last" type="text" required value="{{ request.form.last }}" autocomplete="sdfg">
-                <label for="last">Last Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="username" name="username" type="text" required value="{{ request.form.username }}" autocomplete="sdfg" minlength="6">
-                <label for="username">Username</label>
-            </div>
-            <div class="row col s12 m6 bad-input">
-                <i class="material-icons col s1">error</i>
-                <span class="error_align col s11">{{error}}</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <input id="password" name="password" type="password" required minlength="6">
-                <label for="password">Password</label>
-            </div>
-            <div class="input-field col s12 m6">
-                <input id="confirm_password" type="password" required>
-                <label for="confirm_password">Confirm Password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input type="text" id="country" name="country" class="autocomplete" value="{{ request.form.country }}" autocomplete="sdfg">
-                <label for="country">Country</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <p>
-                    Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
-                </p>
+        <form action="{{ url_for('add_user') }}" method="POST" class="col s12" autocomplete="off">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="first" name="first" type="text" required value="{{ request.form.first }}" >
+                    <label for="first">First Name</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="last" name="last" type="text" required value="{{ request.form.last }}" >
+                    <label for="last">Last Name</label>
+                </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit">Sign Up
-            <i class="material-icons right">send</i>
-            </button>
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text" required value="{{ request.form.username }}"  minlength="6">
+                    <label for="username">Username</label>
+                </div>
+                <div class="row col s12 m6 bad-input">
+                    <i class="material-icons col s1">error</i>
+                    <span class="error_align col s11">{{error}}</span>
+                </div>
             </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="password" name="password" type="password" required minlength="6">
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="confirm_password" type="password" required>
+                    <label for="confirm_password">Confirm Password</label>
+                </div>
             </div>
-    </form>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="country" name="country" class="autocomplete" value="{{ request.form.country }}" autocomplete="sdfg">
+                    <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
+                    <label for="country">Country</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <p>Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.</p>
+                </div>
+                <div class="row">
+                    <button class="btn waves-effect waves-light" type="submit">Sign Up
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
     {% else %}
     <div class="row col s12">
-    <form action="{{ url_for('add_user') }}" method="POST" class="col s12 sign_up_form" autocomplete="off">
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <input id="first" name="first" type="text" required autocomplete="sdfg">
-                <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
-                <label for="first">First Name</label>
+        <form action="{{ url_for('add_user') }}" method="POST" class="col s12 sign_up_form" autocomplete="off">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="first" name="first" type="text" required >
+                    <label for="first">First Name</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="last" name="last" type="text" required >
+                    <label for="last">Last Name</label>
+                </div>
             </div>
-            <div class="input-field col s12 m6">
-                <input id="last" name="last" type="text" required autocomplete="sdfg">
-                <label for="last">Last Name</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" name="username" type="text" required  minlength="6">
+                    <label for="username">Username</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="username" name="username" type="text" required autocomplete="sdfg" minlength="6">
-                <label for="username">Username</label>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="password" name="password" type="password" required minlength="6">
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="confirm_password" type="password" required>
+                    <label for="confirm_password">Confirm Password</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <input id="password" name="password" type="password" required minlength="6">
-                <label for="password">Password</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="country" name="country" class="autocomplete" autocomplete="sdfg">
+                    <!-- after reasearching, putting a random string in the autocomplete attribute turns it off in the browser -->
+                    <label for="country">Country</label>
+                </div>
             </div>
-            <div class="input-field col s12 m6">
-                <input id="confirm_password" type="password" required>
-                <label for="confirm_password">Confirm Password</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <p>Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.</p>
+                </div>
+                <div class="row col s12">
+                    <button class="btn waves-effect waves-light" type="submit">Sign Up
+                        <i class="material-icons right">chevron_right</i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input type="text" id="country" name="country" class="autocomplete" autocomplete="sdfg">
-                <label for="country">Country</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <p>
-                    Before you create, this site is <b>NOT</b> secure. Do <b>NOT</b> use a password you regularly use.
-                </p>
-            </div>
-            <div class="row col s12">
-                <button class="btn waves-effect waves-light" type="submit">Sign Up
-            <i class="material-icons right">chevron_right</i>
-            </button>
-            </div>
-            </div>
-    </form>
+        </form>
     </div>
     {% endif %}
 </div>
-    
-    {% endblock %}
+{% endblock %} 
+
 {% block javascript %}
 <script type="text/javascript">
-        var password = document.getElementById("password"),
-            confirm_password = document.getElementById("confirm_password");
+    var password = document.getElementById("password"),
+        confirm_password = document.getElementById("confirm_password");
 
-        function validatePassword() {
-            if (password.value != confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
-            }
-            else {
-                confirm_password.setCustomValidity('');
-            }
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
         }
+        else {
+            confirm_password.setCustomValidity('');
+        }
+    }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
-        
-        $(document).ready(function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://pastebin.com/raw/k79mKHzG");
-            xhr.send();
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
 
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var countryData = {};
-                    var data = JSON.parse(this.responseText);
-                    for (var i in data) {
-                        countryData[data[i].country_name] = null;
-                    }
-                    //console.log(countryData)
-                    $('input.autocomplete').autocomplete({
-                        data: countryData,
-                        limit: 5,
-                    });
+    $(document).ready(function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://pastebin.com/raw/k79mKHzG");
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var countryData = {};
+                var data = JSON.parse(this.responseText);
+                for (var i in data) {
+                    countryData[data[i].country_name] = null;
                 }
-            };
-            });
-    </script>
+                //console.log(countryData)
+                $('input.autocomplete').autocomplete({
+                    data: countryData,
+                    limit: 5,
+                });
+            }
+        };
+    });
+</script>
 {% endblock %}

@@ -4,303 +4,301 @@
         <h1>Add a recipe</h1>
     </div>
     <div class="row col s12">
-    <form action="{{ url_for('insert_recipe', user_id=user._id) }}" method="POST">
-        <h3>Recipe Information</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-                <div class="input-field col s12">
-                    <h5>Name of Dish*</h5>
-                    <input id="meal_name" name="meal_name" type="text" max-length="50" required class="validate" autocomplete="sdfg">
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s7">
-                    <h5>Meal Description*</h5>
-                    <p>Describe your meal in 100 characters or less</p>
-                    <input id="meal_desc" name="meal_desc" type="text" data-length="100" class="validate" required>
-                </div>
-                <div class="input-field col s5">
-                    <h5>No. of people*</h5>
-                    <p>How many can be served?</p>
-                    <input id="serves" name="serves" type="number" min="1" required class="validate" autocomplete="sdfg">
-                </div>
-            </div>
-            <div class="row col s12">
-                <div class="input-field col s4">
-                    <h5>Type of Meal*</h5>
-                    <select id="meal_type" name="meal_type" required="required">
-                    <option value="">Select a meal</option>
-                    {% for type in meal_types %}
-                        <option value="{{type.meal_type}}">{{type.meal_type}}</option>
-                    {% endfor %}
-                    </select>
-                </div>
-                <div class="input-field col s4">
-                    <h5>Preparation Time*</h5>
-                    <input id="prep_time" name="prep_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
-                </div>
-                <div class="input-field col s4">
-                    <h5>Cooking Time*</h5>
-                    <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
-                </div>
-            </div>
-            <div class="row col s12">
-                <h5 class="col s12">Please select if your meal is:</h5>
-                <div class="col s4">
-                    <p>
-                        <label>
-                    <input id="vegetarian" name="vegetarian" type="checkbox" />
-                    <span>Vegetarian</span>
-                </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
-                    <input id="vegan" name="vegan" type="checkbox" />
-                    <span>Vegan</span>
-                </label>
-                    </p>
-                </div>
-                <div class="col s4">
-                    <p>
-                        <label>
-                    <input id="gluten_free" name="gluten_free" type="checkbox" />
-                    <span>Gluten free</span>
-                </label>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <h3>Recipe Ingredients</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-        <p>Add up to 20 ingredients.</p>
-        </div>
-            <div class="row col s12">
-                <table class="row table striped col s12">
-                    <thead>
-                        <tr>
-                            <th class="col s1">
-                            </th>
-                            <th class="col s2">
-                                <h5>Amount*</h5>
-                                <p>tbsp, grams, etc</p>
-                            </th>
-                            <th class="col s4">
-                                <h5>Ingredient*</h5>
-                                <p>The important element that makes your dish amazing</p>
-                            </th>
-                            <th class="col s4">
-                                <h5>Preparation</h5>
-                                <p>chopped, skinned, etc</p>
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody class="input_ingredients_wrap">
-                        <tr>
-                            <td class="col s1">
-                                <h5>1.</h5>
-                            </td>
-                            <td class="col s2"><input type="text" id="amount[1]" name="amount[1]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="ingredient[1]" name="ingredient[1]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
-                        </tr>
-                        <tr>
-                            <td class="col s1">
-                                <h5>2.</h5>
-                            </td>
-                            <td class="col s2"><input type="text" id="amount[2]" name="amount[2]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="ingredient[2]" name="ingredient[2]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
-                        </tr>
-                        <tr>
-                            <td class="col s1">
-                                <h5>3.</h5>
-                            </td>
-                            <td class="col s2"><input type="text" id="amount[3]" name="amount[3]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="ingredient[3]" name="ingredient[3]" required class="validate"></td>
-                            <td class="col s4"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
-                        </tr>
-                </table>
-                <button class="add_ingredient_button btn waves-effect waves-light"><i class="material-icons left">add_box</i>Another Ingredient</button>
-            </div>
-        </div>
-        <h3>Recipe Method</h3>
-        <div class="submit_box">
-            <div class="row col s12">
-                <p>Add up to 10 steps</p>
-            </div>
-            <div class="row col s12">
-                <div class="input_methods_wrap">
+        <form action="{{ url_for('insert_recipe', user_id=user._id) }}" method="POST">
+            <h3>Recipe Information</h3>
+            <div class="submit_box">
+                <div class="row col s12">
                     <div class="input-field col s12">
-                        <h5>Step 1*</h5>
-                        <textarea name="method[1]" id="method[1]" required class="materialize-textarea validate col s11"></textarea>
+                        <h5>Name of Dish*</h5>
+                        <input id="meal_name" name="meal_name" type="text" max-length="50" required class="validate" autocomplete="sdfg">
                     </div>
                 </div>
-                <button class="add_method_button btn waves-effect waves-light"><i class="material-icons left">add_box</i>Another Step</button>
-            </div>
-        
-        <h3>Allergens</h3>
-        <div class="row col s12">
-        <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
-        </div>
-        <div class="submit_box">
-            <div class="row col s12">
-                <div class="col s4">
-                    <p>
-                        <label>
-                        <input id="celery" name="celery" value="Celery" type="checkbox" />
-                        <span>Celery</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
-                        <span>Gluten</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
-                        <span>Crustaceans</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="egg" name="egg" value="Egg" type="checkbox" />
-                        <span>Egg</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="fish" name="fish" value="Fish" type="checkbox" />
-                        <span>Fish</span>
-                    </label>
-                    </p>
+                <div class="row col s12">
+                    <div class="input-field col s7">
+                        <h5>Meal Description*</h5>
+                        <p>Describe your meal in 100 characters or less</p>
+                        <input id="meal_desc" name="meal_desc" type="text" data-length="100" class="validate" required>
+                    </div>
+                    <div class="input-field col s5">
+                        <h5>No. of people*</h5>
+                        <p>How many can be served?</p>
+                        <input id="serves" name="serves" type="number" min="1" required class="validate" autocomplete="sdfg">
+                    </div>
                 </div>
-                <div class="col s4">
-                    <p>
-                        <label>
-                        <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
-                        <span>Lupin</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="milk" name="milk" value="Milk" type="checkbox" />
-                        <span>Milk</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
-                        <span>Molluscs</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
-                        <span>Mustard</span>
-                    </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
-                        <span>Nuts</span>
-                    </label>
-                    </p>
+                <div class="row col s12">
+                    <div class="input-field col s4">
+                        <h5>Type of Meal*</h5>
+                        <select id="meal_type" name="meal_type" required="required">
+                        <option value="">Select a meal</option>
+                        {% for type in meal_types %}
+                            <option value="{{type.meal_type}}">{{type.meal_type}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <h5>Preparation Time*</h5>
+                        <input id="prep_time" name="prep_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
+                    </div>
+                    <div class="input-field col s4">
+                        <h5>Cooking Time*</h5>
+                        <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
+                    </div>
                 </div>
-                <div class="col s4">
-                    <p>
-                        <label>
-                        <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
-                        <span>Peanuts</span>
+                <div class="row col s12">
+                    <h5 class="col s12">Please select if your meal is:</h5>
+                    <div class="col s4">
+                        <p>
+                            <label>
+                        <input id="vegetarian" name="vegetarian" type="checkbox" />
+                        <span>Vegetarian</span>
                     </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="seasame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
-                        <span>Sesame seeds</span>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <p>
+                            <label>
+                        <input id="vegan" name="vegan" type="checkbox" />
+                        <span>Vegan</span>
                     </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="soya" name="soya" value="Soya" type="checkbox" />
-                        <span>Soya</span>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <p>
+                            <label>
+                        <input id="gluten_free" name="gluten_free" type="checkbox" />
+                        <span>Gluten free</span>
                     </label>
-                    </p>
-                    <p>
-                        <label>
-                        <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
-                        <span>Sulpher dioxide (sulphates)</span>
-                    </label>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="row col s12">
-            <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Add Recipe
-            <i class="material-icons right">chevron_right</i>
-            </button>
-        </div>
-        </div>
-        </div>
-    </form>
+            <h3>Recipe Ingredients</h3>
+            <div class="submit_box">
+                <div class="row col s12">
+                    <p>Add up to 20 ingredients.</p>
+                </div>
+                <div class="row col s12">
+                    <table class="row table striped col s12">
+                        <thead>
+                            <tr>
+                                <th class="col s1">
+                                </th>
+                                <th class="col s2">
+                                    <h5>Amount*</h5>
+                                    <p>tbsp, grams, etc</p>
+                                </th>
+                                <th class="col s4">
+                                    <h5>Ingredient*</h5>
+                                    <p>The important element that makes your dish amazing</p>
+                                </th>
+                                <th class="col s4">
+                                    <h5>Preparation</h5>
+                                    <p>chopped, skinned, etc</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="input_ingredients_wrap">
+                            <tr>
+                                <td class="col s1">
+                                    <h5>1.</h5>
+                                </td>
+                                <td class="col s2"><input type="text" id="amount[1]" name="amount[1]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="ingredient[1]" name="ingredient[1]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
+                            </tr>
+                            <tr>
+                                <td class="col s1">
+                                    <h5>2.</h5>
+                                </td>
+                                <td class="col s2"><input type="text" id="amount[2]" name="amount[2]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="ingredient[2]" name="ingredient[2]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
+                            </tr>
+                            <tr>
+                                <td class="col s1">
+                                    <h5>3.</h5>
+                                </td>
+                                <td class="col s2"><input type="text" id="amount[3]" name="amount[3]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="ingredient[3]" name="ingredient[3]" required class="validate"></td>
+                                <td class="col s4"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
+                            </tr>
+                    </table>
+                    <button class="add_ingredient_button btn waves-effect waves-light"><i class="material-icons left">add_box</i>Another Ingredient</button>
+                </div>
+            </div>
+            <h3>Recipe Method</h3>
+            <div class="submit_box">
+                <div class="row col s12">
+                    <p>Add up to 10 steps</p>
+                </div>
+                <div class="row col s12">
+                    <div class="input_methods_wrap">
+                        <div class="input-field col s12">
+                            <h5>Step 1*</h5>
+                            <textarea name="method[1]" id="method[1]" required class="materialize-textarea validate col s11"></textarea>
+                        </div>
+                    </div>
+                    <button class="add_method_button btn waves-effect waves-light"><i class="material-icons left">add_box</i>Another Step</button>
+                </div>
+                <h3>Allergens</h3>
+                <div class="row col s12">
+                    <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
+                </div>
+                <div class="submit_box">
+                    <div class="row col s12">
+                        <div class="col s6 m4">
+                            <p>
+                                <label>
+                                    <input id="celery" name="celery" value="Celery" type="checkbox" />
+                                    <span>Celery</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
+                                    <span>Gluten</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
+                                    <span>Crustaceans</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="egg" name="egg" value="Egg" type="checkbox" />
+                                    <span>Egg</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="fish" name="fish" value="Fish" type="checkbox" />
+                                    <span>Fish</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col s6 m4">
+                            <p>
+                                <label>
+                                    <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
+                                    <span>Lupin</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="milk" name="milk" value="Milk" type="checkbox" />
+                                    <span>Milk</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
+                                    <span>Molluscs</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
+                                    <span>Mustard</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
+                                    <span>Nuts</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col s6 m4">
+                            <p>
+                                <label>
+                                    <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
+                                    <span>Peanuts</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="seasame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
+                                    <span>Sesame seeds</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="soya" name="soya" value="Soya" type="checkbox" />
+                                    <span>Soya</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
+                                    <span>Sulpher dioxide (sulphates)</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row col s12">
+                        <button class="add_recipe_btn btn waves-effect waves-light" type="submit">Add Recipe
+                            <i class="material-icons right">chevron_right</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-{% endblock %}
+{% endblock %} 
 
 {% block javascript %}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            
-            var max_ingredients = 20; //maximum input boxes allowed
-            var wrapper_ingredient = $(".input_ingredients_wrap"); //Fields wrapper
-            var add_ingredient_button = $(".add_ingredient_button"); //Add button ID
+<script type="text/javascript">
+    $(document).ready(function() {
 
-            var x = 3; //initlal text box count
-            $(add_ingredient_button).click(function(e) { //on add input button click
-                e.preventDefault();
-                if (x < max_ingredients) { //max input box allowed
-                    x++; //text box increment
-                    $(wrapper_ingredient).append(`<tr>
+        var max_ingredients = 20; //maximum input boxes allowed
+        var wrapper_ingredient = $(".input_ingredients_wrap"); //Fields wrapper
+        var add_ingredient_button = $(".add_ingredient_button"); //Add button ID
+
+        var x = 3; //initlal text box count
+        $(add_ingredient_button).click(function(e) { //on add input button click
+            e.preventDefault();
+            if (x < max_ingredients) { //max input box allowed
+                x++; //text box increment
+                $(wrapper_ingredient).append(`<tr>
                                             <td class="col s1"><h5>${x}.</h5></td>
                                             <td class="col s2"><input type="text" id="amount[${x}]" name="amount[${x}]" required class="validate"></td>
                                             <td class="col s4"><input type="text" id="ingredient[${x}]" name="ingredient[${x}]" required class="validate"></td>
                                             <td class="col s4"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
                                             <td class="col s1"><a href="#" class="remove_field"><i class="close_field material-icons right">close</i></a></td>
                                         </tr>`); //add input box
-                }
-            });
+            }
+        });
 
-            $(wrapper_ingredient).on("click", ".remove_field", function(e) { //user click on remove text
-                e.preventDefault();
-                $(this).parent('td').parent('tr').remove();
-                x--;
-            })
-            var max_methods = 10; //maximum input boxes allowed
-            var wrapper_method = $(".input_methods_wrap"); //Fields wrapper
-            var add_method_button = $(".add_method_button"); //Add button ID
+        $(wrapper_ingredient).on("click", ".remove_field", function(e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('td').parent('tr').remove();
+            x--;
+        })
+        var max_methods = 10; //maximum input boxes allowed
+        var wrapper_method = $(".input_methods_wrap"); //Fields wrapper
+        var add_method_button = $(".add_method_button"); //Add button ID
 
-            var y = 1; //initlal text box count
-            $(add_method_button).click(function(e) { //on add input button click
-                e.preventDefault();
-                if (y < max_methods) { //max input box allowed
-                    y++; //text box increment
-                    $(wrapper_method).append(`<div class="input-field col s12">
+        var y = 1; //initlal text box count
+        $(add_method_button).click(function(e) { //on add input button click
+            e.preventDefault();
+            if (y < max_methods) { //max input box allowed
+                y++; //text box increment
+                $(wrapper_method).append(`<div class="input-field col s12">
                                             <h5>Step ${y}</h5>
                                             <textarea name="method[${y}]" id="method[${y}]" required class="materialize-textarea validate col s11"></textarea>
                                             <a href="#" class="remove_field col s1"><i class="close_field material-icons right">close</i></a>
                                         </div>`); //add input box
-                }
-            });
-
-            $(wrapper_method).on("click", ".remove_field", function(e) { //user click on remove text
-                e.preventDefault();
-                $(this).parent('div').remove();
-                y--;
-            });
+            }
         });
-    </script>
+
+        $(wrapper_method).on("click", ".remove_field", function(e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('div').remove();
+            y--;
+        });
+    });
+</script>
 {% endblock %}

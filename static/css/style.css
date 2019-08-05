@@ -1,353 +1,373 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One:100,200,300,400,500,600,700|Hammersmith+One:100,200,300,400,500,600,700');
-        /*General elements*/
 
-        body {
-            background-image: url('http://thepatternlibrary.com/img/t.gif');
-            background-repeat: repeat;
-            background-attachment: fixed;
-            font-family: "Hammersmith One", sans-serif;
-        }
+/*General elements*/
 
-        nav {
-            background-color: cadetblue;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
+body {
+    background-image: url('http://thepatternlibrary.com/img/t.gif');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    font-family: "Hammersmith One", sans-serif;
+}
 
-        .brand-logo {
-            margin-left: 10px;
-            font-family: "Fredoka One", sans-serif;
-            font-weight: 100;
-        }
+nav {
+    background-color: cadetblue;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
-        .content_background {
-            background-color: #f7f7f7;
-            margin-bottom: -20px;
-        }
+.brand-logo {
+    margin-left: 10px;
+    font-family: "Fredoka One", sans-serif;
+    font-weight: 100;
+}
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 0 0 20px;
-            font-family: "Fredoka One", sans-serif;
-            color: #6d6d6d;
-        }
-        
-        h1 {
-            margin: 20px 0;
-            color: #ef923e;
-        }
-        
-        h6 {
-            margin: 0;
-        }
+.content_background {
+    background-color: #f7f7f7;
+    margin-bottom: -20px;
+}
 
-        .btn {
-            background-color: cadetblue;
-        }
-        
-        .page-footer {
-            background-color: #525252;
-        }
-        
-        .page-footer
-        .footer-copyright {
-            background-color: rgba(51,51,51,0.2);
-        }
-        
-        .footer-heading {
-            color: #efefef;
-        }
-        
-        .footer-link{
-            margin-bottom: 3px;
-            color: #efefef;
-            transition: all 0.35s ease-in-out;
-            -moz-transition: all 0.35s ease-in-out;
-            -webkit-transition: all 0.35s ease-in-out;
-            -o-transition: all 0.35s ease-in-out;
-        }
-        
-        .footer-link:hover {
-            color: #ef923e;
-        }
-        
-        .footer-link > span {
-            padding-top: 2px;
-        }
-        
-        .icon-position {
-            margin-right: 3px;
-        }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 20px;
+    font-family: "Fredoka One", sans-serif;
+    color: #6d6d6d;
+}
 
-        /*home.html elements*/
-        
-        .dietry_info {
-            border-radius: 30px;
-            background-color: #fce8d0;
-            border-bottom: 2px solid #b16c2e82;
-        }
+h1 {
+    margin: 20px 0;
+    color: #ef923e;
+}
 
-        .search_area {
-            margin-top: 20px;
-            margin-bottom: 0;
-        }
+h6 {
+    margin: 0;
+}
 
-        .search_btn {
-            margin-top: 10px;
-            height: 50px;
-            display: block;
-            width: 50px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 10px;
-        }
+.btn {
+    background-color: cadetblue;
+}
 
-        .search_btn>i {
-            font-size: 30px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* repeated recipe info elements */
-        
-        .recipe_name {
-            font-size: 24px;
-            margin: 8px 0;
-            font-family: "Fredoka One", sans-serif;
-        }
-        
-        .recipe_heading {
-            background-color: #ef923e;
-            color: #f7f7f7;
-        }
+.page-footer {
+    background-color: #525252;
+}
 
-        .view_recipe {
-            background-color: cadetblue;
-        }
-        
-        .view_recipe>a, .edit_recipe>a, .delete_recipe>a {
-            color: #efefef;
-            font-weight: 500;
-            text-align: center;
-            display:inline-block;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .recipe_info {
-            background-color: #fce8d0;
-        }
-        
-        .recipe_box>div {
-            border-radius: 30px;
-            margin: 0;
-            border-bottom: 2px solid #b16c2e82;
-        }
-        
-        .recipe_box {
-            margin-bottom: 40px;
-        }
-        
-        .dietry-image {
-            margin-top: 5px;
-        }
-        
-        .icon-size {
-            font-size: 3rem;
-            margin-top: 3px;
-        }
-        
-        /* myrecipes.html */
-        
-        .edit_recipe {
-            background-color: #f5ba54;
-        }
-        
-        .delete_recipe {
-            background-color: #f1584c;
-        }
-        
-        /* signin.html and signup.html elements */
-        
-        .bad-input {
-            border-style: solid;
-            border-width: 3px;
-            border-color: red;
-            color: red;
-            display: inline-block;
-        }
-        
-        .sign_up_form > div {
-            margin-bottom: 0px;
-        }
+.page-footer .footer-copyright {
+    background-color: rgba(51, 51, 51, 0.2);
+}
 
-        /* addrecipe.html elements */
-        
-        .close_field {
-            color: red;
-            font-size: 3rem;
-        }
+.footer-heading {
+    color: #efefef;
+}
 
-        th>p {
-            font-style: italic;
-            color: #9e9e9e;
-        }
-        
-        td> h5 {
-            padding-top: 20px;
-            margin-bottom: 0;
-        }
+.footer-link {
+    margin-bottom: 3px;
+    color: #efefef;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
 
-        .submit_box {
-            padding: 0px 10px 5px 10px;
-        }
-        
-        .submit_box>div>div>h5 {
-            margin-top: 20px;
-        }
+.footer-link:hover {
+    color: #ef923e;
+}
 
-        .add_method_button, .add_ingredient_button {
-            margin-left: 10px;
-            width: 250px;
-        }
-        
-        .submit_box>div>p, .submit_box>div>div>p {
-            color: #9e9e9e;
-        }
+.footer-link>span {
+    padding-top: 2px;
+}
 
-        table.striped>tbody>tr:nth-child(odd) {
-            background-color: #f8f8f8;
-        }
+.icon-position {
+    margin-right: 3px;
+}
 
-        table.striped>tbody>tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-        
-        [type="checkbox"]+span:not(.lever):before, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
-            border: 2px solid #ef923e;
-        }
-        
-        input[type=text]:not(.browser-default), input[type=number]:not(.browser-default), textarea.materialize-textarea, input[type=password]:not(.browser-default), .select-wrapper input.select-dropdown:focus {
-            border-bottom: 1px solid #ef923e;
-        }
-        
-        input[type=text]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]), 
-        input.valid[type=text]:not(.browser-default), input.valid[type=number]:not(.browser-default), input.valid[type=password]:not(.browser-default), textarea.materialize-textarea.valid {
-            border-bottom: 1px solid #ef923e;
-            -webkit-box-shadow: 0 1px 0 0 #ef923e;
-            box-shadow: 0 1px 0 0 #ef923e;
-            color: #ef923e;
-        }
-        
-        input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, .input-field>label:not(.label-icon).active {
-            color: #ef923e;
-        }
-        
-        .dropdown-content li>a, .dropdown-content li>span, .select-wrapper input.select-dropdown {
-            color: #9e9e9e;
-        }
-        
-        [type="checkbox"]:checked+span:not(.lever):before {
-            border-right: 2px solid #ef923e;
-            border-bottom: 2px solid #ef923e;
-        }
+/*home.html elements*/
 
-        /* deleterecipe.html classes */
+.dietry_info {
+    border-radius: 30px;
+    background-color: #fce8d0;
+    border-bottom: 2px solid #b16c2e82;
+}
 
-        .delete_recipe_btn {
-            margin: 10px 0px 0px 0px;
-            width: 100%;
-            background-color: #f1584c;
-        }
-        
-        .delete_recipe_btn:hover {
-            background-color: #ff2323;
-        }
-        
-        .back_to_recipes_btn {
-            margin: 10px 0px 0px 0px;
-            width: 100%;
-        }
-        
-        
+.search_area {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
 
-        /* searchresults.html elements */
+.search_btn {
+    margin-top: 10px;
+    height: 50px;
+    display: block;
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
 
-        .sort_by {
-            min-width: 165px;
-        }
+.search_btn>i {
+    font-size: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        .pag_button {
-            background: none;
-            color: blue;
-            border: none;
-            font: inherit;
-            cursor: pointer;
-            font-weight: 500;
-        }
+/* repeated recipe info elements */
 
-        .disabled_pag {
-            padding: 0 6px;
-            color: #9e9e9e;
-            font-weight: 500;
-        }
-        
-        .filter_meal_heading {
-            margin-top: 20px;
-        }
-        
-        /* analytics.html elements */
+.recipe_name {
+    font-size: 24px;
+    margin: 8px 0;
+    font-family: "Fredoka One", sans-serif;
+}
 
-        .chart_border {
-            border: 3px solid grey;
-            margin-bottom: 24px;
-            border-radius: 10px;
-        }
-        
-        .dc-chart .pie-slice {
-            fill: black;
-            font-size: 13px;
-        }
+.recipe_heading {
+    background-color: #ef923e;
+    color: #f7f7f7;
+}
 
-        /* recipe.html elements */
-        
-        .collapsible {
-            margin-bottom: 40px;
-            border-radius: 30px;
-            border: none;
-        }
-        
-        .collapsible-header {
-            background-color: #ef923e;
-            border-bottom: 2px solid #b16c2e82;
-            border-radius: 30px;
-            color: #fefefe;
-        }
-        
-        .collapsible-body {
-            border: none;
-        }
-        
-        .collapsible-header > h6 {
-            padding-top: 3px;
-            color: #f7f7f7;
-            text-align: right;
-        }
-        
-        .collapsible-header > .right {
-            width: 100%;
-            text-align: right;
-        }
-        
-        .remove_favourite {
-            background-color: #f1584c;
-        }
-        
-        .remove_favourite:hover {
-            background-color: #ff2323;
-        }
+.view_recipe {
+    background-color: cadetblue;
+}
+
+.view_recipe>a,
+.edit_recipe>a,
+.delete_recipe>a {
+    color: #efefef;
+    font-weight: 500;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.recipe_info {
+    background-color: #fce8d0;
+}
+
+.recipe_box>div {
+    border-radius: 30px;
+    margin: 0;
+    border-bottom: 2px solid #b16c2e82;
+}
+
+.recipe_box {
+    margin-bottom: 40px;
+}
+
+.dietry-image {
+    margin-top: 5px;
+}
+
+.icon-size {
+    font-size: 3rem;
+    margin-top: 3px;
+}
+
+/* myrecipes.html */
+
+.edit_recipe {
+    background-color: #f5ba54;
+}
+
+.delete_recipe {
+    background-color: #f1584c;
+}
+
+/* signin.html and signup.html elements */
+
+.bad-input {
+    border-style: solid;
+    border-width: 3px;
+    border-color: red;
+    color: red;
+    display: inline-block;
+}
+
+.sign_up_form>div {
+    margin-bottom: 0px;
+}
+
+/* addrecipe.html elements */
+
+.close_field {
+    color: red;
+    font-size: 3rem;
+}
+
+th>p {
+    font-style: italic;
+    color: #9e9e9e;
+}
+
+td>h5 {
+    padding-top: 20px;
+    margin-bottom: 0;
+}
+
+.submit_box {
+    padding: 0px 10px 5px 10px;
+}
+
+.submit_box>div>div>h5 {
+    margin-top: 20px;
+}
+
+.add_method_button,
+.add_ingredient_button {
+    margin-left: 10px;
+    width: 250px;
+}
+
+.submit_box>div>p,
+.submit_box>div>div>p {
+    color: #9e9e9e;
+}
+
+table.striped>tbody>tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+table.striped>tbody>tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+[type="checkbox"]+span:not(.lever):before,
+[type="checkbox"]:not(.filled-in)+span:not(.lever):after {
+    border: 2px solid #ef923e;
+}
+
+input[type=text]:not(.browser-default),
+input[type=number]:not(.browser-default),
+textarea.materialize-textarea,
+input[type=password]:not(.browser-default),
+.select-wrapper input.select-dropdown:focus {
+    border-bottom: 1px solid #ef923e;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]),
+input.valid[type=text]:not(.browser-default),
+input.valid[type=number]:not(.browser-default),
+input.valid[type=password]:not(.browser-default),
+textarea.materialize-textarea.valid {
+    border-bottom: 1px solid #ef923e;
+    -webkit-box-shadow: 0 1px 0 0 #ef923e;
+    box-shadow: 0 1px 0 0 #ef923e;
+    color: #ef923e;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label,
+input[type=number]:not(.browser-default):focus:not([readonly])+label,
+input[type=password]:not(.browser-default):focus:not([readonly])+label,
+.input-field>label:not(.label-icon).active {
+    color: #ef923e;
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span,
+.select-wrapper input.select-dropdown {
+    color: #9e9e9e;
+}
+
+[type="checkbox"]:checked+span:not(.lever):before {
+    border-right: 2px solid #ef923e;
+    border-bottom: 2px solid #ef923e;
+}
+
+/* deleterecipe.html classes */
+
+.delete_recipe_btn {
+    margin: 10px 0px 0px 0px;
+    width: 100%;
+    background-color: #f1584c;
+}
+
+.delete_recipe_btn:hover {
+    background-color: #ff2323;
+}
+
+.back_to_recipes_btn {
+    margin: 10px 0px 0px 0px;
+    width: 100%;
+}
+
+
+
+/* searchresults.html elements */
+
+.sort_by {
+    min-width: 165px;
+}
+
+.pag_button {
+    background: none;
+    color: blue;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.disabled_pag {
+    padding: 0 6px;
+    color: #9e9e9e;
+    font-weight: 500;
+}
+
+.filter_meal_heading {
+    margin-top: 20px;
+}
+
+/* analytics.html elements */
+
+.chart_border {
+    border: 3px solid grey;
+    margin-bottom: 24px;
+    border-radius: 10px;
+}
+
+.dc-chart .pie-slice {
+    fill: black;
+    font-size: 13px;
+}
+
+/* recipe.html elements */
+
+.collapsible {
+    margin-bottom: 40px;
+    border-radius: 30px;
+    border: none;
+}
+
+.collapsible-header {
+    background-color: #ef923e;
+    border-bottom: 2px solid #b16c2e82;
+    border-radius: 30px;
+    color: #fefefe;
+}
+
+.collapsible-body {
+    border: none;
+}
+
+.collapsible-header>h6 {
+    padding-top: 3px;
+    color: #f7f7f7;
+    text-align: right;
+}
+
+.collapsible-header>.right {
+    width: 100%;
+    text-align: right;
+}
+
+.remove_favourite {
+    background-color: #f1584c;
+}
+
+.remove_favourite:hover {
+    background-color: #ff2323;
+}
