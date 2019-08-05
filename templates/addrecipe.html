@@ -250,3 +250,57 @@
     </div>
 </div>
 {% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+            var max_ingredients = 20; //maximum input boxes allowed
+            var wrapper_ingredient = $(".input_ingredients_wrap"); //Fields wrapper
+            var add_ingredient_button = $(".add_ingredient_button"); //Add button ID
+
+            var x = 3; //initlal text box count
+            $(add_ingredient_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x < max_ingredients) { //max input box allowed
+                    x++; //text box increment
+                    $(wrapper_ingredient).append(`<tr>
+                                            <td class="col s1"><h5>${x}.</h5></td>
+                                            <td class="col s2"><input type="text" id="amount[${x}]" name="amount[${x}]" required class="validate"></td>
+                                            <td class="col s4"><input type="text" id="ingredient[${x}]" name="ingredient[${x}]" required class="validate"></td>
+                                            <td class="col s4"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
+                                            <td class="col s1"><a href="#" class="remove_field"><i class="close_field material-icons right">close</i></a></td>
+                                        </tr>`); //add input box
+                }
+            });
+
+            $(wrapper_ingredient).on("click", ".remove_field", function(e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('td').parent('tr').remove();
+                x--;
+            })
+            var max_methods = 10; //maximum input boxes allowed
+            var wrapper_method = $(".input_methods_wrap"); //Fields wrapper
+            var add_method_button = $(".add_method_button"); //Add button ID
+
+            var y = 1; //initlal text box count
+            $(add_method_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (y < max_methods) { //max input box allowed
+                    y++; //text box increment
+                    $(wrapper_method).append(`<div class="input-field col s12">
+                                            <h5>Step ${y}</h5>
+                                            <textarea name="method[${y}]" id="method[${y}]" required class="materialize-textarea validate col s11"></textarea>
+                                            <a href="#" class="remove_field col s1"><i class="close_field material-icons right">close</i></a>
+                                        </div>`); //add input box
+                }
+            });
+
+            $(wrapper_method).on("click", ".remove_field", function(e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
+                y--;
+            });
+        });
+    </script>
+{% endblock %}

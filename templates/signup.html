@@ -109,7 +109,10 @@
     </div>
     {% endif %}
 </div>
-    <script type="text/javascript">
+    
+    {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
         var password = document.getElementById("password"),
             confirm_password = document.getElementById("confirm_password");
 
@@ -124,5 +127,26 @@
 
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
+        
+        $(document).ready(function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://pastebin.com/raw/k79mKHzG");
+            xhr.send();
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var countryData = {};
+                    var data = JSON.parse(this.responseText);
+                    for (var i in data) {
+                        countryData[data[i].country_name] = null;
+                    }
+                    //console.log(countryData)
+                    $('input.autocomplete').autocomplete({
+                        data: countryData,
+                        limit: 5,
+                    });
+                }
+            };
+            });
     </script>
-    {% endblock %}
+{% endblock %}
