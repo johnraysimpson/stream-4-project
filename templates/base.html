@@ -15,13 +15,35 @@
         nav .brand-logo {
             font-size: 130%;
         }
-        
+
         .container {
             width: 100%;
         }
-        
+
         .dc-chart {
             margin-left: -10px;
+        }
+
+        tr>td>h6,
+        tr>td>div>h6 {
+            margin-top: 20px;
+        }
+
+        .table-row>input[type=text]:not(.browser-default) {
+            height: 2.6rem;
+        }
+
+        .close_field {
+            font-size: 1.5rem;
+        }
+        
+        .row .col .methods {
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 3.9rem;
+            text-align: center;
         }
     }
 
@@ -31,6 +53,45 @@
             background-repeat: repeat;
             background-attachment: fixed;
         }
+    }
+
+    @media (max-width: 992px) {
+        .row .col .table-header {
+            float: none;
+            padding: 0;
+        }
+
+        .row .col .table-row,
+        .row .col .table-row>div>.row .col {
+            float: none;
+        }
+
+        .input_ingredients_wrap>tr {
+            width: 75%;
+            margin-bottom: 10px;
+        }
+
+        .table-row>input[type=text]:not(.browser-default) {
+            margin: 0;
+        }
+    }
+
+    @media (min-width: 601px) and (max-width: 992px) {
+        table.responsive-table td {
+            margin-bottom: 25px;
+        }
+
+        .close_field {
+            font-size: 2.1rem;
+        }
+    }
+
+    th {
+        display: block;
+    }
+    
+    .allergens-header {
+        width: 100%;
     }
 </style>
 
@@ -42,7 +103,7 @@
                 <li class="divider"></li>
                 <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">My Favourites</a></li>
+                <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">Favourites</a></li>
                 <li class="divider"></li>
                 <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
             </ul>
@@ -64,7 +125,7 @@
                 </li>
                 <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
                 <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
-                <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">My Favourites</a></li>
+                <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">Favourites</a></li>
                 <li><a href="{{ url_for('analytics', user_id=user._id) }}">Analytics</a></li>
                 <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
             </ul>

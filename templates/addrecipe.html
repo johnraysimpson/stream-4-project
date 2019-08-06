@@ -14,20 +14,19 @@
                     </div>
                 </div>
                 <div class="row col s12">
-                    <div class="input-field col s7">
+                    <div class="input-field col s12">
                         <h5>Meal Description*</h5>
                         <p>Describe your meal in 100 characters or less</p>
                         <input id="meal_desc" name="meal_desc" type="text" data-length="100" class="validate" required>
                     </div>
-                    <div class="input-field col s5">
+                    <div class="input-field col s12 m6">
                         <h5>No. of people*</h5>
                         <p>How many can be served?</p>
                         <input id="serves" name="serves" type="number" min="1" required class="validate" autocomplete="sdfg">
                     </div>
-                </div>
-                <div class="row col s12">
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Type of Meal*</h5>
+                        <p>What time of day is this eaten?</p>
                         <select id="meal_type" name="meal_type" required="required">
                         <option value="">Select a meal</option>
                         {% for type in meal_types %}
@@ -35,18 +34,18 @@
                         {% endfor %}
                         </select>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Preparation Time*</h5>
                         <input id="prep_time" name="prep_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Cooking Time*</h5>
                         <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" required class="validate" autocomplete="sdfg">
                     </div>
                 </div>
                 <div class="row col s12">
                     <h5 class="col s12">Please select if your meal is:</h5>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                         <input id="vegetarian" name="vegetarian" type="checkbox" />
@@ -54,7 +53,7 @@
                     </label>
                         </p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                         <input id="vegan" name="vegan" type="checkbox" />
@@ -62,7 +61,7 @@
                     </label>
                         </p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                         <input id="gluten_free" name="gluten_free" type="checkbox" />
@@ -77,50 +76,58 @@
                 <div class="row col s12">
                     <p>Add up to 20 ingredients.</p>
                 </div>
-                <div class="row col s12">
-                    <table class="row table striped col s12">
+                <div class="row col m12">
+                    <table class="row table striped col l12 responsive-table">
                         <thead>
                             <tr>
-                                <th class="col s1">
+                                <th class="col table-header l1">
+                                    <h5 class="hide-on-small-only">No.</h5>
+                                    <h6 class="hide-on-med-and-up">No.</h6>
                                 </th>
-                                <th class="col s2">
-                                    <h5>Amount*</h5>
-                                    <p>tbsp, grams, etc</p>
+                                <th class="col table-header l2">
+                                    <h5 class="hide-on-small-only">Amount*</h5>
+                                    <h6 class="hide-on-med-and-up">Amount*</h6>
+                                    <p class="hide-on-med-and-down">tbsp, grams, etc</p>
                                 </th>
-                                <th class="col s4">
-                                    <h5>Ingredient*</h5>
-                                    <p>The important element that makes your dish amazing</p>
+                                <th class="col table-header l4">
+                                    <h5 class="hide-on-small-only">Ingredient*</h5>
+                                    <h6 class="hide-on-med-and-up">Ingredient*</h6>
+                                    <p class="hide-on-med-and-down">The important element that makes your dish amazing</p>
                                 </th>
-                                <th class="col s4">
-                                    <h5>Preparation</h5>
-                                    <p>chopped, skinned, etc</p>
+                                <th class="col table-header l4">
+                                    <h5 class="hide-on-small-only">Preparation</h5>
+                                    <h6 class="hide-on-med-and-up">Preparation</h6>
+                                    <p class="hide-on-med-and-down">chopped, skinned, etc</p>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="input_ingredients_wrap">
                             <tr>
-                                <td class="col s1">
-                                    <h5>1.</h5>
+                                <td class="col table-row l1">
+                                    <h5 class="hide-on-small-only">1.</h5>
+                                    <h6 class="hide-on-med-and-up">1.</h6>
                                 </td>
-                                <td class="col s2"><input type="text" id="amount[1]" name="amount[1]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="ingredient[1]" name="ingredient[1]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
+                                <td class="col table-row l2"><input type="text" id="amount[1]" name="amount[1]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="ingredient[1]" name="ingredient[1]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="prep[1]" name="prep[1]" class="validate"></td>
                             </tr>
                             <tr>
-                                <td class="col s1">
-                                    <h5>2.</h5>
+                                <td class="col table-row l1">
+                                    <h5 class="hide-on-small-only">2.</h5>
+                                    <h6 class="hide-on-med-and-up">2.</h6>
                                 </td>
-                                <td class="col s2"><input type="text" id="amount[2]" name="amount[2]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="ingredient[2]" name="ingredient[2]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
+                                <td class="col table-row l2"><input type="text" id="amount[2]" name="amount[2]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="ingredient[2]" name="ingredient[2]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="prep[2]" name="prep[2]" class="validate"></td>
                             </tr>
                             <tr>
-                                <td class="col s1">
-                                    <h5>3.</h5>
+                                <td class="col table-row l1">
+                                    <h5 class="hide-on-small-only">3.</h5>
+                                    <h6 class="hide-on-med-and-up">3.</h6>
                                 </td>
-                                <td class="col s2"><input type="text" id="amount[3]" name="amount[3]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="ingredient[3]" name="ingredient[3]" required class="validate"></td>
-                                <td class="col s4"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
+                                <td class="col table-row l2"><input type="text" id="amount[3]" name="amount[3]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="ingredient[3]" name="ingredient[3]" required class="validate"></td>
+                                <td class="col table-row l4"><input type="text" id="prep[3]" name="prep[3]" class="validate"></td>
                             </tr>
                     </table>
                     <button class="add_ingredient_button btn waves-effect waves-light"><i class="material-icons left">add_box</i>Another Ingredient</button>
@@ -131,7 +138,7 @@
                 <div class="row col s12">
                     <p>Add up to 10 steps</p>
                 </div>
-                <div class="row col s12">
+                <div class="row methods col s12">
                     <div class="input_methods_wrap">
                         <div class="input-field col s12">
                             <h5>Step 1*</h5>
@@ -263,11 +270,14 @@
             if (x < max_ingredients) { //max input box allowed
                 x++; //text box increment
                 $(wrapper_ingredient).append(`<tr>
-                                            <td class="col s1"><h5>${x}.</h5></td>
-                                            <td class="col s2"><input type="text" id="amount[${x}]" name="amount[${x}]" required class="validate"></td>
-                                            <td class="col s4"><input type="text" id="ingredient[${x}]" name="ingredient[${x}]" required class="validate"></td>
-                                            <td class="col s4"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
-                                            <td class="col s1"><a href="#" class="remove_field"><i class="close_field material-icons right">close</i></a></td>
+                                            <td class="col table-row l1">
+                                                <h5 class="hide-on-small-only">${x}.<a href="#" class="remove_field hide-on-small-only hide-on-large-only"><i class="close_field material-icons right">close</i></a></h5>
+                                                <h6 class="hide-on-med-and-up">${x}.<a href="#" class="remove_field hide-on-med-and-up"><i class="close_field material-icons right">close</i></a></h6>
+                                            </td>
+                                            <td class="col table-row l2"><input type="text" id="amount[${x}]" name="amount[${x}]" required class="validate"></td>
+                                            <td class="col table-row l4"><input type="text" id="ingredient[${x}]" name="ingredient[${x}]" required class="validate"></td>
+                                            <td class="col table-row l4"><input type="text" id="prep[${x}]" name="prep[${x}]" class="validate"></td>
+                                            <td class="col table-row hide-on-med-and-down l1"><a href="#" class="remove_field"><i class="close_field material-icons right">close</i></a></td>
                                         </tr>`); //add input box
             }
         });
@@ -275,6 +285,8 @@
         $(wrapper_ingredient).on("click", ".remove_field", function(e) { //user click on remove text
             e.preventDefault();
             $(this).parent('td').parent('tr').remove();
+            $(this).parent('h6').parent('td').parent('tr').remove();
+            $(this).parent('h5').parent('td').parent('tr').remove();
             x--;
         })
         var max_methods = 10; //maximum input boxes allowed
