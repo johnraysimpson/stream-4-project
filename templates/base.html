@@ -10,46 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
-<style type="text/css">
-    
-    .filter_box {
-        margin-bottom: 0;
-    }
-    
-    .results_found {
-        margin-top: 0;
-    }
-    
-    .peanuts-filter {
-        margin-top: 0;
-    }
-    
-    .filter_box>ul>li>div>div>div>div>div {
-        margin: 10px 0;
-    }
-    
-    .filters_collapsible {
-        padding: 10px;
-    }
-    
-    [type="radio"]:not(:checked)+span:before,
-    [type="radio"]:not(:checked)+span:after {
-        border: 2px solid #ef923e;
-    }
-    
-    [type="radio"]:checked+span:after,
-    [type="radio"].with-gap:checked+span:after {
-        background-color: #ef923e;
-    }
-    
-    [type="radio"]:checked+span:after,
-    [type="radio"].with-gap:checked+span:before,
-    [type="radio"].with-gap:checked+span:after {
-        border: 2px solid #b16c2e82;
-    }
-    
-</style>
-
 </head>
 <body>
     {% if user %}
