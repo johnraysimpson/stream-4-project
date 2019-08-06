@@ -14,43 +14,42 @@
                     </div>
                 </div>
                 <div class="row col s12">
-                    <div class="input-field col s7">
+                    <div class="input-field col s12">
                         <h5>Meal Description*</h5>
                         <p>Describe your meal in 100 characters or less</p>
                         <input id="meal_desc" name="meal_desc" type="text" value="{{ recipe.meal_desc }}" data-length="100" class="validate" required>
                     </div>
-                    <div class="input-field col s5">
-                        <h5>Number of people*</h5>
+                    <div class="input-field col s12 m6">
+                        <h5>No. of people*</h5>
                         <p>How many can be served?</p>
                         <input id="serves" name="serves" type="number" value="{{ recipe.serves_int }}" min="1" required class="validate" autocomplete="sdfg">
                     </div>
-                </div>
-                <div class="row col s12">
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Type of Meal*</h5>
+                        <p>What time of day is this eaten?</p>
                         <select id="meal_type" name="meal_type" required="required">
-                    <option value="">Select a meal</option>
-                    {% for type in meal_types %}
-                        {% if type.meal_type == recipe.meal_type %}
-                            <option value="{{type.meal_type}}" selected>{{type.meal_type}}</option>
-                        {% else %}
-                            <option value="{{type.meal_type}}">{{type.meal_type}}</option>
-                        {% endif %}
-                    {% endfor %}
-                    </select>
+                            <option value="">Select a meal</option>
+                            {% for type in meal_types %}
+                                {% if type.meal_type == recipe.meal_type %}
+                                    <option value="{{type.meal_type}}" selected>{{type.meal_type}}</option>
+                                {% else %}
+                                    <option value="{{type.meal_type}}">{{type.meal_type}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Preparation Time*</h5>
                         <input id="prep_time" name="prep_time" type="number" value="{{ recipe.prep_time }}" placeholder="In minutes" min="1" class="validate" required autocomplete="sdfg">
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s12 m6">
                         <h5>Cooking Time*</h5>
                         <input id="cook_time" name="cook_time" type="number" placeholder="In minutes" min="1" value="{{recipe.cook_time}}" class="validate" required autocomplete="sdfg">
                     </div>
                 </div>
                 <div class="row col s12">
                     <h5 class="col s12">Please select if your meal is:</h5>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                             {% if recipe.vegetarian %}
@@ -62,7 +61,7 @@
                         </label>
                         </p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                             {% if recipe.vegan %}
@@ -74,7 +73,7 @@
                         </label>
                         </p>
                     </div>
-                    <div class="col s4">
+                    <div class="col s12 m4">
                         <p>
                             <label>
                             {% if recipe.gluten_free %}
@@ -88,11 +87,10 @@
                     </div>
                 </div>
             </div>
-
             <h3>Edit Ingredients</h3>
             <div class="submit_box">
                 <div class="row col s12">
-                    <table class="table striped col s6">
+                    <table class="table striped col s12 m6">
                         <thead hidden>
                         </thead>
                         <tbody>
@@ -105,7 +103,7 @@
                             </tr>
                             {% endfor %}
                     </table>
-                    <table class="table striped col s6">
+                    <table class="table striped col s12 m6">
                         <thead hidden>
                         </thead>
                         <tbody>
@@ -132,12 +130,12 @@
                 </div>
             </div>
             <h3>Allergens</h3>
-            <div class="submit_box">
-                <div class="col s12">
+                <div class="row col s12">
                     <p>Please select any of the following if they are in your recipe, click <a target="_blank" href="https://www.food.gov.uk/sites/default/files/media/document/top-allergy-types.pdf">here</a> for more details</p>
                 </div>
+            <div class="submit_box">
                 <div class="row col s12">
-                    <div class="col s6 m4">
+                    <div class="col s12 m6 l4">
                         <p>
                             <label>
                             {% if recipe.allergens['celery'] %}
@@ -189,8 +187,8 @@
                             </label>
                         </p>
                     </div>
-                    <div class="col s6 m4">
-                        <p>
+                    <div class="col s12 m6 l4">
+                        <p class="lupin-checkbox">
                             <label>
                             {% if recipe.allergens['lupin'] %}
                                 <input id="lupin" name="lupin" value="Lupin" type="checkbox" checked/>
@@ -241,8 +239,8 @@
                             </label>
                         </p>
                     </div>
-                    <div class="col s6 m4">
-                        <p>
+                    <div class="col s12 m6 l4">
+                        <p class="peanuts-checkbox">
                             <label>
                             {% if recipe.allergens['peanuts'] %}
                                 <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" checked/>

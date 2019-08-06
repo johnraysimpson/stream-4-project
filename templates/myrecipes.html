@@ -9,28 +9,52 @@
             <p class="recipe_name col s12">{{recipe.meal_name}}</p>
         </div>
         <div class="row col s12 recipe_info">
-            <i class="material-icons icon-size col s1">local_dining</i>
-            <p class="col s2 center-align"> {{ recipe.meal_type }}</p>
-            <i class="material-icons icon-size col s1 offset-s1">access_time</i>
-            <p class="col s2 center-align"> {{ recipe.total_time_string }}</p>
-            <i class="material-icons icon-size col s1 offset-s1">people_outline</i>
-            <p class="col s2 center-align"> {{ recipe.serves }}</p>
+            <i class="material-icons icon-size col s2 m1">local_dining</i>
+            <p class="col s4 m2 center-align"> {{ recipe.meal_type }}</p>
+            <i class="material-icons icon-size col s2 m1 offset-m1">access_time</i>
+            <p class="col s4 m2 center-align"> {{ recipe.total_time_string }}</p>
+            <i class="material-icons icon-size hide-on-small-only col m1 offset-m1">people_outline</i>
+            <p class="col hide-on-small-only m2 center-align"> {{ recipe.serves }}</p>
         </div>
-        <div class="col s12 recipe_info">
-            <p class="col s4 center-align">Added on: {{ recipe.date_added }}</p>
-            <p class="col s4 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+        <div class="row col s12 recipe_info hide-on-med-and-up">
+            <i class="material-icons icon-size col s2">people_outline</i>
+            <p class="col s4 center-align"> {{ recipe.serves }}</p>
+            <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
         </div>
-        <div class="col s4 view_recipe">
+        {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+            <div class="row col s12 hide-on-small-only recipe_info">
+                {% if recipe.vegetarian %}
+                    <div class="col s4 center-align">
+                        <img class="dietry-image" src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+                    </div>
+                {% endif %} 
+                {% if recipe.vegan %}
+                    <div class="col s4 center-align">
+                        <img class="dietry-image" src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+                    </div>
+                {% endif %} 
+                {% if recipe.gluten_free %}
+                    <div class="col s4 center-align">
+                        <img class="dietry-image" src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="col m12 recipe_info hide-on-small-only">
+            <p class="col m6 center-align">Added on: {{ recipe.date_added }}</p>
+            <p class="col m6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+        </div>
+        <div class="col s12 m4 view_recipe">
             <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
                 <p>View this recipe</p>
             </a>
         </div>
-        <div class="col s4 edit_recipe">
+        <div class="col s12 m4 edit_recipe">
             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, user_id=user._id) }}">
                 <p>Edit this recipe</p>
             </a>
         </div>
-        <div class="col s4 delete_recipe">
+        <div class="col s12 m4 delete_recipe">
             <a href="{{ url_for('delete_confirm', recipe_id=recipe._id, user_id=user._id) }}">
                 <p>Delete this recipe</p>
             </a>

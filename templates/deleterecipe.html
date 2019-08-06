@@ -6,22 +6,27 @@
     <div class="row col s12">
         <h5 class="delete_confirm_text center-align">Are you sure you want to permanently delete this recipe?</h5>
         <div class="recipe_box row col s12">
-            <div class="row col s12 recipe_heading">
-                <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+                <div class="row col s12 recipe_heading">
+                    <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+                </div>
+                <div class="row col s12 recipe_info">
+                    <i class="material-icons icon-size col s2 m1">local_dining</i>
+                    <p class="col s4 m2 center-align"> {{ recipe.meal_type }}</p>
+                    <i class="material-icons icon-size col s2 m1 offset-m1">access_time</i>
+                    <p class="col s4 m2 center-align"> {{ recipe.total_time_string }}</p>
+                    <i class="material-icons icon-size hide-on-small-only col m1 offset-m1">people_outline</i>
+                    <p class="col hide-on-small-only m2 center-align"> {{ recipe.serves }}</p>
+                </div>
+                <div class="row col s12 recipe_info hide-on-med-and-up">
+                    <i class="material-icons icon-size col s2">people_outline</i>
+                    <p class="col s4 center-align"> {{ recipe.serves }}</p>
+                    <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+                </div>
+                <div class="col m8 recipe_info hide-on-small-only">
+                    <p class="col m6 center-align">Added on: {{ recipe.date_added }}</p>
+                    <p class="col m6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+                </div>
             </div>
-            <div class="row col s12 recipe_info">
-                <i class="material-icons icon-size col s1">local_dining</i>
-                <p class="col s2 center-align"> {{ recipe.meal_type }}</p>
-                <i class="material-icons icon-size col s1 offset-s1">access_time</i>
-                <p class="col s2 center-align"> {{ recipe.total_time_string }}</p>
-                <i class="material-icons icon-size col s1 offset-s1">people_outline</i>
-                <p class="col s2 center-align"> {{ recipe.serves }}</p>
-            </div>
-            <div class="col s12 recipe_info">
-                <p class="col s4 center-align">Added on: {{ recipe.date_added }}</p>
-                <p class="col s4 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
-            </div>
-        </div>
         <div class="col l3 m6 s12 offset-l3">
             <a href="{{ url_for('get_user_recipes', user_id=user._id) }}">
                 <button class="back_to_recipes_btn btn waves-effect waves-light">
