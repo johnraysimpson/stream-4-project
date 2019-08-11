@@ -25,17 +25,17 @@
             <div class="row col s12 hide-on-small-only recipe_info">
                 {% if recipe.vegetarian %}
                     <div class="col s4 center-align">
-                        <img class="dietry-image" src="http://images.sasongsmat.nu/vegetarianmark/vegetarian-mark.svg" height=40px>
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/vegetarian-mark.svg') }}" height=40px>
                     </div>
                 {% endif %} 
                 {% if recipe.vegan %}
                     <div class="col s4 center-align">
-                        <img class="dietry-image" src="https://868estatevineyards.com/wp-content/uploads/2019/02/Vegan-Symbol.png" height=40px>
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/Vegan-Symbol.png') }}" height=40px>
                     </div>
                 {% endif %} 
                 {% if recipe.gluten_free %}
                     <div class="col s4 center-align">
-                        <img class="dietry-image" src="http://cdn.onlinewebfonts.com/svg/img_480644.png" height=40px>
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/gluten-free.png') }}" height=40px>
                     </div>
                 {% endif %}
             </div>

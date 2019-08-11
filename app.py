@@ -61,10 +61,10 @@ def sign_in():
     
 @app.route('/log_in/failed', methods=["POST"])
 def log_in():
-    users = mongo.db.users.find({'username': request.form.get('username'), 'password': request.form.get('password')})
+    users = mongo.db.users.find({'username': request.form.get('username').lower(), 'password': request.form.get('password')})
     if request.method == 'POST':
         if users.count() > 0:
-            user = mongo.db.users.find_one({'username': request.form.get('username'), 'password': request.form.get('password')})
+            user = mongo.db.users.find_one({'username': request.form.get('username').lower(), 'password': request.form.get('password')})
         else:
             error = "Sorry, your Username or Password is incorrect"
             return render_template('signin.html', error = error)
@@ -77,7 +77,7 @@ def sign_out():
 @app.route('/add_recipe/<user_id>')
 def add_recipe(user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-    meal_types = mongo.db.meal_type.find()
+    meal_types = mongo.db.meal_type.find().sort('id')
     return render_template('addrecipe.html', user=user, meal_types=meal_types)
     
 @app.route('/insert_recipe/<user_id>', methods=["POST", "GET"])
@@ -196,7 +196,7 @@ def view_recipe(recipe_id, user_id):
 def edit_recipe(recipe_id, user_id):
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    meal_types = mongo.db.meal_type.find()
+    meal_types = mongo.db.meal_type.find().sort('_id')
     return render_template('editrecipe.html', recipe=recipe, user=user, meal_types=meal_types)
     
 @app.route('/update_recipe/<recipe_id>/<user_id>', methods=["POST", "GET"])
@@ -353,7 +353,7 @@ def search_recipes(user_id, page):
                 filters.update({'meal_type': search_params['meal_type']})
     #find based on applied filters
     found_recipes = mongo.db.recipes.find(filters).sort('favourite_count', -1)
-    meal_types = mongo.db.meal_type.find()
+    meal_types = mongo.db.meal_type.find().sort('_id')
     #sort filter
     if request.form.get('sort_by') == 'newest':
         found_recipes = found_recipes.sort('date_and_time', -1)

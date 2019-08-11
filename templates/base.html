@@ -27,6 +27,7 @@
                     <a href="{{ url_for('home', user_id=user._id) }}" class="brand-logo">Easy RecipEasy</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
+                        <li><a href="{{ url_for('home', user_id=user._id) }}">Home</a></li>
                         <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hi, {{ user.first.capitalize() }}<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
                         <li><a href="{{ url_for('analytics', user_id=user._id) }}">Analytics</a></li>
@@ -36,8 +37,9 @@
     
             <ul class="sidenav" id="mobile-demo">
                 <li class="mobile_greeting">
-                    <h5>Hi, {{ user.first.capitalize() }}</h5>
+                    <h5 class='nav-greeting'>Hi, {{ user.first.capitalize() }}</h5>
                 </li>
+                <li><a href="{{ url_for('home', user_id=user._id) }}">Home</a></li>
                 <li><a href="{{ url_for('add_recipe', user_id=user._id) }}">Add Recipe</a></li>
                 <li><a href="{{ url_for('get_user_recipes', user_id=user._id) }}">My Recipes</a></li>
                 <li><a href="{{ url_for('get_favourite_recipes', user_id=user._id) }}">Favourites</a></li>
@@ -52,6 +54,7 @@
                     <a href="{{ url_for('home', user_id='0') }}" class="brand-logo">Easy RecipEasy</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
+                        <li><a href="{{ url_for('home', user_id='0') }}">Home</a></li>
                         <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
                         <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
                         <li><a href="{{ url_for('analytics', user_id='0') }}">Analytics</a></li>
@@ -60,6 +63,7 @@
             </nav>
     
             <ul class="sidenav" id="mobile-demo">
+                <li><a href="{{ url_for('home', user_id='0') }}">Home</a></li>
                 <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
                 <li><a href="{{ url_for('sign_up') }}">Sign Up</a></li>
                 <li><a href="{{ url_for('analytics', user_id='0') }}">Analytics</a></li>
@@ -75,11 +79,25 @@
     <footer class="page-footer">
         <div class="container">
             <div class="row">
-                <div class="col l6 s12 center-align">
+                <div class="col l4 s12 center-align">
                     <h5 class="footer-heading">Easy RecipEasy Recipes</h5>
                     <p>Made by users, for the users. Quick and easy recipes, particularly for students, working professionals or just about anyone!</p>
                 </div>
-                <div class="col l4 offset-l2 s12 center-align-mobile">
+                <div class="col l3 offset-l1 s6">
+                    <h5 class="footer-heading">Dietary Symbols</h5>
+                    <ul>
+                        <li class="valign-wrapper dietary_info">
+                            <img class="footer-img" src="{{ url_for('static', filename='images/vegetarian-mark.svg') }}" height=30px width=30px><span>Vegetarian</span>
+                        </li>
+                        <li class="valign-wrapper dietary_info">
+                            <img class="footer-img footer-img-bg" src="{{ url_for('static', filename='images/Vegan-Symbol.png') }}" height=30px><span>Vegan</span>
+                        </li>
+                        <li class="valign-wrapper dietary_info">
+                            <img class="footer-img footer-img-bg" src="{{ url_for('static', filename='images/gluten-free.png') }}" height=30px><span>Gluten free</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l3 offset-l1 s6">
                     <h5 class="footer-heading">Useful Links</h5>
                     <ul>
                         {% if user %}

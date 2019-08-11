@@ -12,6 +12,10 @@ nav {
     box-shadow: none;
 }
 
+.nav-greeting {
+    margin: 10px 0px 10px 10px;
+}
+
 .brand-logo {
     margin-left: 10px;
     font-family: "Fredoka One", sans-serif;
@@ -49,6 +53,7 @@ h6 {
 
 .page-footer {
     background-color: #525252;
+    color: #efefef;
 }
 
 .page-footer .footer-copyright {
@@ -80,13 +85,22 @@ h6 {
     margin-right: 3px;
 }
 
+.footer-img {
+    margin-right: 5px;
+}
+
+.footer-img-bg {
+    border-radius: 50%;
+    background-color: #efefef;
+}
+
+.dietary_info {
+    margin-bottom: 5px;
+}
+
 /*home.html elements*/
 
-.dietry_info {
-    border-radius: 30px;
-    background-color: #fce8d0;
-    border-bottom: 2px solid #b16c2e82;
-}
+
 
 .search_area {
     margin-top: 20px;
@@ -152,7 +166,7 @@ h6 {
     margin-bottom: 40px;
 }
 
-.dietry-image {
+.dietary-image {
     margin-top: 5px;
 }
 

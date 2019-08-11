@@ -81,7 +81,7 @@
 
         var total_time_dim = ndx.dimension(function(d) {
             if (d.total_time < 31)
-                return '≥ 30 mins';
+                return '≤ 30 mins';
             else if (d.total_time > 30 && d.total_time < 60)
                 return '30 - 60 mins';
             else
