@@ -102,4 +102,66 @@ Sign in form
 Add recipe form
 * tried empty fields to check required attributes were working and error message appears.
 * tried to type letters in number fields
-* tried to exceed character count on meal description
+* tried to exceed character count on meal description and meal name to check if they work properly.
+* looked at type of meal field to see if those are being retrieved from MongoDB correctly.
+* tested functionality of buttons to add new fields and they work appropriately, used google chrome developer tools to check HTML code.
+* tried a range of different inputs to see if they are sent to MongoDB correctly, particularly for the coding for how the ingredients are used and written after posting.
+
+Edit recipe form
+* checked to see if correct information was being returned and in the correct fields.
+* very similar form to the add recipe form so many of the same tests were done.
+
+Delete recipe request
+* checked to see if the user is redirected to the correct confirmation page with the correct information about the recipe.
+* tried to delete recipe and checked to see if it was removed from the database.
+
+Recipe page
+* checked information loaded correctly
+* tested the collapsible element, and making the accordion effect false.
+
+Nav bar
+* tested dropdown function works.
+* tested mobile view works.
+* tested all links take you to appropriate pages.
+
+Data analytics
+* checked the pie charts represent the correct data.
+* checked my code for center alignment works.
+
+Search form
+* tried to enter a term that doesn't exist in data to see if 0 results.
+* tried to enter a term in all recipes to see if all results are returned.
+* tried to enter specific terms to see if one or two results are returned.
+* tested a range of combinations of filters to check if they work correctly.
+* tested pagination for just 2 results per page, increased this to 10.
+
+Mobile responsiveness
+* tested all pages to ensure they look good on all screen widths.
+
+## Deployment
+
+The files in this project have been pushed to my GitHub repository and can be found here https://github.com/johnraysimpson/stream-4-project Each git commit had a meaningful message describing the changes and happened frequently.
+The app has been deployed to Heroku using the CLI and can be found here https://cook-book-project-db.herokuapp.com/
+The config vars are in heroku so the app can only be seen there, these include:
+* the MONGO_URI
+* a SECRET_KEY
+* the PORT
+* the IP
+To run the code locally these values would need to be used in the app.py file.
+
+## Credits
+
+Links used to help with any areas I found difficult
+* jinja methods documentation - http://jinja.pocoo.org/docs/2.10/templates/#builtin-filters
+* information about values and keys - https://stackoverflow.com/questions/44619572/join-the-values-only-in-a-python-dictionary
+* very helpful resource to use MongoDB information for data visualisation - http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
+* implementing "add fields" buttons toapp recipe page - https://www.allphptricks.com/add-remove-input-fields-dynamically-using-jquery/
+
+Media
+* vegetarian mark was found here - http://vegetarianmark.net/
+* Vegan symbol was found here - https://868estatevineyards.com/visit/the-grill/vegan-symbol/
+* Gluten free symbol found here - https://github.com/FortAwesome/Font-Awesome/issues/15304
+
+Acknowledgements
+* Big thanks to my partner, who has a surplus amount of recipe books and has a wide knowledge of recipe websites. It helped immensely when making this project.
+* Many thanks goes to the slack community, they were very helpful, particularly with the movement to Amazon Web Services.
