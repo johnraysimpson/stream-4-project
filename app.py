@@ -10,11 +10,8 @@ from bson.json_util import dumps
 import math
 
 
-
-result = ""
-
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = os.getenv('SECRET_KEY')
 app.config["MONGO_DBNAME"] = 'cook_book'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
