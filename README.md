@@ -51,7 +51,7 @@ User features (once signed in)
 ### Features left to implement
 
 * A safer account creation process would make this site more secure, I have included a message on the sign up page for users not to use a password they regularly use just in case.
-* Pictures of the meals would have been nice, however upon researching this I found I would need tomake use of GridFS. With more time this may have been a useful implement.
+* Pictures of the meals would have been nice, however upon researching this I found I would need to make use of GridFS. With more time this may have been a useful implement.
 * A more concise method of searching, my application currently uses the full text search `$text`. Although this works, you can search 'june' and get all the recipes created in June. I know the operator `$regex` can be used to do this and I may use that in future.
 
 ## Technologies used
@@ -156,6 +156,8 @@ Links used to help with any areas I found difficult
 * information about values and keys - https://stackoverflow.com/questions/44619572/join-the-values-only-in-a-python-dictionary
 * very helpful resource to use MongoDB information for data visualisation - http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
 * implementing "add fields" buttons toapp recipe page - https://www.allphptricks.com/add-remove-input-fields-dynamically-using-jquery/
+
+The rest of the code was written by myself, I felt I've come a long way and Python really made sense to me.
 
 Media
 * vegetarian mark was found here - http://vegetarianmark.net/
