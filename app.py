@@ -11,9 +11,9 @@ import math
 
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey'
+app.secret_key = os.getenv('SECRET_KEY')
 app.config["MONGO_DBNAME"] = 'cook_book'
-app.config["MONGO_URI"] = 'mongodb+srv://jraysim:OrganD0NER@myfirstcluster-hdrnx.mongodb.net/cook_book?retryWrites=true&w=majority'
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
