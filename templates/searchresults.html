@@ -6,373 +6,391 @@
     <div class="row col s12">
         {% if user %}
         <form action="{{ url_for('search_recipes', user_id=user._id, page='1') }}" method="POST">
-            {% else %}
-            <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST">
-                {% endif %}
-                <div class="row col s12">
-                    <div class="input-field col s12 m7 l9">
-                        <h6>Search term:</h6>
-                        <input id="search" name="search" type="text" required placeholder="Enter keywords" value="{{ search_params.search }}" autocomplete="sdfg">
-                    </div>
-                    <div class="input-field col s12 m5 l3 sort_by">
-                        <h6>Sort by:</h6>
-                        <select id="sort_by" name="sort_by" required="required">
-                            <option value="favourites">Most favourited</option>
-                            {% if search_params.sort_by == 'newest' %}
-                                <option value="newest" selected>Newest first</option>
-                            {% else %}
-                                <option value="newest">Newest first</option>
-                            {% endif %}
-                        </select>
-                    </div>
+        {% else %}
+        <form action="{{ url_for('search_recipes', user_id='0', page='1') }}" method="POST">
+            {% endif %}
+            <div class="row col s12">
+                <div class="input-field col s12 m7 l9">
+                    <h6>Search term:</h6>
+                    <input id="search" name="search" type="text" required placeholder="Enter keywords" value="{{ search_params.search }}" autocomplete="sdfg">
                 </div>
-                <div class="row col s12 filter_box">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_list</i>
-                                <h6>Filters</h6><i class="material-icons right">arrow_drop_down</i>
-                            </div>
-                            <div class="collapsible-body filters_collapsible">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <div class="col s12 l6">
-                                            <div class="col s10">
-                                                <h5>Type of Meal</h5>
-                                                <select id="meal_type" name="meal_type">
-                                            <option value="any_type">Any type</option>
-                                            {% for type in meal_types %}
-                                                {% if type.meal_type == search_params.meal_type %}
-                                                    <option value="{{type.meal_type}}" selected>{{type.meal_type}}</option>
-                                                {% else %}
-                                                    <option value="{{type.meal_type}}">{{type.meal_type}}</option>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </select>
-                                            </div>
-                                            <div class="col s12">
-                                                <h5>Time</h5>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.time == 'time_30' or search_params.time == 'time_30_60' or search_params.time == 'time_over_60' %}
-                                                    <input name="time" value="any_time" type="radio" />
-                                                {% else %}
-                                                    <input name="time" value="any_time" type="radio" checked />
-                                                {% endif %}
-                                                <span>Any time</span>
-                                            </label>
-                                                </p>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.time == 'time_30' %}
-                                                    <input name="time" value="time_30" type="radio" checked />
-                                                {% else %}
-                                                    <input name="time" value="time_30" type="radio" />
-                                                {% endif %}
-                                                <span>30 minutes or less</span>
-                                            </label>
-                                                </p>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.time == 'time_30_60' %}
-                                                    <input name="time" value="time_30_60" type="radio" checked />
-                                                {% else %}
-                                                    <input name="time" value="time_30_60" type="radio" />
-                                                {% endif %}
-                                                <span>30-60 minutes</span>
-                                            </label>
-                                                </p>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.time == 'time_over_60' %}
-                                                    <input name="time" value="time_over_60" type="radio" checked />
-                                                {% else %}
-                                                    <input name="time" value="time_over_60" type="radio" />
-                                                {% endif %}
-                                                <span>60 minutes or over</span>
-                                            </label>
-                                                </p>
-                                            </div>
-                                            <div class="col s12">
-                                                <h5>dietary Requirements</h5>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.vegetarian %}
-                                                    <input id="vegetarian" name="vegetarian" type="checkbox" checked/>
-                                                {% else %}
-                                                    <input id="vegetarian" name="vegetarian" type="checkbox"/>
-                                                {% endif %}
-                                                <span>Vegetarian</span>
-                                            </label>
-                                                </p>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.vegan %}
-                                                    <input id="vegan" name="vegan" type="checkbox"  checked/>
-                                                {% else %}
-                                                    <input id="vegan" name="vegan" type="checkbox"/>
-                                                {% endif %}
-                                                <span>Vegan</span>
-                                            </label>
-                                                </p>
-                                                <p>
-                                                    <label>
-                                                {% if search_params.gluten_free %}
-                                                    <input id="gluten_free" name="gluten_free" type="checkbox" checked/>
-                                                {% else %}
-                                                    <input id="gluten_free" name="gluten_free" type="checkbox"/>
-                                                {% endif %}
-                                                <span>Gluten free</span>
-                                            </label>
-                                                </p>
-                                            </div>
+                <div class="input-field col s12 m5 l3 sort_by">
+                    <h6>Sort by:</h6>
+                    <select id="sort_by" name="sort_by" required="required">
+                        <option value="favourites">Most favourited</option>
+                        {% if search_params.sort_by == 'newest' %}
+                            <option value="newest" selected>Newest first</option>
+                        {% else %}
+                            <option value="newest">Newest first</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="row col s12 filter_box">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">filter_list</i>
+                            <h6>Filters</h6><i class="material-icons right">arrow_drop_down</i>
+                        </div>
+                        <div class="collapsible-body filters_collapsible">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="col s12 l6">
+                                        <div class="col s10">
+                                            <h5>Type of Meal</h5>
+                                            <select id="meal_type" name="meal_type">
+                                                <option value="any_type">Any type</option>
+                                                {% for type in meal_types %}
+                                                    {% if type.meal_type == search_params.meal_type %}
+                                                        <option value="{{type.meal_type}}" selected>{{type.meal_type}}</option>
+                                                    {% else %}
+                                                        <option value="{{type.meal_type}}">{{type.meal_type}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
                                         </div>
+                                        <div class="col s12">
+                                            <h5>Time</h5>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.time == 'time_30' or search_params.time == 'time_30_60' or search_params.time == 'time_over_60' %}
+                                                        <input name="time" value="any_time" type="radio" />
+                                                    {% else %}
+                                                        <input name="time" value="any_time" type="radio" checked />
+                                                    {% endif %}
+                                                    <span>Any time</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.time == 'time_30' %}
+                                                        <input name="time" value="time_30" type="radio" checked />
+                                                    {% else %}
+                                                        <input name="time" value="time_30" type="radio" />
+                                                    {% endif %}
+                                                    <span>30 minutes or less</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.time == 'time_30_60' %}
+                                                        <input name="time" value="time_30_60" type="radio" checked />
+                                                    {% else %}
+                                                        <input name="time" value="time_30_60" type="radio" />
+                                                    {% endif %}
+                                                    <span>30-60 minutes</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.time == 'time_over_60' %}
+                                                        <input name="time" value="time_over_60" type="radio" checked />
+                                                    {% else %}
+                                                        <input name="time" value="time_over_60" type="radio" />
+                                                    {% endif %}
+                                                    <span>60 minutes or over</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="col s12">
+                                            <h5>dietary Requirements</h5>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.vegetarian %}
+                                                        <input id="vegetarian" name="vegetarian" type="checkbox" checked/>
+                                                    {% else %}
+                                                        <input id="vegetarian" name="vegetarian" type="checkbox"/>
+                                                    {% endif %}
+                                                    <span>Vegetarian</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.vegan %}
+                                                        <input id="vegan" name="vegan" type="checkbox"  checked/>
+                                                    {% else %}
+                                                        <input id="vegan" name="vegan" type="checkbox"/>
+                                                    {% endif %}
+                                                    <span>Vegan</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    {% if search_params.gluten_free %}
+                                                        <input id="gluten_free" name="gluten_free" type="checkbox" checked/>
+                                                    {% else %}
+                                                        <input id="gluten_free" name="gluten_free" type="checkbox"/>
+                                                    {% endif %}
+                                                    <span>Gluten free</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div class="col s12 l6">
                                         <div class="col s12">
-                                        <h5>Allergens</h5>
-                                        <p>select to omit any results with the following:</p>
-                                        <div class="col s12 m6">
-                                            <p>
-                                                <label>
-                                                    {% if search_params.celery %}
-                                                        <input id="celery" name="celery" value="Celery" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="celery" name="celery" value="Celery" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Celery</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.gluten %}
-                                                        <input id="gluten" name="gluten" value="Gluten" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Gluten</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.crustaceans %}
-                                                        <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Crustaceans</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.egg %}
-                                                        <input id="egg" name="egg" value="Egg" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="egg" name="egg" value="Egg" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Egg</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.fish %}
-                                                        <input id="fish" name="fish" value="Fish" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="fish" name="fish" value="Fish" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Fish</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                        <div class="col s12 m6">
-                                            <p class="lupin-checkbox">
-                                                <label>
-                                                    {% if search_params.lupin %}
-                                                        <input id="lupin" name="lupin" value="Lupin" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Lupin</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.milk %}
-                                                        <input id="milk" name="milk" value="Milk" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="milk" name="milk" value="Milk" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Milk</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.molluscs %}
-                                                        <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Molluscs</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.mustard %}
-                                                        <input id="mustard" name="mustard" value="Mustard" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Mustard</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.nuts %}
-                                                        <input id="nuts" name="nuts" value="Nuts" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Nuts</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                        <div class="col s12 m6">
-                                            <p class="peanuts-filter">
-                                                <label>
-                                                    {% if search_params.peanuts %}
-                                                        <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Peanuts</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.sesame_seeds %}
-                                                        <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Sesame seeds</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.soya %}
-                                                        <input id="soya" name="soya" value="Soya" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="soya" name="soya" value="Soya" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Soya</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    {% if search_params.sulpher_dioxide %}
-                                                        <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" checked/>
-                                                    {% else %}
-                                                        <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
-                                                    {% endif %}
-                                                    <span>Sulpher dioxide (sulphates)</span>
-                                                </label>
-                                            </p>
-                                        </div>
+                                            <h5>Allergens</h5>
+                                            <p>select to omit any results with the following:</p>
+                                            <div class="col s12 m6">
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.celery %}
+                                                            <input id="celery" name="celery" value="Celery" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="celery" name="celery" value="Celery" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Celery</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.gluten %}
+                                                            <input id="gluten" name="gluten" value="Gluten" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="gluten" name="gluten" value="Gluten" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Gluten</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.crustaceans %}
+                                                            <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="crustaceans" name="crustaceans" value="Crustaceans" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Crustaceans</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.egg %}
+                                                            <input id="egg" name="egg" value="Egg" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="egg" name="egg" value="Egg" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Egg</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.fish %}
+                                                            <input id="fish" name="fish" value="Fish" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="fish" name="fish" value="Fish" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Fish</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="col s12 m6">
+                                                <p class="lupin-checkbox">
+                                                    <label>
+                                                        {% if search_params.lupin %}
+                                                            <input id="lupin" name="lupin" value="Lupin" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="lupin" name="lupin" value="Lupin" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Lupin</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.milk %}
+                                                            <input id="milk" name="milk" value="Milk" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="milk" name="milk" value="Milk" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Milk</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.molluscs %}
+                                                            <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="molluscs" name="molluscs" value="Molluscs" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Molluscs</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.mustard %}
+                                                            <input id="mustard" name="mustard" value="Mustard" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="mustard" name="mustard" value="Mustard" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Mustard</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.nuts %}
+                                                            <input id="nuts" name="nuts" value="Nuts" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="nuts" name="nuts" value="Nuts" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Nuts</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="col s12 m6">
+                                                <p class="peanuts-filter">
+                                                    <label>
+                                                        {% if search_params.peanuts %}
+                                                            <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="peanuts" name="peanuts" value="Peanuts" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Peanuts</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.sesame_seeds %}
+                                                            <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="sesame_seeds" name="sesame_seeds" value="Sesame seeds" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Sesame seeds</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.soya %}
+                                                            <input id="soya" name="soya" value="Soya" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="soya" name="soya" value="Soya" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Soya</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        {% if search_params.sulpher_dioxide %}
+                                                            <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" checked/>
+                                                        {% else %}
+                                                            <input id="sulpher_dioxide" name="sulpher_dioxide" value="Sulpher dioxide" type="checkbox" />
+                                                        {% endif %}
+                                                        <span>Sulpher dioxide (sulphates)</span>
+                                                    </label>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                </div>
-                </li>
+                        </div>
+                    </li>
                 </ul>
                 <div class="row col s12 right-align">
                     <button class="filter_btn btn waves-effect waves-light" type="submit">Update results
                             <i class="material-icons right">search</i>
-                        </button>
+                    </button>
                 </div>
-    </div>
-    </form>
-    <div class="row col s12">
-        <p class="results_found">{{ number_of_recipes }} result(s) found.</p>
-    </div>
-    {% if number_of_recipes == 0 %}
-    <div class="row col s12">
-        <h6 class="center-align">Sorry, we could not find what you were looking for. Try to be less specific with your search terms and filters.</h6>
-    </div>
-    {% endif %} {% for recipe in found_recipes %}
-    <div class="recipe_box row col s12">
-        <div class="row col s12 recipe_heading">
-            <p class="recipe_name col s12">{{recipe.meal_name}}</p>
-        </div>
-        <div class="row col s12 recipe_info">
-            <i class="material-icons icon-size col s2 m1">local_dining</i>
-            <p class="col s4 m2 center-align"> {{ recipe.meal_type }}</p>
-            <i class="material-icons icon-size col s2 m1 offset-m1">access_time</i>
-            <p class="col s4 m2 center-align"> {{ recipe.total_time_string }}</p>
-            <i class="material-icons icon-size hide-on-small-only col m1 offset-m1">people_outline</i>
-            <p class="col hide-on-small-only m2 center-align"> {{ recipe.serves }}</p>
-        </div>
-        <div class="row col s12 recipe_info hide-on-med-and-up">
-            <i class="material-icons icon-size col s2">people_outline</i>
-            <p class="col s4 center-align"> {{ recipe.serves }}</p>
-            <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
-        </div>
-        {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
-        <div class="row col s12 recipe_info">
-            {% if recipe.vegetarian %}
-            <div class="col s4 center-align">
-                <img class="dietary-image" src="{{ url_for('static', filename='images/vegetarian-mark.svg') }}" height=40px>
             </div>
-            {% endif %} {% if recipe.vegan %}
-            <div class="col s4 center-align">
-                <img class="dietary-image" src="{{ url_for('static', filename='images/Vegan-Symbol.png') }}" height=40px>
+            <div class="row col s12">
+                <p class="results_found">{{ number_of_recipes }} result(s) found.</p>
             </div>
-            {% endif %} {% if recipe.gluten_free %}
-            <div class="col s4 center-align">
-                <img class="dietary-image" src="{{ url_for('static', filename='images/gluten-free.png') }}" height=40px>
+            {% if number_of_recipes == 0 %}
+            <div class="row col s12">
+                <h6 class="center-align">Sorry, we could not find what you were looking for. Try to be less specific with your search terms and filters.</h6>
+            </div>
+            {% endif %} {% for recipe in found_recipes %}
+            <div class="recipe_box row col s12">
+                <div class="row col s12 recipe_heading">
+                    <p class="recipe_name col s12">{{recipe.meal_name}}</p>
+                </div>
+                <div class="row col s12 recipe_info">
+                    <i class="material-icons icon-size col s2 m1">local_dining</i>
+                    <p class="col s4 m2 center-align"> {{ recipe.meal_type }}</p>
+                    <i class="material-icons icon-size col s2 m1 offset-m1">access_time</i>
+                    <p class="col s4 m2 center-align"> {{ recipe.total_time_string }}</p>
+                    <i class="material-icons icon-size hide-on-small-only col m1 offset-m1">people_outline</i>
+                    <p class="col hide-on-small-only m2 center-align"> {{ recipe.serves }}</p>
+                </div>
+                <div class="row col s12 recipe_info hide-on-med-and-up">
+                    <i class="material-icons icon-size col s2">people_outline</i>
+                    <p class="col s4 center-align"> {{ recipe.serves }}</p>
+                    <p class="col s6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+                </div>
+                {% if recipe.vegetarian or recipe.vegan or recipe.gluten_free %}
+                <div class="row col s12 recipe_info">
+                    {% if recipe.vegetarian %}
+                    <div class="col s4 center-align">
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/vegetarian-mark.svg') }}" height=40px>
+                    </div>
+                    {% endif %} {% if recipe.vegan %}
+                    <div class="col s4 center-align">
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/Vegan-Symbol.png') }}" height=40px>
+                    </div>
+                    {% endif %} {% if recipe.gluten_free %}
+                    <div class="col s4 center-align">
+                        <img class="dietary-image" src="{{ url_for('static', filename='images/gluten-free.png') }}" height=40px>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="col m8 recipe_info hide-on-small-only">
+                    <p class="col m6 center-align">Added on: {{ recipe.date_added }}</p>
+                    <p class="col m6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
+                </div>
+                <div class="col s12 m4 view_recipe">
+                    {% if user %}
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
+                        <p>View this recipe</p>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
+                        <p>View this recipe</p>
+                    </a>
+                    {% endif %}
+                </div>
+            </div> {% endfor %}
+            <!-- pagination -->
+            {% if number_of_recipes > 10 %}
+            <!-- first and prev last buttons -->
+            {% if page == '1' %}
+            <div class="col row s12">
+                <span class="disabled_pag"><< first</span>
+                <span class="disabled_pag">< prev</span> 
+            {% else %} 
+                {% if user %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page='1') }}"><< first</button></span>
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int - 1)|string) }}">< prev</button></span> 
+                {% else %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page= '1') }}"><< first</button></span>
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int - 1)|string) }}">< prev</button></span> 
+                {% endif %} 
+            {% endif %}
+                <!-- page numbers -->
+            {% for x in range(1, number_of_pages+1) %} 
+                {% if page == x|string %}
+                <span class="disabled_pag">{{x}}</span> 
+                {% else %} 
+                    {% if user %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=x|string) }}">{{x}}</button></span> 
+                    {% else %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=x|string) }}">{{x}}</button></span> 
+                    {% endif %} 
+                {% endif %} 
+            {% endfor %} 
+            {% if page == (number_of_pages)|string %}
+                <span class="disabled_pag">next ></span>
+                <span class="disabled_pag">last >></span> 
+            {% else %} 
+                {% if user %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int + 1)|string) }}">next ></button></span>
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=number_of_pages|string) }}">last >></button></span> 
+                {% else %}
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int + 1)|string) }}">next ></button></span>
+                <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=number_of_pages|string) }}">last >></button></span> 
+                {% endif %} 
+            {% endif %}
             </div>
             {% endif %}
-        </div>
-        {% endif %}
-        <div class="col m8 recipe_info hide-on-small-only">
-            <p class="col m6 center-align">Added on: {{ recipe.date_added }}</p>
-            <p class="col m6 center-align">Favourited <b>{{ recipe.favourite_count }}</b> times</p>
-        </div>
-        <div class="col s12 m4 view_recipe">
-            {% if user %}
-            <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id=user._id) }}">
-                <p>View this recipe</p>
-            </a>
-            {% else %}
-            <a href="{{ url_for('view_recipe', recipe_id=recipe._id, user_id='0') }}">
-                <p>View this recipe</p>
-            </a>
-            {% endif %}
-        </div>
-    </div> {% endfor %}
-    <!-- pagination -->
-    {% if number_of_recipes > 10 %}
-    <!-- first and prev last buttons -->
-    {% if page == '1' %}
-    <div class="col row s12">
-        <span class="disabled_pag"><< first</span>
-        <span class="disabled_pag">< prev</span> {% else %} {% if user %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page='1') }}"><< first</button></span>
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int - 1)|string) }}">< prev</button></span> {% else %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page= '1') }}"><< first</button></span>
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int - 1)|string) }}">< prev</button></span> {% endif %} {% endif %}
-        <!-- page numbers -->
-        {% for x in range(1, number_of_pages+1) %} {% if page == x|string %}
-        <span class="disabled_pag">{{x}}</span> {% else %} {% if user %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=x|string) }}">{{x}}</button></span> {% else %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=x|string) }}">{{x}}</button></span> {% endif %} {% endif %} {% endfor %} {% if page == (number_of_pages)|string %}
-        <span class="disabled_pag">next ></span>
-        <span class="disabled_pag">last >></span> {% else %} {% if user %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=(page|int + 1)|string) }}">next ></button></span>
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id=user._id, page=number_of_pages|string) }}">last >></button></span> {% else %}
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=(page|int + 1)|string) }}">next ></button></span>
-        <span><button class="pag_button" type="submit" formaction="{{ url_for('search_recipes', user_id='0', page=number_of_pages|string) }}">last >></button></span> {% endif %} {% endif %}
+        </form>
     </div>
-    {% endif %}
-</div>
 </div>
 {% endblock %} {% block javascript %}
 <script type="text/javascript">
