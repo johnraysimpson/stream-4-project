@@ -155,9 +155,9 @@ Links used to help with any areas I found difficult
 * jinja methods documentation - http://jinja.pocoo.org/docs/2.10/templates/#builtin-filters
 * information about values and keys - https://stackoverflow.com/questions/44619572/join-the-values-only-in-a-python-dictionary
 * very helpful resource to use MongoDB information for data visualisation - http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
-* implementing "add fields" buttons toapp recipe page - https://www.allphptricks.com/add-remove-input-fields-dynamically-using-jquery/
+* implementing "add fields" buttons to add recipe page - https://www.allphptricks.com/add-remove-input-fields-dynamically-using-jquery/
 
-The rest of the code was written by myself, I felt I've come a long way and Python really made sense to me.
+The rest of the code was written by myself, I felt I've come a long way and Python really made sense to me. Hopefully a lot of the code throughout this project shows that.
 
 Media
 * vegetarian mark was found here - http://vegetarianmark.net/
