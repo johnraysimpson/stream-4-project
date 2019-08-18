@@ -11,8 +11,8 @@ This website is aimed towards a two types of users:
 * Passionate people who wish to share, develop and take inspiration from recipes.
 * Casual people who want to find something quick and easy to cook one evening.
 
-Both of these types are fully catered for. For the casual user, they are able to see popular and new recipes on the homepage, as well as search for recipes dependent on keywords and from there filter their results very accurately in terms of timing, the type of meal, 
-dietary requirements such as vegetarian, and allergens. They can choose a recipe to view, which gives them further information such as the user who created it, the country it is from and of course, the ingredients and method steps.
+Both of these types are fully catered for. For the casual user, they are able to see popular and new recipes on the homepage, as well as search for recipes dependent on keywords and from there filter their results very accurately in terms of timing, the type of meal and 
+dietary requirements such as vegetarian. They can choose a recipe to view, which gives them further information such as the user who created it, the allergens and of course, the ingredients and method steps.
 
 The passionate users also have access to this, but may choose to create an account on the Sign Up page and login to the site on the Sign In page. If done successfully, they remain signed in unless they close the page or choose to clickthe Sign Out button in the 
 navigation bar. They are able to add their own recipes, which can then be viewed by other users. The ingredients fields are particular to ensure all ingredients look the same on any recipe i.e. "amount ingredient (preperation)". Universally, an asterisk is used to 
