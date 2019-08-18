@@ -471,7 +471,7 @@ input[type=password]:not(.browser-default):focus:not([readonly])+label,
 
 @media (min-width: 601px) {
     body {
-        background-image: url('http://thepatternlibrary.com/img/t.gif');
+        background-image: url('../images/background-image.gif');
         background-repeat: repeat;
         background-attachment: fixed;
     }

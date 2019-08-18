@@ -163,6 +163,7 @@ Media
 * vegetarian mark was found here - http://vegetarianmark.net/
 * Vegan symbol was found here - https://868estatevineyards.com/visit/the-grill/vegan-symbol/
 * Gluten free symbol found here - https://github.com/FortAwesome/Font-Awesome/issues/15304
+* Background image found here - http://thepatternlibrary.com/img/t.gif
 
 Acknowledgements
 * Big thanks to my partner, who has a surplus amount of recipe books and has a wide knowledge of recipe websites. It helped immensely when making this project.
